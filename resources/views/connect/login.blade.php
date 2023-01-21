@@ -3,10 +3,15 @@
 @section('content')
 <div class="box box_login shadow-lg">
     <div class="header">
-    <a href="{{url('/')}}">
-        <img src="{{url('/static/images/logo.png')}}">
-    </a>
-    @if(Session::has('message'))
+        <a href="{{url('/')}}">
+            {{-- <img src="{{url('/static/images/logo.png')}}"> --}}
+            <div class="d-flex justify-content-center mt-4">
+                <div class="btn btn-warning text-white">
+                    <h1>GMRE</h1>
+                </div>
+            </div>
+        </a>
+        @if(Session::has('message'))
         <div class="container">
             <div class="alert alert-{{ Session::get('typealert')}}" style="display:none;">
                 {{Session::get('message')}}
@@ -23,7 +28,7 @@
                 </script>
             </div>
         </div>
-    @endif
+        @endif
     </div>
     <div class="inside">
         {!! Form::open(['url' => '/login']) !!}
@@ -32,7 +37,7 @@
             <div class="input-group-prepend">
                 <div class="input-group-text"><i class="fas fa-envelope-square"></i></div>
             </div>
-        {!! Form::email('email', null, ['class'=>'form-control']) !!}
+            {!! Form::email('email', null, ['class'=>'form-control']) !!}
         </div>
 
         <label for="password" class="mtop16">Contraseña</label>
@@ -40,15 +45,15 @@
             <div class="input-group-prepend">
                 <div class="input-group-text"><i class="fas fa-key"></i></i></div>
             </div>
-        {!! Form::password('password',  ['class'=>'form-control']) !!}
+            {!! Form::password('password', ['class'=>'form-control']) !!}
         </div>
 
         {!! Form::submit('Ingresar', ['class'=>'btn btn-success mtop16']) !!}
         {!! Form::close() !!}
-        
+
         <div class="footer mtop16">
-        <a href="{{url('/register')}}">Registrarse</a>
-        <a href="{{url('/recover')}}">Recupera tu Contraseña</a>
+            <a href="{{url('/register')}}">Registrarse</a>
+            <a href="{{url('/recover')}}">Recupera tu Contraseña</a>
         </div>
     </div>
 </div>

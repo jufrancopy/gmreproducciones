@@ -4,7 +4,12 @@
 <div class="box box_login shadow-lg">
     <div class="header">
     <a href="{{url('/')}}">
-        <img src="{{url('/static/images/logo.png')}}">
+        {{-- <img src="{{url('/static/images/logo.png')}}"> --}}
+        <div class="d-flex justify-content-center mt-4">
+            <div class="btn btn-warning text-white">
+                <h1>GMRE</h1>
+            </div>
+        </div>
     </a>
     @if(Session::has('message'))
         <div class="container">

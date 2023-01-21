@@ -3,11 +3,15 @@
 @section('content')
 <div class="box box_login shadow-lg">
     <div class="header">
-    <a href="{{url('/')}}">
-        
-        <img src="{{url('/static/images/logo.png')}}">
-    </a>
-    @if(Session::has('message'))
+        <a href="{{url('/')}}">
+            {{-- <img src="{{url('/static/images/logo.png')}}"> --}}
+            <div class="d-flex justify-content-center mt-4">
+                <div class="btn btn-warning text-white">
+                    <h1>GMRE</h1>
+                </div>
+            </div>
+        </a>
+        @if(Session::has('message'))
         <div class="container">
             <div class="alert alert-{{ Session::get('typealert')}}" style="display:none;">
                 {{Session::get('message')}}
@@ -24,7 +28,7 @@
                 </script>
             </div>
         </div>
-    @endif
+        @endif
     </div>
     <div class="inside">
         {!! Form::open(['url' => '/reset']) !!}
@@ -33,24 +37,24 @@
             <div class="input-group-prepend">
                 <div class="input-group-text"><i class="fas fa-envelope-square"></i></div>
             </div>
-        {!! Form::email('email', $email, ['class'=>'form-control', 'required']) !!}
+            {!! Form::email('email', $email, ['class'=>'form-control', 'required']) !!}
         </div>
         <label for="code" class="mt-3">Código de recuperación</label>
         <div class="input-group">
             <div class="input-group-prepend">
                 <div class="input-group-text"><i class="fas fa-envelope-square"></i></div>
             </div>
-        {!! Form::number('code', null, ['class'=>'form-control', 'required']) !!}
+            {!! Form::number('code', null, ['class'=>'form-control', 'required']) !!}
         </div>
 
         {!! Form::submit('Enviar Contraseña', ['class'=>'btn btn-success mtop16']) !!}
         {!! Form::close() !!}
-        
+
         <div class="footer mtop16">
-        <a href="{{url('/login')}}">Ingresar</a>
+            <a href="{{url('/login')}}">Ingresar</a>
         </div>
     </div>
 
-    
+
 </div>
 @stop
