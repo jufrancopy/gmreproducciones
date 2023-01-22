@@ -3,6 +3,8 @@ const route = document.getElementsByName('routeName')[0].getAttribute('content')
 const http = new XMLHttpRequest();
 const csrfToken = document.getElementsByName('csrf-token')[0].getAttribute('content');
 const currency = document.getElementsByName('currency')[0].getAttribute('content');
+var page = 1;
+var page_section = "";
 
 document.addEventListener('DOMContentLoaded', function() {
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
@@ -15,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var input_file_avatar = document.getElementById('input_file_avatar');
     var avatar_change_overlay = document.getElementById('avatar_change_overlay');
     var products_list = document.getElementById('products_list');
+    var load_more_products = document.getElementById('load_more_products');
 
     if (btn_avatar_edit) {
         btn_avatar_edit.addEventListener('click', function(e) {
@@ -22,6 +25,14 @@ document.addEventListener('DOMContentLoaded', function() {
             input_file_avatar.click();
         });
     }
+
+    if (load_more_products) {
+        load_more_products.addEventListener('click', function(e) {
+            e.preventDefault();
+            load_products(page_section)
+        });
+    }
+
     if (input_file_avatar) {
         input_file_avatar.addEventListener('change', function() {
             var load_img = '<img src="' + base + '/static/images/load.svg" />';
@@ -38,16 +49,21 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function load_products(section) {
-    var url = base + '/api/load/products/' + section;
+    page_section = section;
+    var url = base + '/api/load/products/' + page_section + '?page=' + page;
 
     http.open('GET', url, true);
     http.setRequestHeader('X-CSRF-TOKEN', csrfToken);
     http.send();
     http.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+            page = page + 1;
+            console.log(page)
             var data = this.responseText;
             data = JSON.parse(data)
-
+            if (data.data.length == 0) {
+                load_more_products.style.display = "none"
+            }
             data.data.forEach(function(product, index) {
                 var div = "";
                 div += "<div class= \"product\">";

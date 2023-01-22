@@ -37,6 +37,9 @@
 </section>
 <section>
         <div class="products_list" id="products_list"></div>
+        <div class="load_more_products">
+            <a href="#" id="load_more_products">Cargar Más</a>
+        </div>
 </section>
 
 @endsection
