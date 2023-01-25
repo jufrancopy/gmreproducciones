@@ -187,7 +187,7 @@ class ProductController extends Controller
                 if ($request->hasFile('image')) :
                     $fl = $request->image->storeAs($path, $fileName, 'uploads');
                     $img = Image::make($finalFile);
-                    $img->fit(256, 256, function ($constraint) {
+                    $img->fit(512, 512, function ($constraint) {
                         $constraint->upsize();
                     });
                     $img->save($upload_path . '/' . $path . '/t_' . $fileName);

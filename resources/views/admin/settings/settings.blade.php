@@ -76,12 +76,24 @@
 
                 <div class="row mtop16">
                     <div class="col-md-4">
-                        <label for="name">Productos visibles:</label>
+                        <label for="product_per_page">Productos visibles:</label>
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon1">
                                 <div class="far fa-keyboard"></div>
                             </span>
-                            {!! Form::text('product_per_page', Config::get('configSite.product_per_page'), ['class' =>'form-control','required'])!!}
+                            {!! Form::number('product_per_page', Config::get('configSite.product_per_page'), ['class' =>'form-control','required', 'min'=>1, 'required'])!!}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mtop16">
+                    <div class="col-md-4">
+                        <label for="product_per_page_random">Productos a mostrar por página (Random):</label>
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">
+                                <div class="far fa-keyboard"></div>
+                            </span>
+                            {!! Form::number('product_per_page_random', Config::get('configSite.product_per_page_random'), ['class' =>'form-control','required', 'min'=>1, 'required'])!!}
                         </div>
                     </div>
                 </div>

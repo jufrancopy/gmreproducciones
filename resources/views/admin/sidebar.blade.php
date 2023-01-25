@@ -1,10 +1,7 @@
 <div class="sidebar shadow">
     <div class="section-top">
         <div class="logo">
-            {{-- <img src="https://api.lorem.space/image/game?w=150&h=220" class="img-fluid"> --}}
-            <div class="btn btn-warning text-white">
-              <h1>GMRE</h1>  
-            </div>
+            <img src="{{url('/static/images/Logo_GMRE-03.png')}}" class="img-fluid">
         </div>
         <div class="user">
             <span class="subtitle">Hola,</span>

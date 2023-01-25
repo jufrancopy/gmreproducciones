@@ -29,6 +29,10 @@ Route::post('/register', 'ConnectController@postRegister')->name('post-register'
 Route::get('/logout', 'ConnectController@getLogout')->name('logout');
 // Route::get('/timeline-show', 'Admin\TimelineController@getHomeWeb')->name('timeline-show');
 
+// Module Products
+Route::get('/product/{id}/{slug}', 'Frontend\ProductController@getProduct');
+
+// Module Accounts
 Route::get('/account/edit', 'UserController@getAccountEdit')->name('account_edit');
 Route::post('/account/edit/avatar', 'UserController@postAccountAvatar')->name('account_edit_post');
 Route::post('/account/edit/password', 'UserController@postAccountPassword')->name('account_password_edit');
@@ -36,3 +40,5 @@ Route::post('/account/edit/info', 'UserController@postAccountInfo')->name('accou
 
 // Ajax Api Routers
 Route::get('/api/load/products/{section}', 'ApiJsController@getProductsSection');
+Route::post('/api/load/user/favorites', 'ApiJsController@postUserFavorites');
+Route::post('/api/favorites/add/{object}/{module}', 'ApiJsController@postFavoriteAdd');

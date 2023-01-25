@@ -6,7 +6,6 @@ body
     background-color: #f9f9f9
     font-size: 14px
     font-family: 'Roboto', sans-serif
-
 a
 .btn
     &:active
@@ -19,7 +18,8 @@ a
 
 .mtop32
     margin-top: 32px
-
+.pleft0
+    padding-left: 0px!important
 .form-control
     // border  1px solid red !important
     &:hover
@@ -459,15 +459,49 @@ nav
                 display: block
                 width: 100%
             .title
-                font-size: 1.2em
                 color #111111
+                font-size: 1.2em
+                overflow: hidden
+                text-overflow: ellipsis
                 margin-top: 8px
+                width: 100%
             .price  
                 font-size: 1.4em
                 font-weight: bold
                 margin-top: 4px
                 color: #111111
 
+.favorite_active
+    background-color: #fc0335!important
+    color: #fff!important
+.product_single
+    background-color: #fff
+    border-radius: 4px
+    margin-top: 32px
+    padding: 12px
+.slick-next
+    right: 8px
+.slick-prev
+    left: 8px
+.slick-arrow
+    align-items: center
+    background-color: rgba(0,0,0,.5)
+    border-radius: 50%
+    display: flex
+    justify-content: center
+    height: 36px
+    width: 36px
+    z-index 90
+    &:before
+        position: relative
+        left 0px
+        top 1px
+    &:hover
+    &:focus
+        background-color: rgba(0,0,0,.75)    
+.slice-active
+    box-shadow: none !important
+    outline: none !important
 @media only screen and (max-width 728px)
      nav
         .navbar-nav

@@ -3,15 +3,10 @@
 @section('content')
 <div class="box box_login shadow-lg">
     <div class="header">
-    <a href="{{url('/')}}">
-        {{-- <img src="{{url('/static/images/logo.png')}}"> --}}
-        <div class="d-flex justify-content-center mt-4">
-            <div class="btn btn-warning text-white">
-                <h1>GMRE</h1>
-            </div>
-        </div>
-    </a>
-    @if(Session::has('message'))
+        <a href="{{url('/')}}">
+            <img src="{{url('/static/images/Logo_GMRE-03.png')}}" class="img-fluid">
+        </a>
+        @if(Session::has('message'))
         <div class="container">
             <div class="alert alert-{{ Session::get('typealert')}}" style="display:none;">
                 {{Session::get('message')}}
@@ -28,7 +23,7 @@
                 </script>
             </div>
         </div>
-    @endif
+        @endif
     </div>
     <div class="inside">
         {!! Form::open(['url' => '/recover']) !!}
@@ -37,13 +32,13 @@
             <div class="input-group-prepend">
                 <div class="input-group-text"><i class="fas fa-envelope-square"></i></div>
             </div>
-        {!! Form::email('email', null, ['class'=>'form-control', 'required']) !!}
+            {!! Form::email('email', null, ['class'=>'form-control', 'required']) !!}
         </div>
 
         {!! Form::submit('Recuperar Contraseña', ['class'=>'btn btn-success mtop16']) !!}
         {!! Form::close() !!}
         <div class="footer mtop16">
-        <a href="{{url('/login')}}">Ingresar</a>
+            <a href="{{url('/login')}}">Ingresar</a>
         </div>
     </div>
 </div>

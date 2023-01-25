@@ -4,34 +4,29 @@
 <div class="box box_register shadow-lg">
     <div class="header">
         <a href="{{url('/')}}">
-            {{-- <img src="{{url('/static/images/logo.png')}}"> --}}
-            <div class="d-flex justify-content-center mt-4">
-                <div class="btn btn-warning text-white">
-                    <h1>GMRE</h1>
-                </div>
-            </div>
+            <img src="{{url('/static/images/Logo_GMRE-03.png')}}" class="img-fluid">
         </a>
     </div>
 
     @if(Session::has('message'))
-                <div class="container">
-                    <div class="alert alert-{{ Session::get('typealert') }}" style="display:none;">
-                        {{ Session::get('message') }}
-                        @if ($errors->any())
-                        <ul>
-                            @foreach ($errors->all() as $error )
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                        @endif
-                        <script>
-                            $('.alert').slideDown();
+    <div class="container">
+        <div class="alert alert-{{ Session::get('typealert') }}" style="display:none;">
+            {{ Session::get('message') }}
+            @if ($errors->any())
+            <ul>
+                @foreach ($errors->all() as $error )
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+            @endif
+            <script>
+                $('.alert').slideDown();
                             setTimeout(function(){ $('.alert').slideUp();},10000) 
-                        </script>
-                    </div>
-                </div>
-            @endif  
-            
+            </script>
+        </div>
+    </div>
+    @endif
+
     <div class="inside">
         {!! Form::open(['url' => '/register']) !!}
         <label for="name">Nombre:</label>
@@ -76,10 +71,10 @@
 
         {!! Form::submit('Ingresar', ['class'=>'btn btn-success mtop16']) !!}
         {!! Form::close() !!}
-            <div class="footer mtop16">
-                    <a href="{{url('/login')}}">Ya tengo una clave, irme a Login</a>
-                    <a href="{{url('/recovery')}}">Recupera tu Contraseña</a>
-                </div>
-            </div>
+        <div class="footer mtop16">
+            <a href="{{url('/login')}}">Ya tengo una clave, irme a Login</a>
+            <a href="{{url('/recovery')}}">Recupera tu Contraseña</a>
         </div>
-    @stop
+    </div>
+</div>
+@stop

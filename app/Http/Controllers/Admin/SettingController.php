@@ -41,7 +41,7 @@ class SettingController extends Controller
         fclose($file);
 
         return back()
-                ->with('message', 'Las configuraciones fueron guardadas con éxito')
+                ->with('message', 'Las configuraciones fueron guardadas con éxito.')
                 ->with('typealert', 'success');
         }
 }
