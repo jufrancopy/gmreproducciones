@@ -17,12 +17,16 @@ $(document).ready(function() {
     });
 });
 
+window.onload = function() {
+    loader.style.display = 'none'
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
+    var loader = document.getElementById('loader')
     var slider = new MainSlider;
     var form_avatar_change = document.getElementById('form_avatar_change');
     var btn_avatar_edit = document.getElementById('btn_avatar_edit');

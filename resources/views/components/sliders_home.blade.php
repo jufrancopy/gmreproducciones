@@ -14,14 +14,14 @@
     @foreach ($sliders as $slider)
     <div class="slider-item">
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-7 col-12">
                 <div class="content">
                     <div class="content-inside">
                         <p>{!! html_entity_decode($slider->content) !!}</p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-sm-3 col-12">
                 <img src="{{ url('/uploads/'.$slider->file_path.'/'.$slider->file_name) }}" class="img-fluid">
             </div>
         </div>

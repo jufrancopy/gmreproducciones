@@ -5,13 +5,41 @@ color3 = #334F9A
 body
     background-color: #f9f9f9
     font-size: 14px
-    font-family: 'Roboto', sans-serif
+    // font-family: 'Roboto', sans-serif
+    font-family: 'Montserrat', sans-serif;
 a
 .btn
     &:active
     &:focus    
         box-shadow: none
         outline: none
+.loader
+    background-color: rgba(255,255,255,.9)
+    align-items center
+    display: flex
+    justify-content: center
+    height: 100vh
+    left: 0px
+    position: fixed
+    top 0px
+    width: 100%
+    z-index 1000
+    .box
+        display: block
+        width: 160px    
+        .cart
+            overflow: hidden
+            width: 100%
+            img
+                animation: loading_image 4s linear infinite
+                margin-left: -100%
+                display: block
+                position: relative
+                width: 120px
+        .load 
+            margin-left: calc(50% - 30px)
+            height: 60px
+            width: 60px
 
 .mtop16
     margin-top: 16px
@@ -236,6 +264,7 @@ nav
             padding: 0px
             position: absolute
             width: 100%
+            z-index: 99
             li
                 a
                     background-color: #f8f8f8
@@ -245,7 +274,7 @@ nav
                         position relative
                         margin-top -6px
                         margin-right: 12px 
-                        width: 20px
+                        width: 40px
                     &:hover
                         color: #fff
     .input-group
@@ -385,9 +414,9 @@ nav
 
 .products_list
     display: block
-    margin-top 32px
     padding: 0px
     overflow: hidden
+    margin-top: 12px
     width: 100%
     .product
         display inline-block
@@ -452,7 +481,6 @@ nav
             text-decoration: none
             position relative
             width: 100%
-            
             .title
             .price
             .options
@@ -464,6 +492,7 @@ nav
                 overflow: hidden
                 text-overflow: ellipsis
                 margin-top: 8px
+                white-space: nowrap
                 width: 100%
             .price  
                 font-size: 1.4em
@@ -479,6 +508,41 @@ nav
     border-radius: 4px
     margin-top: 32px
     padding: 12px
+    h2.title
+        font-size: 2em
+        font-weight: 500
+        margin-bottom: 12px
+    .category
+        ul
+            list-style: none
+            padding: 0px
+            overflow: hidden
+            margin: 0px
+            li
+                display: inline-flex
+                margin: 0px 6px
+                float: left
+                .next
+                    display: block
+                    color #666
+                    font-size: .6em
+                    position: relative
+                    margin-top: 5px
+                a
+                    color: #333
+                    display: inline-block
+                    font-size: .8   !important
+                    text-decoration: none
+                    img
+                        display: block
+                        height: 13px
+                        width 13px
+                    i
+                        color: color3
+                    &:hover
+                        text-decoration: underline
+                &:first-child
+                    margin-left: 0px
 .slick-next
     right: 8px
 .slick-prev
@@ -497,11 +561,16 @@ nav
         left 0px
         top 1px
     &:hover
+    &:active
     &:focus
         background-color: rgba(0,0,0,.75)    
-.slice-active
+.slick-active
+.slick-current
     box-shadow: none !important
     outline: none !important
+.home_title
+    font-size: 1.8em
+    font-weight: 700
 @media only screen and (max-width 728px)
      nav
         .navbar-nav
@@ -530,6 +599,7 @@ nav
                     width: 100%
             li.link-acc
                 a
+                    font-size: 1.2em
                     width: 50% !important
                     i
                         font-size: 1em !important
@@ -538,12 +608,46 @@ nav
                 border-radius: 6px
                 padding: 8px
                 a
-                    border-bottom: 1px solid #d6d6d6 !important
+                    // border-bottom: 1px solid #d6d6d6 !important
                     display: block
                     font-size: 1.2 em
                     width: 100% !important
-                    margin-top: 12px
+                    // margin-top: 12px
                     img
                         width:  36px
+                ul.dropdown-menu
+                    top: 0px !important
+                    hr.dropdown-divider
+                        display: none
                 ul.shadow
                     box-shadow: none !important
+
+    .home_action_bar
+        form
+            margin-top: 16px
+    .mainSlider
+        display: none
+    .products_list
+        .product
+            margin-right: 2%
+            width: 49% !important   
+            &:nth-child(5n)
+                margin-right: 2% !important
+            &:nth-child(even)
+                margin-right: 0px
+    .product_single
+        .pleft0
+            padding-left: initial !important
+        h2.title
+            margin-bottom: 8px
+        .category
+            background-color: #f8f8f8
+            padding: 8px
+@keyframes loading_image{
+    0%{
+        margin-left: -100px
+    }
+    100%{
+        margin-left: 100%
+    }
+}

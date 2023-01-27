@@ -31,9 +31,10 @@ Route::prefix('/admin')->group(function(){
     
     // Categories
     Route::get('/categories/{module}', 'Admin\CategoryController@getHome')->name('categories');
-    Route::post('/category/add', 'Admin\CategoryController@postCategoryAdd')->name('category_add');
+    Route::post('/category/add/{module}', 'Admin\CategoryController@postCategoryAdd')->name('category_add');
     Route::get('/category/{id}/edit', 'Admin\CategoryController@getCategoryEdit')->name('category_edit');
     Route::post('/category/{id}/edit', 'Admin\CategoryController@postCategoryEdit')->name('category_edit');
+    Route::get('/category/{id}/subs', 'Admin\CategoryController@postSubCategoriesEdit')->name('category_edit');
     Route::get('/category/{id}/delete', 'Admin\CategoryController@getCategoryDelete')->name('category_delete');
 
     // Sliders
@@ -42,6 +43,9 @@ Route::prefix('/admin')->group(function(){
     Route::get('/slider/{id}/edit', 'Admin\SliderController@getSliderEdit')->name('slider_edit');
     Route::post('/slider/{id}/edit', 'Admin\SliderController@postSliderEdit')->name('slider_edit');
     Route::get('/slider/{id}/delete', 'Admin\SliderController@getSliderDelete')->name('slider_delete');
+
+    // Javascritp Request
+    Route::get('/api/load/subCategories/{parent}', 'Admin\ApiController@getSubCategories');
 
     // Timelines
     Route::resource('timeline-profiles', 'Admin\TimelineProfileController');

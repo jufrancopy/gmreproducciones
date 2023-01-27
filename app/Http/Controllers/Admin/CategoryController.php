@@ -21,26 +21,25 @@ class CategoryController extends Controller
     public function getHome($module)
     {
         $cats = Category::where('module', $module)
-            ->orderBy('name', 'ASC')
+            ->where('parent', 0)
+            ->orderBy('order', 'ASC')
             ->get();
 
-        $data = ['cats' => $cats];
+        $data = ['cats' => $cats, 'module'=>$module];
 
         return view('admin.categories.home', get_defined_vars());
     }
 
-    public function postCategoryAdd(Request $request)
+    public function postCategoryAdd(Request $request, $module)
     {
         $rules = [
             'name' =>    'required',
             'icono' =>    'required',
-            'module' =>    'required'
         ];
 
         $messages = [
             'name.required' => 'Debe darle un nombre a la nueva categoría',
             'icono.required' => 'Debe elegir un icono',
-            'module.required' => 'Asigne el Módulo'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -57,7 +56,8 @@ class CategoryController extends Controller
             $fileName = rand(1, 999) . '-' . $name . '.' . $fileExt;
 
             $category = new Category;
-            $category->module = $request->input('module');
+            $category->module = $module;
+            $category->parent = $request->input('parent');
             $category->name = e($request->input('name'));
             $category->slug = Str::slug($request->input('name'));
             $category->file_path = date('Y-m-d');
@@ -101,7 +101,6 @@ class CategoryController extends Controller
                 ->with('typealert', 'danger');
         else :
             $category = Category::find($id);
-            $category->module = $request->input('module');
             $category->name = e($request->input('name'));
             $category->slug = Str::slug($request->input('name'));
             if ($request->hasFile('icono')) :
@@ -118,14 +117,20 @@ class CategoryController extends Controller
                 if (!is_null($actual_icon)) :
                     unlink($upload_path . '/' . $actual_file_path . '/' . $actual_icon);
                 endif;
-
             endif;
-
+            $category->order = $request->input('order');
 
             if ($category->save()) :
                 return back()->with('message', 'Categoría editada con éxito.')->with('typealert', 'success');
             endif;
         endif;
+    }
+
+    public function postSubCategoriesEdit($id){
+        $category = Category::findOrFail($id);
+        $data = ['category' => $category];
+
+        return view('admin.categories.sub_categories', get_defined_vars());
     }
 
     public function getCategoryDelete($id)

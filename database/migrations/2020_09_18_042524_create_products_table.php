@@ -24,7 +24,7 @@ class CreateProductsTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories')
                     ->onDelete('cascade')
                     ->onUpdate('cascade');
-
+            $table->integer('subCategory_id')->default(0);
             $table->string('file_path');
             $table->string('image');
             $table->decimal('price', 11, 3);

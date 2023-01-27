@@ -4,12 +4,19 @@
 
 @section('breadcrumb')
 <li class="breadcrumb-item">
-    <a href="{{'/admin/categories/0'}}"><i class="far fa-folder-open"> Categorias</i></a>
+    <a href="{{'/admin/categories/0'}}"><i class="far fa-folder-open"></i> Categorias</a>
+</li>
+
+@if($category->parent != 0)
+<li class="breadcrumb-item">
+    <a href="{{'/admin/category/'.$category->parent.'/subs'}}"><i class="far fa-folder-open"></i> {{$category->getParent->name}}</a>
 </li>
 
 <li class="breadcrumb-item">
-    <a href="{{'/admin/category/'.$category->id.'/edit'}}"><i class="far fa-folder-open"></i> Agregar Categoria</a>
+    <a href="{{'/admin/category/'.$category->id.'/edit'}}"><i class="far fa-folder-open"></i> Editando {{$category->name}} </a>
 </li>
+@endif
+
 @endsection
 
 @section('content')
@@ -30,19 +37,22 @@
 
                         {!! Form::text('name', $category->name, ['class'=>'form-control']) !!}
                     </div>
-                    <label for="module" class="mtop16">Modulo:</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-keyboard"></i></span>
-
-                        {!!Form::select('module', getModulesArray(),$category->module,['class' => 'form-select'])!!}
-                    </div>
-
+                    
                     <label for="icono" class="mtop16">Ícono:</label>
                     <div class="form-file">
                         {!! Form::file('icono', ['class'=>'form-control',
                         'id'=>'customFile',
                         'accept'=>'image/*',
                         'lang'=>'es']) !!}
+                    </div>
+
+                    <label for="order" class="mtop16">Orden:</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fas fa-keyboard"></i>
+                        </span>
+
+                        {!! Form::number('order', $category->order, ['class'=>'form-control']) !!}
                     </div>
 
                     <div class="row mtop16">

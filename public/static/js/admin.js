@@ -1,10 +1,13 @@
 var base = location.protocol + '//' + location.host;
 var route = document.getElementsByName('routeName')[0].getAttribute('content');
+const http = new XMLHttpRequest();
+const csrfToken = document.getElementsByName('csrf-token')[0].getAttribute('content');
 
 
 document.addEventListener('DOMContentLoaded', function() {
     var btn_search = document.getElementById('btn_search');
     var form_search = document.getElementById('form_search');
+    var category = document.getElementById('category');
 
     if (btn_search) {
         btn_search.addEventListener('click', function(e) {
@@ -17,9 +20,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-
+    if (route == "product_add") {
+        setSubCategoriesToProducts();
+    }
     if (route == "product_edit") {
+        setSubCategoriesToProducts();
         var btn_product_file_image = document.getElementById('btn_product_file_image');
+        var subCategoryNow = document.getElementById('subCategoryNow');
         var product_file_image = document.getElementById('product_file_image');
         btn_product_file_image.addEventListener('click', function() {
             product_file_image.click();
@@ -29,19 +36,14 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('form_product_gallery').submit();
         });
     }
+
     route_active = document.getElementsByClassName('lk-' + route)[0].classList.add('active');
-
-    // btn = document.getElementById('btn')
-    // btn.addEventListener("click", function() {
-    //     alert("Alertar")
-    // })
-
     btn_deleted = document.getElementsByClassName('btn_deleted');
-    // btn_deleted.addEventListener("click", function() {
-    //     console.error(btn_deleted)
-    // })
     for (i = 0; i < btn_deleted.length; i++) {
         btn_deleted[i].addEventListener('click', delete_object);
+    }
+    if (category) {
+        category.addEventListener('change', setSubCategoriesToProducts);
     }
 });
 
@@ -115,5 +117,27 @@ function delete_object(e) {
             window.location.href = url;
         }
     })
+}
 
+function setSubCategoriesToProducts() {
+    var parentId = category.value;
+    var select = document.getElementById('subCategory')
+    select.innerHTML = "";
+    var url = base + '/admin/api/load/subCategories/' + parentId;
+    http.open('GET', url, true);
+    http.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+    http.send();
+    http.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var data = this.responseText;
+            data = JSON.parse(data)
+            data.forEach(function(element, index) {
+                if (subCategoryNow == element.id) {
+                    select.innerHTML += "<option value=\"" + element.id + "\" selected>" + element.name + "</option>"
+                } else {
+                    select.innerHTML += "<option value=\"" + element.id + "\">" + element.name + "</option>"
+                }
+            });
+        }
+    }
 }

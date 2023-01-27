@@ -15,6 +15,12 @@ class Category extends Model
     protected $dates    = ['deleted_at'];
     protected $table   = 'categories';
     protected $hidden   =  ['created_at','updated_at'];
-    // protected $fillable  = ['name','module', 'icono'];
+    
+    public function  getSubCategories(){
+        return $this->hasMany(Category::class, 'parent', 'id');
+    }
 
+    public function getParent(){
+        return $this->hasOne(Category::class, 'id', 'parent');
+    }
 }

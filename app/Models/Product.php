@@ -20,6 +20,10 @@ class Product extends Model
         return $this->hasOne(Category::class, 'id', 'category_id');
     }
 
+    public function subCategory(){
+        return $this->hasOne(Category::class, 'id', 'subCategory_id');
+    }
+
     public function getGallery(){
         return $this->hasMany(PGallery::class, 'product_id','id');
     }

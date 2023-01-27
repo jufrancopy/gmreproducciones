@@ -23,29 +23,33 @@
                     {!!Form::open(['url'=>'admin/product/'.$product->id.'/edit', 'files'=>true])!!}
                     <div class="row">
 
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label for="name">Nombre del Producto:</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-keyboard"></i></span>
                                 {!! Form::text('name', $product->name, ['class'=>'form-control']) !!}
                             </div>
                         </div>
+                    </div>
 
-                        <div class="col-md-3">
-                            <label for="category_id">Categoría:</label>
+                    <div class="row mtop16">
+                    
+                        <div class="col-md-6">
+                            <label for="category_id">Categoría Padre:</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-keyboard"></i></span>
                                 {!!Form::select('category_id', $cats,$product->category_id,['class' =>
-                                'form-select'])!!}
+                                'form-select', 'id'=>'category'])!!}
+                                {!! Form::hidden('subCategoryNow', $product->subCategory_id, ['id'=>'subCategoryNow']) !!}
                             </div>
                         </div>
 
-                        <div class="col-md-3">
-                            <label for="image">Imagen:</label>
-                            <div class="custom-file">
-                                {!! Form::file('image', ['class'=>'form-control', 'id'=>'customFile',
-                                'accept'=>'image/*',
-                                'lang'=>'es']) !!}
+                        <div class="col-md-6">
+                            <label for="subCategory">Sub-Categoría</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-keyboard"></i></span>
+                                {!!Form::select('subCategory_id', [], null,['class' =>
+                                'form-select', 'id'=>'subCategory', 'required'])!!}
                             </div>
                         </div>
                     </div>
@@ -81,11 +85,11 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label for="status">Estado:</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-keyboard"></i></span>
-                                {!!Form::select('status',['0'=>'Borrador','1'=>'Publicado'],$product->status,['class' =>
-                                'form-select'])!!}
+                            <label for="image">Imagen destacada:</label>
+                            <div class="custom-file">
+                                {!! Form::file('image', ['class'=>'form-control', 'id'=>'customFile',
+                                'accept'=>'image/*',
+                                'lang'=>'es']) !!}
                             </div>
                         </div>
                     </div>
@@ -109,6 +113,16 @@
                                 {!!Form::text('code', $product->code,['class' => 'form-control'])!!}
                             </div>
                         </div>
+
+                        <div class="col-md-3">
+                            <label for="status">Estado:</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-keyboard"></i></span>
+                                {!!Form::select('status',['0'=>'Borrador','1'=>'Publicado'],$product->status,['class' =>
+                                'form-select'])!!}
+                            </div>
+                        </div>
+
                     </div>
                     {{-- Fin Tercera Fila de Inputs --}}
 
@@ -133,7 +147,7 @@
                 </div>
             </div>
         </div>
-        <div class="div col-md-3">
+        <div class="col-md-3">
             <div class="panel shadow">
                 <div class="header">
                     <h2 class="title"><i class="far fa-image"></i> Imagen Destacada</h2>

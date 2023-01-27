@@ -24,13 +24,13 @@ class ProductController extends Controller
     {
         switch ($status) {
             case '0':
-                $products = Product::with('category')->where('status', 0)->orderBy('id', 'DESC')->paginate(10);
+                $products = Product::with(['category','subCategory'])->where('status', 0)->orderBy('id', 'DESC')->paginate(10);
                 break;
             case '1':
-                $products = Product::with('category')->where('status', 1)->orderBy('id', 'DESC')->paginate(10);
+                $products = Product::with(['category','subCategory'])->where('status', 1)->orderBy('id', 'DESC')->paginate(10);
                 break;
             case 'all':
-                $products = Product::with('category')->orderBy('id', 'DESC')->paginate(10);
+                $products = Product::with(['category','subCategory'])->orderBy('id', 'DESC')->paginate(10);
                 break;
             case 'trash':
                 $products = Product::onlyTrashed()->orderBy('id', 'DESC')->paginate(10);
@@ -44,7 +44,7 @@ class ProductController extends Controller
 
     public function getProductAdd()
     {
-        $cats = Category::pluck('name', 'id');
+        $cats = Category::where('parent', 0)->pluck('name', 'id');
         $data = ['cats' => $cats];
 
         return view('admin.products.add', get_defined_vars());
@@ -95,6 +95,7 @@ class ProductController extends Controller
             $product->name = $request->input('name');
             $product->slug = Str::slug($request->input('name'));
             $product->category_id = e($request->input('category_id'));
+            $product->subCategory_id = e($request->input('subCategory_id'));
             $product->file_path = date('Y-m-d');
             $product->image = $fileName;
             $product->price = $request->input('price');
@@ -102,8 +103,7 @@ class ProductController extends Controller
             $product->in_discount = $request->input('in_discount');
             $product->discount = $request->input('discount');
             $product->content = e($request->input('content'));
-
-
+            
             if ($product->save()) :
                 if ($request->hasFile('image')) :
                     $fl = $request->image->storeAs($path, $fileName, 'uploads');
@@ -113,7 +113,7 @@ class ProductController extends Controller
                     });
                     $img->save($upload_path . '/' . $path . '/t_' . $fileName);
                 endif;
-                return redirect('/admin/products/all')
+                return redirect('/admin/product/'.$product->id.'/edit')
                     ->with('message', 'Producto agregado con éxito.')
                     ->with('typealert', 'success');
 
@@ -124,7 +124,7 @@ class ProductController extends Controller
     public function getProductEdit(Request $request, $id)
     {
         $product = Product::findOrFail($id);
-        $cats = Category::pluck('name', 'id');
+        $cats = Category::where('module', 0)->where('parent', 0)->pluck('name', 'id');
         $data = ['cats' => $cats, 'products' => $product];
 
         return view('admin.products.edit', get_defined_vars());
@@ -164,7 +164,8 @@ class ProductController extends Controller
             $product->code = e($request->input('code'));
             $product->name = $request->input('name');
             $product->category_id = e($request->input('category_id'));
-
+            $product->subCategory_id = e($request->input('subCategory_id'));
+            
             if ($request->hasFile('image')) :
                 $path = '/' . date('Y-m-d');
                 $fileExt = trim($request->file('image')->getClientOriginalExtension());
@@ -181,7 +182,6 @@ class ProductController extends Controller
             $product->in_discount = $request->input('in_discount');
             $product->discount = $request->input('discount');
             $product->content = e($request->input('content'));
-
 
             if ($product->save()) :
                 if ($request->hasFile('image')) :

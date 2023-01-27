@@ -19,7 +19,7 @@
                 </div>
                 <div class="inside">
                     @if(kvfj(Auth::user()->permissions, 'category_add'))
-                    {!!Form::open(['url'=>'admin/category/add', 'files'=>true])!!}
+                    {!!Form::open(['url'=>'admin/category/add/'.$module, 'files'=>true])!!}
                     <label for="name">Nombre:</label>
                     <div class="input-group">
                         <span class="input-group-text">
@@ -28,12 +28,24 @@
 
                         {!! Form::text('name', null, ['class'=>'form-control']) !!}
                     </div>
-                    <label for="module" class="mtop16">Modulo:</label>
+                    <label for="module" class="mtop16">Categoría padre:</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fas fa-keyboard"></i>
                         </span>
-                        {!!Form::select('module', getModulesArray(),0,['class' => 'form-select'])!!}
+                        <select name="parent" id="" class="form-select  ">
+                            <option value="0">Sin Categoría padre</option>
+                            @foreach ($cats as $cat)
+                                <option value="{{$cat->id}}">{{$cat->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <label for="module" class="mtop16">Módulo:</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fas fa-keyboard"></i>
+                        </span>
+                        {!!Form::select('module', getModulesArray(),$module,['class' => 'form-select','disabled'])!!}
                     </div>
                     <label for="module" class="mtop16">Ícono:</label>
                     <div class="form-file">
@@ -70,7 +82,7 @@
                             <tr>
                                 <td width="32px">Icono</td>
                                 <td>Nombre</td>
-                                <td width="120px"></td>
+                                <td width="160px"></td>
                             </tr>
                         </thead>
                         <tbody>
@@ -89,6 +101,10 @@
                                         <a href="{{url('/admin/category/'.$category->id.'/edit')}}" data-toogle="tooltip"
                                             data-toggle="tooltip" data-placement="top" title="Eliminar"><i
                                                 class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="{{url('/admin/category/'.$category->id.'/subs')}}" data-toogle="tooltip"
+                                            data-toggle="tooltip" data-placement="top" title="Sub-categorías"><i
+                                                class="fas fa-list-ul"></i>
                                         </a>
                                         @endif
                                         @if(is_null($category->deleted_at))

@@ -54,11 +54,11 @@
                     </div>
                     <div class="col-md-4">
                         {!! Form::select('filter', ['0'=> 'Nombre del Producto', '1'=>'Código'], 0,
-                        ['class'=>'form-control']) !!}
+                        ['class'=>'form-select']) !!}
                     </div>
                     <div class="col-md-2">
                         {!! Form::select('status', ['0'=> 'Borrador', '1'=>'Público'], 0,
-                        ['class'=>'form-control']) !!}
+                        ['class'=>'form-select']) !!}
                     </div>
                     <div class="col-md-2">
                         {!! Form::submit('buscar', ['class' => 'btn btn-primary']) !!}
@@ -86,9 +86,18 @@
                                 <img src="{{'/uploads/'.$product->file_path.'/t_'.$product->image}}" width="64">
                             </a>
                         </td>
-                        <td>{{$product->name}} @if($product->status == 0) <i class="fas fa-eraser" data-toggle="tooltip"
-                                data-placement="top" title="Estado: Borrador"></i> @endif</td>
-                        <td>{{$product->category->name}}</td>
+
+                        <td>{{$product->name}}
+                            @if($product->status == 0) <i class="fas fa-eraser" data-toggle="tooltip"
+                                data-placement="top" title="Estado: Borrador"></i>
+                            @endif
+                        </td>
+
+                        <td>{{$product->category->name}} <i class="fas fa-angle-double-right"></i>
+                            @if($product->subCategory_id != 0)
+                            {{$product->subCategory->name}}
+                            @endif
+                        </td>
                         <td>{{$product->price}}</td>
                         <td>
                             <div class="opts">

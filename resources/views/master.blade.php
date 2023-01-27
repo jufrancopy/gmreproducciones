@@ -32,8 +32,10 @@
     <link rel="stylesheet" href="{{  url('/static/css/style.css?v='.time()) }}">
 
     {{-- ROBOTO --}}
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-
+    {{-- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     {{-- LigthBox --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
 
@@ -82,8 +84,16 @@
 
 <body>
     {{-- Navegación --}}
-
-
+    <div class="loader" id="loader">
+        <div class="box">
+            <div class="cart">
+                <img src="{{url('/static/images/loading_carts.png')}}" alt="">
+            </div>
+            <div class="load">
+                <div class="spinner-border text-secondary" role="status"></div>
+            </div>
+        </div>
+    </div>
     <nav class="navbar navbar-expand-lg shadow">
         <div class="container">
             <a class="navbar-brand" href="{{url('/')}}">

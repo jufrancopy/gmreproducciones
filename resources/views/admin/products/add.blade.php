@@ -22,7 +22,7 @@
             {!!Form::open(['url'=>'admin/product/add', 'files'=>true])!!}
             <div class="row">
 
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label for="name">Nombre del Producto:</label>
                     <div class="input-group">
                         <span class="input-group-text">
@@ -31,25 +31,26 @@
                         {!! Form::text('name', null, ['class'=>'form-control']) !!}
                     </div>
                 </div>
-
-                <div class="col-md-3">
+            </div>
+            <div class="row mtop16">
+                <div class="col-md-6">
                     <label for="category_id">Categoría:</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fas fa-keyboard"></i>
                         </span>
-                        {!!Form::select('category_id', $cats,0,['class' => 'form-select'])!!}
+                        {!! Form::select('category_id', $cats,0,['class' => 'form-select', 'id'=>'category'])  !!}
+                        {!! Form::hidden('subCategoryNow', 0, ['id'=>'subCategoryNow']) !!}
                     </div>
                 </div>
-
-                <div class="col-md-3">
-                    <label for="image">Imagen Destacada:</label>
-                    <div class="form-file">
-                        {!! Form::file('image', ['class'=>'form-control',
-                        'id'=>'customFile','accept'=>'image/*','lang'=>'es']) !!}
+                <div class="col-md-6">
+                    <label for="subCategory">Sub-Categoría</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-keyboard"></i></span>
+                        {!!Form::select('subCategory_id', [], null,['class' =>
+                        'form-select', 'id'=>'subCategory', 'required'])!!}
                     </div>
                 </div>
-
             </div>
             {{-- Fin Primer Fila de Inputs --}}
 
@@ -82,6 +83,13 @@
                             <i class="fas fa-keyboard"></i>
                         </span>
                         {!!Form::number('discount', 0.00,['class' => 'form-select'])!!}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="image">Imagen Destacada:</label>
+                    <div class="form-file">
+                        {!! Form::file('image', ['class'=>'form-control',
+                        'id'=>'customFile','accept'=>'image/*','lang'=>'es']) !!}
                     </div>
                 </div>
             </div>
