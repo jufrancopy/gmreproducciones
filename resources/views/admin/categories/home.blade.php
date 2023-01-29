@@ -25,8 +25,7 @@
                         <span class="input-group-text">
                             <i class="fas fa-keyboard"></i>
                         </span>
-
-                        {!! Form::text('name', null, ['class'=>'form-control']) !!}
+                    {!! Form::text('name', null, ['class'=>'form-control']) !!}
                     </div>
                     <label for="module" class="mtop16">Categoría padre:</label>
                     <div class="input-group">
@@ -36,7 +35,7 @@
                         <select name="parent" id="" class="form-select  ">
                             <option value="0">Sin Categoría padre</option>
                             @foreach ($cats as $cat)
-                                <option value="{{$cat->id}}">{{$cat->name}}</option>
+                            <option value="{{$cat->id}}">{{$cat->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -98,13 +97,13 @@
                                 <td>
                                     <div class="opts">
                                         @if(kvfj(Auth::user()->permissions, 'category_edit'))
-                                        <a href="{{url('/admin/category/'.$category->id.'/edit')}}" data-toogle="tooltip"
-                                            data-toggle="tooltip" data-placement="top" title="Eliminar"><i
-                                                class="fas fa-edit"></i>
+                                        <a href="{{url('/admin/category/'.$category->id.'/edit')}}"
+                                            data-toogle="tooltip" data-toggle="tooltip" data-placement="top"
+                                            title="Eliminar"><i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="{{url('/admin/category/'.$category->id.'/subs')}}" data-toogle="tooltip"
-                                            data-toggle="tooltip" data-placement="top" title="Sub-categorías"><i
-                                                class="fas fa-list-ul"></i>
+                                        <a href="{{url('/admin/category/'.$category->id.'/subs')}}"
+                                            data-toogle="tooltip" data-toggle="tooltip" data-placement="top"
+                                            title="Sub-categorías"><i class="fas fa-list-ul"></i>
                                         </a>
                                         @endif
                                         @if(is_null($category->deleted_at))

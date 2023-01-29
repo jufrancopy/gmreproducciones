@@ -80,6 +80,7 @@ function user_permissions()
                 'product_delete'  => 'Puede eliminar producto',
                 'product_gallery_add'  => 'Puede agregar imagenes a la Galería',
                 'product_gallery_delete'  => 'Puede eliminar imagenes de la Galería',
+                'product_inventory'  => 'Puede administrar el inventario de un producto',
             ]
         ],
 

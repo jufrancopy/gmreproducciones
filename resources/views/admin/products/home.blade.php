@@ -99,24 +99,27 @@
                             @endif
                         </td>
                         <td>{{$product->price}}</td>
-                        <td>
+                        <td width=160>
                             <div class="opts">
                                 @if(kvfj(Auth::user()->permissions, 'product_edit'))
                                 <a href="{{url('/admin/product/'.$product->id.'/edit')}}" data-toggle="tooltip"
-                                    data-placement="top" title="Editar"><i class="fas fa-edit"></i>
+                                    data-placement="top" title="Editar" class="edit"><i class="fas fa-edit"></i>
                                 </a>
                                 @endif
-
+                                @if(kvfj(Auth::user()->permissions, 'product_inventory'))
+                                <a href="{{ url('/admin/product/'.$product->id.'/inventory') }}" data-toggle="tooltip"
+                                    data-placement="top" title="Inventario" class="inventory"><i class="fas fa-box"></i></a>
+                                @endif
                                 @if(kvfj(Auth::user()->permissions, 'product_delete'))
                                 @if(is_null($product->deleted_at))
                                 <a href="#" data-path="admin/product" data-action="delete" data-object={{ $product->id
                                     }} data-toggle="tooltip" data-placement="top"
-                                    title="Eliminar" class="btn_deleted"><i class="fas fa-trash-alt"></i>
+                                    title="Eliminar" class="btn_deleted deleted" class=""><i class="fas fa-trash-alt"></i>
                                 </a>
                                 @else
                                 <a href="{{ url('/admin/product/'.$product->id.'/restore') }}" data-action="restore"
                                     data-path="admin/product" data-object={{ $product->id }} data-toggle="tooltip"
-                                    data-placement="top" title="Restaurar" class="btn_deleted"><i
+                                    data-placement="top" title="Restaurar" class="btn_deleted restore"><i
                                         class="fas fa-trash-restore"></i>
                                 </a>
                                 @endif

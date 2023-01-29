@@ -27,4 +27,8 @@ class Product extends Model
     public function getGallery(){
         return $this->hasMany(PGallery::class, 'product_id','id');
     }
+
+    public function getInventory(){
+        return $this->hasMany(Inventory::class, 'product_id', 'id');
+    }
 }

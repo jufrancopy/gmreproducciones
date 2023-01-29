@@ -43,7 +43,8 @@ a
 
 .mtop16
     margin-top: 16px
-
+.mtop24
+    margin-top: 24px
 .mtop32
     margin-top: 32px
 .pleft0
@@ -175,7 +176,6 @@ nav
                     &:hover
                         ul
                             display: block
-                            
                             
         .inside
             padding 16px
@@ -508,10 +508,22 @@ nav
     border-radius: 4px
     margin-top: 32px
     padding: 12px
+    .btn-success
+        background-color: #00c841
+        border: 0px
+        color: #fff
+        width   100%
+        &:hover
+            background-color: color3
+    .price
+        font-weight: 700
+        font-size: 2.1em
     h2.title
         font-size: 2em
         font-weight: 500
         margin-bottom: 12px
+    h5.title
+            font-size: 1em
     .category
         ul
             list-style: none
@@ -543,6 +555,34 @@ nav
                         text-decoration: underline
                 &:first-child
                     margin-left: 0px
+    .inside
+        padding 12px
+    .content
+    .before_quantity
+        border-top: 1px solid #f0f0f0
+        margin-top: 24px
+        padding-top: 24px
+    .quantity
+        overflow: hidden
+        .amount_action
+            align-items: center
+            background-color: color1
+            border-radius: 50%
+            display: flex
+            justify-content: center
+            float: left
+            color: #fff
+            text-decoration: none
+            width: 32px
+            height: 32px
+            &:first-child
+                margin-right: 8px
+            &:last-child
+                margin-left: 8px
+        .form-control
+            float: left
+            width: calc(100% - 80px)
+
 .slick-next
     right: 8px
 .slick-prev
@@ -643,6 +683,8 @@ nav
         .category
             background-color: #f8f8f8
             padding: 8px
+        .inside
+            padding 2px
 @keyframes loading_image{
     0%{
         margin-left: -100px

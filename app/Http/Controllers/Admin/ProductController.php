@@ -9,6 +9,8 @@ use Validator, Str, Config, Image;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\PGallery;
+use App\Models\Inventory;
+use App\Models\Variant;
 
 class ProductController extends Controller
 {
@@ -24,13 +26,13 @@ class ProductController extends Controller
     {
         switch ($status) {
             case '0':
-                $products = Product::with(['category','subCategory'])->where('status', 0)->orderBy('id', 'DESC')->paginate(10);
+                $products = Product::with(['category', 'subCategory'])->where('status', 0)->orderBy('id', 'DESC')->paginate(10);
                 break;
             case '1':
-                $products = Product::with(['category','subCategory'])->where('status', 1)->orderBy('id', 'DESC')->paginate(10);
+                $products = Product::with(['category', 'subCategory'])->where('status', 1)->orderBy('id', 'DESC')->paginate(10);
                 break;
             case 'all':
-                $products = Product::with(['category','subCategory'])->orderBy('id', 'DESC')->paginate(10);
+                $products = Product::with(['category', 'subCategory'])->orderBy('id', 'DESC')->paginate(10);
                 break;
             case 'trash':
                 $products = Product::onlyTrashed()->orderBy('id', 'DESC')->paginate(10);
@@ -84,7 +86,7 @@ class ProductController extends Controller
             $fileExt = trim($request->file('image')->getClientOriginalExtension());
             $upload_path = Config::get('filesystems.disks.uploads.root');
             $name = Str::slug(str_replace($fileExt, '', $request->file('image')->getClientOriginalName()));
-            
+
             $fileName = rand(1, 999) . '-' . $name . '.' . $fileExt;
             $finalFile = $upload_path . '/' . $path . '/' . $fileName;
 
@@ -103,7 +105,7 @@ class ProductController extends Controller
             $product->in_discount = $request->input('in_discount');
             $product->discount = $request->input('discount');
             $product->content = e($request->input('content'));
-            
+
             if ($product->save()) :
                 if ($request->hasFile('image')) :
                     $fl = $request->image->storeAs($path, $fileName, 'uploads');
@@ -113,7 +115,7 @@ class ProductController extends Controller
                     });
                     $img->save($upload_path . '/' . $path . '/t_' . $fileName);
                 endif;
-                return redirect('/admin/product/'.$product->id.'/edit')
+                return redirect('/admin/product/' . $product->id . '/edit')
                     ->with('message', 'Producto agregado con éxito.')
                     ->with('typealert', 'success');
 
@@ -165,7 +167,7 @@ class ProductController extends Controller
             $product->name = $request->input('name');
             $product->category_id = e($request->input('category_id'));
             $product->subCategory_id = e($request->input('subCategory_id'));
-            
+
             if ($request->hasFile('image')) :
                 $path = '/' . date('Y-m-d');
                 $fileExt = trim($request->file('image')->getClientOriginalExtension());
@@ -302,8 +304,8 @@ class ProductController extends Controller
                     $products = Product::with('category')->where('code', $request->input('search'))->orderBy('id', 'DESC')->get();
                     break;
             endswitch;
-                    $data = ['products' => $products];
-            
+            $data = ['products' => $products];
+
             return view('admin.products.search', $data);
         endif;
     }
@@ -321,6 +323,139 @@ class ProductController extends Controller
         $product = Product::onlyTrashed()->where('id', $id)->first();
         if ($product->restore()) :
             return redirect('/admin/product/' . $product->id . '/edit')->with('message', 'Producto reactivado')->with('typealert', 'success');
+        endif;
+    }
+
+    public function getProductInventory($id)
+    {
+        $product = Product::findOrFail($id);
+        $data = ['product' => $product];
+
+        return view('admin.products.inventory', $data);
+    }
+
+    public function postProductInventory(Request $request, $id)
+    {
+        $rules = [
+            'name'          => 'required',
+            'price'         => 'required'
+        ];
+
+        $messages = [
+            'name.required'         => 'Debe agregar un nombre al Producto',
+            'price.required'        => 'Debe agregar un precio al producto'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) :
+            return back()->withErrors($validator)
+                ->with('message', 'Se ha producido un error')
+                ->with('typealert', 'danger')
+                ->withInput();
+        else :
+            $inventory = new Inventory;
+            $inventory->product_id = $id;
+            $inventory->name = e($request->input('name'));
+            $inventory->quantity = e($request->input('inventory'));
+            $inventory->price = e($request->input('price'));
+            $inventory->limited = e($request->input('limited'));
+            $inventory->minimum = e($request->input('minimum'));
+
+            if ($inventory->save()) :
+                return back()
+                    ->with('message', 'Inventario guardado correctamente.')
+                    ->with('typealert', 'success');
+            endif;
+        endif;
+    }
+
+    public function getProductInventoryEdit($id)
+    {
+        $inventory = Inventory::findOrFail($id);
+        $data = ['inventory' => $inventory];
+
+        return view('admin.products.inventory_edit', $data);
+    }
+
+    public function postProductInventoryEdit($id, Request $request){
+        $rules = [
+            'name'          => 'required',
+            'price'         => 'required'
+        ];
+
+        $messages = [
+            'name.required'         => 'Debe agregar un nombre al Producto',
+            'price.required'        => 'Debe agregar un precio al producto'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) :
+            return back()->withErrors($validator)
+                ->with('message', 'Se ha producido un error')
+                ->with('typealert', 'danger')
+                ->withInput();
+        else :
+            $inventory = Inventory::find($id);
+            $inventory->name = e($request->input('name'));
+            $inventory->quantity = e($request->input('inventory'));
+            $inventory->price = e($request->input('price'));
+            $inventory->limited = e($request->input('limited'));
+            $inventory->minimum = e($request->input('minimum'));
+
+            if ($inventory->save()) :
+                return back()
+                    ->with('message', 'Inventario actualizado correctamente.')
+                    ->with('typealert', 'success');
+            endif;
+        endif;
+    }
+
+    public function getProductInventoryDeleted($id){
+        $inventory = Inventory::findOrFail($id);
+
+        if ($inventory->delete()) :
+            return back()->with('message', 'Inventario enviado a la Papelerea')->with('typealert', 'success');
+        endif;
+    }
+
+    public function postProductInventoryVariantAdd($id, Request $request){
+        $rules = [
+            'name'          => 'required'
+        ];
+
+        $messages = [
+            'name.required'         => 'Nombre de la variante es requerido'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) :
+            return back()->withErrors($validator)
+                ->with('message', 'Se ha producido un error')
+                ->with('typealert', 'danger')
+                ->withInput();
+        else :
+            $inventory = Inventory::findOrFail($id);
+            $variant = new Variant;
+            $variant->product_id = $inventory->product_id;
+            $variant->inventory_id = $id;
+            $variant->name = e($request->input('name'));
+
+            if ($variant->save()) :
+                return back()
+                    ->with('message', 'Variante creada correctamente.')
+                    ->with('typealert', 'success');
+            endif;
+        endif;
+    }
+
+    public function getProductVariantDelete($id){
+        $variant = Variant::findOrFail($id);
+
+        if ($variant->delete()) :
+            return back()->with('message', 'Variante enviado a la Papelerea')->with('typealert', 'success');
         endif;
     }
 }

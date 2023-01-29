@@ -29,7 +29,9 @@
 
             @if(kvfj(Auth::user()->permissions, 'products'))
             <li>
-                <a href="{{url('/admin/products/1')}}" class="lk-products lk-product_add lk_product_search lk-product_edit lk-product_gallery_add">
+                <a href="{{url('/admin/products/1')}}" 
+                class="lk-products lk-product_add lk_product_search 
+                    lk-product_edit lk-product_gallery_add lk-product_inventory">
                     <i class="fas fa-boxes"> </i>Productos
                 </a>
             </li>
@@ -64,7 +66,6 @@
             <li>
                 <a href="{{url('/admin/sliders')}}" class="lk-sliders_list lk-slider_edit">
                     <i class="fas fa-images" aria-hidden="true"></i>Sliders
-                    
                 </a>
             </li>
             @endif
@@ -73,7 +74,6 @@
             <li>
                 <a href="{{url('/admin/settings')}}" class="lk-settings">
                     <i class="fa fa-cogs" aria-hidden="true"></i>Configuraciones
-                    
                 </a>
             </li>
             @endif
