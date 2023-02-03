@@ -26,16 +26,16 @@ class ProductController extends Controller
     {
         switch ($status) {
             case '0':
-                $products = Product::with(['category', 'subCategory'])->where('status', 0)->orderBy('id', 'DESC')->paginate(10);
+                $products = Product::with(['category', 'subCategory','getPrice'])->where('status', 0)->orderBy('id', 'DESC')->paginate(10);
                 break;
             case '1':
-                $products = Product::with(['category', 'subCategory'])->where('status', 1)->orderBy('id', 'DESC')->paginate(10);
+                $products = Product::with(['category', 'subCategory','getPrice'])->where('status', 1)->orderBy('id', 'DESC')->paginate(10);
                 break;
             case 'all':
-                $products = Product::with(['category', 'subCategory'])->orderBy('id', 'DESC')->paginate(10);
+                $products = Product::with(['category', 'subCategory','getPrice'])->orderBy('id', 'DESC')->paginate(10);
                 break;
             case 'trash':
-                $products = Product::onlyTrashed()->orderBy('id', 'DESC')->paginate(10);
+                $products = Product::with(['category', 'subCategory','getPrice'])->onlyTrashed()->orderBy('id', 'DESC')->paginate(10);
                 break;
         }
 
@@ -58,7 +58,6 @@ class ProductController extends Controller
             'name'          => 'required',
             'image'         => 'required',
             'category_id'   => 'required',
-            'price'         => 'required',
             'content'       => 'required',
         ];
 
@@ -67,7 +66,6 @@ class ProductController extends Controller
             'image.required'        => 'Debe incluir una imagen al Producto',
             'category_id.required'  => 'Defina a que categoría pertenecerá el producto',
             'imagen.image'          => 'El archivo incluido, no es una imagen',
-            'price.required'        => 'Debe agregar un precio al producto',
             'content.required'      => 'Debe describir el producto',
 
         ];
@@ -100,8 +98,6 @@ class ProductController extends Controller
             $product->subCategory_id = e($request->input('subCategory_id'));
             $product->file_path = date('Y-m-d');
             $product->image = $fileName;
-            $product->price = $request->input('price');
-            $product->inventory = $request->input('inventory');
             $product->in_discount = $request->input('in_discount');
             $product->discount = $request->input('discount');
             $product->content = e($request->input('content'));
@@ -137,7 +133,6 @@ class ProductController extends Controller
         $rules = [
             'name'          => 'required',
             'category_id'   => 'required',
-            'price'         => 'required',
             'content'       => 'required',
         ];
 
@@ -145,7 +140,6 @@ class ProductController extends Controller
             'name.required'         => 'Debe agregar un nombre al Producto',
             'category_id.required'  => 'Defina a que categoría pertenecerá el producto',
             'imagen.image'          => 'El archivo incluido, no es una imagen',
-            'price.required'        => 'Debe agregar un precio al producto',
             'content.required'      => 'Debe describir el producto',
 
         ];
@@ -179,13 +173,12 @@ class ProductController extends Controller
                 $product->image = $fileName;
             endif;
 
-            $product->price = $request->input('price');
-            $product->inventory = $request->input('inventory');
             $product->in_discount = $request->input('in_discount');
             $product->discount = $request->input('discount');
             $product->content = e($request->input('content'));
 
             if ($product->save()) :
+                $this->getUpdateMinPrice($product->id);
                 if ($request->hasFile('image')) :
                     $fl = $request->image->storeAs($path, $fileName, 'uploads');
                     $img = Image::make($finalFile);
@@ -363,6 +356,7 @@ class ProductController extends Controller
             $inventory->minimum = e($request->input('minimum'));
 
             if ($inventory->save()) :
+                $this->getUpdateMinPrice($inventory->product_id);
                 return back()
                     ->with('message', 'Inventario guardado correctamente.')
                     ->with('typealert', 'success');
@@ -378,7 +372,8 @@ class ProductController extends Controller
         return view('admin.products.inventory_edit', $data);
     }
 
-    public function postProductInventoryEdit($id, Request $request){
+    public function postProductInventoryEdit($id, Request $request)
+    {
         $rules = [
             'name'          => 'required',
             'price'         => 'required'
@@ -405,6 +400,7 @@ class ProductController extends Controller
             $inventory->minimum = e($request->input('minimum'));
 
             if ($inventory->save()) :
+                $this->getUpdateMinPrice($inventory->product_id);
                 return back()
                     ->with('message', 'Inventario actualizado correctamente.')
                     ->with('typealert', 'success');
@@ -412,7 +408,8 @@ class ProductController extends Controller
         endif;
     }
 
-    public function getProductInventoryDeleted($id){
+    public function getProductInventoryDeleted($id)
+    {
         $inventory = Inventory::findOrFail($id);
 
         if ($inventory->delete()) :
@@ -420,7 +417,8 @@ class ProductController extends Controller
         endif;
     }
 
-    public function postProductInventoryVariantAdd($id, Request $request){
+    public function postProductInventoryVariantAdd($id, Request $request)
+    {
         $rules = [
             'name'          => 'required'
         ];
@@ -451,11 +449,20 @@ class ProductController extends Controller
         endif;
     }
 
-    public function getProductVariantDelete($id){
+    public function getProductVariantDelete($id)
+    {
         $variant = Variant::findOrFail($id);
 
         if ($variant->delete()) :
             return back()->with('message', 'Variante enviado a la Papelerea')->with('typealert', 'success');
         endif;
+    }
+
+    public function getUpdateMinPrice($id){
+        $product = Product::find($id);
+        $price = $product->getPrice->min('price');
+
+        $product->price = $price;
+        $product->save();
     }
 }

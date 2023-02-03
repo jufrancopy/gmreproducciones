@@ -69,12 +69,11 @@
             <table class="table table-striped mtop16">
                 <thead>
                     <tr>
-                        <td>id</td>
-                        <td>Imagen</td>
-                        <td>Nombre</td>
-                        <td>Categoría</td>
-                        <td>Precio</td>
-                        <td></td>
+                        <th>id</th>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Precio mínimo</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -87,18 +86,27 @@
                             </a>
                         </td>
 
-                        <td>{{$product->name}}
-                            @if($product->status == 0) <i class="fas fa-eraser" data-toggle="tooltip"
-                                data-placement="top" title="Estado: Borrador"></i>
-                            @endif
+                        <td>
+                            <p style="margin-bottom: 0px">
+                                {{$product->name}}
+                                @if($product->status == 0) <i class="fas fa-eraser" data-toggle="tooltip"
+                                    data-placement="top" title="Estado: Borrador"></i>
+                                @endif
+                            </p>
+                            <p>
+                                <small><i class="far fa-folder-open"></i>
+                                    {{$product->category->name}} <i class="fas fa-angle-double-right"></i>
+                                    @if($product->subCategory_id != 0)
+                                    {{$product->subCategory->name}}
+                                    @endif
+                                </small>
+                            </p>
+                        </td>
+                        <td>
+                            {{Config('configSite.currency')}} {{$product->price}}
                         </td>
 
-                        <td>{{$product->category->name}} <i class="fas fa-angle-double-right"></i>
-                            @if($product->subCategory_id != 0)
-                            {{$product->subCategory->name}}
-                            @endif
-                        </td>
-                        <td>{{$product->price}}</td>
+
                         <td width=160>
                             <div class="opts">
                                 @if(kvfj(Auth::user()->permissions, 'product_edit'))
@@ -108,13 +116,15 @@
                                 @endif
                                 @if(kvfj(Auth::user()->permissions, 'product_inventory'))
                                 <a href="{{ url('/admin/product/'.$product->id.'/inventory') }}" data-toggle="tooltip"
-                                    data-placement="top" title="Inventario" class="inventory"><i class="fas fa-box"></i></a>
+                                    data-placement="top" title="Inventario" class="inventory"><i
+                                        class="fas fa-box"></i></a>
                                 @endif
                                 @if(kvfj(Auth::user()->permissions, 'product_delete'))
                                 @if(is_null($product->deleted_at))
                                 <a href="#" data-path="admin/product" data-action="delete" data-object={{ $product->id
                                     }} data-toggle="tooltip" data-placement="top"
-                                    title="Eliminar" class="btn_deleted deleted" class=""><i class="fas fa-trash-alt"></i>
+                                    title="Eliminar" class="btn_deleted deleted" class=""><i
+                                        class="fas fa-trash-alt"></i>
                                 </a>
                                 @else
                                 <a href="{{ url('/admin/product/'.$product->id.'/restore') }}" data-action="restore"

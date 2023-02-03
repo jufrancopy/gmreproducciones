@@ -27,7 +27,7 @@ class CreateProductsTable extends Migration
             $table->integer('subCategory_id')->default(0);
             $table->string('file_path');
             $table->string('image');
-            $table->decimal('price', 11, 3);
+            $table->decimal('price', 11, 3)->default(0);
             $table->integer('inventory')->default(0);
             $table->integer('in_discount');
             $table->integer('discount');

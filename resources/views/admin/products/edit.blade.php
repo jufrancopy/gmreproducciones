@@ -22,7 +22,6 @@
                 <div class="inside">
                     {!!Form::open(['url'=>'admin/product/'.$product->id.'/edit', 'files'=>true])!!}
                     <div class="row">
-
                         <div class="col-md-12">
                             <label for="name">Nombre del Producto:</label>
                             <div class="input-group">
@@ -33,14 +32,14 @@
                     </div>
 
                     <div class="row mtop16">
-                    
                         <div class="col-md-6">
                             <label for="category_id">Categoría Padre:</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-keyboard"></i></span>
                                 {!!Form::select('category_id', $cats,$product->category_id,['class' =>
                                 'form-select', 'id'=>'category'])!!}
-                                {!! Form::hidden('subCategoryNow', $product->subCategory_id, ['id'=>'subCategoryNow']) !!}
+                                {!! Form::hidden('subCategoryNow', $product->subCategory_id, ['id'=>'subCategoryNow'])
+                                !!}
                             </div>
                         </div>
 
@@ -53,20 +52,7 @@
                             </div>
                         </div>
                     </div>
-                    {{-- Fin Primera Fila de Inputs --}}
-
-                    {{-- Segunda Fila de Inputs --}}
                     <div class="row">
-                        <div class="col-md-3">
-                            <label for="price">Precio:</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-keyboard"></i></span>
-                                {!!Form::number('price', $product->price, ['class' => 'form-control', 'min'=>'0.00',
-                                'step'=>'any'])!!}
-                            </div>
-                        </div>
-
-
                         <div class="col-md-3">
                             <label for="in_discount">En descuento:</label>
                             <div class="input-group">
@@ -83,7 +69,13 @@
                                 {!!Form::number('discount', $product->discount,['class' => 'form-select'])!!}
                             </div>
                         </div>
-
+                        <div class="col-md-3">
+                            <label for="code">Código de Sistema:</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-keyboard"></i></span>
+                                {!!Form::text('code', $product->code,['class' => 'form-control'])!!}
+                            </div>
+                        </div>
                         <div class="col-md-3">
                             <label for="image">Imagen destacada:</label>
                             <div class="custom-file">
@@ -93,27 +85,7 @@
                             </div>
                         </div>
                     </div>
-                    {{-- Fin Segunda Fila de Inputs --}}
-
-                    {{-- Tercera Fila de Inputs --}}
                     <div class="row mtop16">
-                        <div class="col-md-3">
-                            <label for="inventory">Inventario:</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-keyboard"></i></span>
-                                {!!Form::number('inventory', $product->inventory,['class' => 'form-control',
-                                'min'=>'0.00'])!!}
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label for="code">Código de Sistema:</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-keyboard"></i></span>
-                                {!!Form::text('code', $product->code,['class' => 'form-control'])!!}
-                            </div>
-                        </div>
-
                         <div class="col-md-3">
                             <label for="status">Estado:</label>
                             <div class="input-group">
@@ -124,9 +96,6 @@
                         </div>
 
                     </div>
-                    {{-- Fin Tercera Fila de Inputs --}}
-
-                    {{-- Cuarta Fila de Inputs --}}
                     <div class="row mtop16">
                         <div class="col-md-12">
                             <label for="content">Descripción</label>
@@ -134,15 +103,11 @@
                             'id'=>'editor']) !!}
                         </div>
                     </div>
-                    {{-- Fin Cuarta Fila de Inputs --}}
-
-                    {{-- Boton de Envio --}}
                     <div class="row mtop16">
                         <div class="col md-12">
                             {!! Form::submit('Guardar', ['class'=>'btn btn-success']) !!}
                         </div>
                     </div>
-                    {{-- FIn Boton de Envio --}}
                     {!! Form::close() !!}
                 </div>
             </div>

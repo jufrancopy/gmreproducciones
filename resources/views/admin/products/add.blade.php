@@ -39,7 +39,7 @@
                         <span class="input-group-text">
                             <i class="fas fa-keyboard"></i>
                         </span>
-                        {!! Form::select('category_id', $cats,0,['class' => 'form-select', 'id'=>'category'])  !!}
+                        {!! Form::select('category_id', $cats,0,['class' => 'form-select', 'id'=>'category']) !!}
                         {!! Form::hidden('subCategoryNow', 0, ['id'=>'subCategoryNow']) !!}
                     </div>
                 </div>
@@ -52,20 +52,7 @@
                     </div>
                 </div>
             </div>
-            {{-- Fin Primer Fila de Inputs --}}
-
-            {{-- Segunda Fila de Inputs --}}
             <div class="row mtop16">
-                <div class="col-md-3">
-                    <label for="price">Precio:</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="fas fa-keyboard"></i>
-                        </span>
-                        {!!Form::number('price', null, ['class' => 'form-control', 'min'=>'0.00', 'step'=>'any'])!!}
-                    </div>
-                </div>
-
                 <div class="col-md-3">
                     <label for="in_discount">En descuento:</label>
                     <div class="input-group">
@@ -75,7 +62,6 @@
                         {!!Form::select('in_discount', ['0'=>'No','1'=>'Si'],0,['class' => 'form-select'])!!}
                     </div>
                 </div>
-
                 <div class="col-md-3">
                     <label for="discount">Descuento:</label>
                     <div class="input-group">
@@ -86,28 +72,6 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <label for="image">Imagen Destacada:</label>
-                    <div class="form-file">
-                        {!! Form::file('image', ['class'=>'form-control',
-                        'id'=>'customFile','accept'=>'image/*','lang'=>'es']) !!}
-                    </div>
-                </div>
-            </div>
-            {{-- Fin Segunda Fila de Inputs --}}
-
-            {{-- Tercera Fila de Inputs --}}
-            <div class="row mtop16">
-                <div class="col-md-3">
-                    <label for="inventory">Inventario:</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="fas fa-keyboard"></i>
-                        </span>
-                        {!!Form::number('inventory', 0,['class' => 'form-control', 'min'=>'0.00'])!!}
-                    </div>
-                </div>
-
-                <div class="col-md-3">
                     <label for="code">Código de Sistema:</label>
                     <div class="input-group">
                         <span class="input-group-text">
@@ -116,8 +80,14 @@
                         {!!Form::text('code', 0,['class' => 'form-control'])!!}
                     </div>
                 </div>
+                <div class="col-md-3">
+                    <label for="image">Imagen Destacada:</label>
+                    <div class="form-file">
+                        {!! Form::file('image', ['class'=>'form-control',
+                        'id'=>'customFile','accept'=>'image/*','lang'=>'es']) !!}
+                    </div>
+                </div>
             </div>
-            {{-- Fin Tercera Fila de Inputs --}}
 
             <div class="row mtop16">
                 <div class="col-md-12">
@@ -125,13 +95,12 @@
                     {!! Form::textarea('content', null, ['class'=>'form-control', 'id'=>'editor']) !!}
                 </div>
             </div>
-            {{-- Boton de Envio --}}
+
             <div class="row mtop16">
                 <div class="col md-12">
                     {!! Form::submit('Guardar', ['class'=>'btn btn-success']) !!}
                 </div>
             </div>
-            {{-- Fin Boton de Envio --}}
             {!! Form::close() !!}
         </div>
     </div>

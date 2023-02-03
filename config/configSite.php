@@ -1,6 +1,6 @@
 <?php 
 return [
-'name' => 'GMRE', 
+'name' => 'GM', 
 'currency' => '$', 
 'phone' => '0981574711', 
 'map' => 'Laurelty 4565', 

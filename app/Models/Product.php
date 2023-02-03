@@ -29,6 +29,10 @@ class Product extends Model
     }
 
     public function getInventory(){
+        return $this->hasMany(Inventory::class, 'product_id', 'id')->orderBy('price', 'ASC');
+    }
+
+    public function getPrice(){
         return $this->hasMany(Inventory::class, 'product_id', 'id');
     }
 }

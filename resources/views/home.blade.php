@@ -39,7 +39,9 @@
     <h2 class="home_title mtop32">
         Productos Destacados
     </h2>
-        <div class="products_list" id="products_list"></div>
+        <div class="col-md-4">
+            <div class="products_list" id="products_list"></div>
+        </div>
         {{-- <div class="load_more_products">
             <a href="#" id="load_more_products">Cargar Más</a>
         </div> --}}
