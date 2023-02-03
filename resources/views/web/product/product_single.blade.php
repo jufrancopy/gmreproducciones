@@ -1,6 +1,8 @@
 @extends('master')
 @section('title', $product->name)
-
+@section('custom_meta')
+<meta name="product_id" content="{{$product->id}}">
+@stop
 @section('content')
 
 <div class="product_single shadow-lg">
@@ -55,9 +57,17 @@
                     <div class="add_cart">
                         {!! Form::open(['url'=>'/cart/add']) !!}
                         <div class="row">
-                            <div class="col-md-12">
-                                <span class="price">{{ Config::get('configSite.currency').number_format($product->price,
-                                    2 , '.',',') }}</span>
+                            <div class="col-md-6 mt-2">
+                                <div class="variants" id="variants">
+                                    <ul class="variants">
+                                        @foreach ($product->getInventory as $inventory)
+                                        <li><a href="#" class="inventory" data-inventory-id="{{$inventory->id}}">{{$inventory->name}} - <span class="price">
+                                            {{ Config::get('configSite.currency').number_format($inventory->price,
+                                            2 , '.',',') }}</span></a></li>
+                                            
+                                        @endforeach
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <div class="before_quantity">

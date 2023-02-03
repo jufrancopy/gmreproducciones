@@ -30,7 +30,7 @@ Route::get('/logout', 'ConnectController@getLogout')->name('logout');
 // Route::get('/timeline-show', 'Admin\TimelineController@getHomeWeb')->name('timeline-show');
 
 // Module Products
-Route::get('/product/{id}/{slug}', 'Frontend\ProductController@getProduct');
+Route::get('/product/{id}/{slug}', 'Frontend\ProductController@getProduct')->name('product_single');
 
 // Module Accounts
 Route::get('/account/edit', 'UserController@getAccountEdit')->name('account_edit');

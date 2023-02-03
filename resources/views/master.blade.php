@@ -12,6 +12,8 @@
     <meta name="currency" content="{{Config::get('configSite.currency')}}">
     <meta name="auth" content="{{Auth::check()}}">
 
+    @yield('custom_meta')
+
     {{-- CDN CSS Integrados--}}
 
     {{-- Boostrap 5 - CSS --}}

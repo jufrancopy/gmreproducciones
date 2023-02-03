@@ -62,6 +62,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (route == 'home') {
         load_products('home')
     }
+
+    if (route == "product_single") {
+        inventory = document.getElementsByClassName('inventory');
+        for (i = 0; i < inventory.length; i++) {
+            inventory[i].addEventListener('click', load_product_variants);
+        }
+    }
 });
 
 function load_products(section) {
@@ -178,4 +185,10 @@ function add_to_favorites(object, module) {
             }
         }
     }
+}
+
+function load_product_variants(e) {
+    var product_id = document.getElementsByName('product_id')[0].getAttribute('content');
+    var inv = this.getAttribute('data-inventory-id')
+    this.classList.add('active')
 }
