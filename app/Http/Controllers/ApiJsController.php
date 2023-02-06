@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Favorite;
+use App\Models\Inventory;
+
 use Illuminate\Http\Request;
 
 use Config, Auth;
@@ -22,6 +24,9 @@ class ApiJsController extends Controller
         switch ($section):
             case 'home':
                 $products = Product::where('status', 1)->inRandomOrder()->paginate($itemsForPageRandom);
+                break;
+            case 'store':
+                $products = Product::where('status', 1)->orderBy('id', 'DESC')->paginate($itemsForPageRandom);
                 break;
             default:
                 $products = Product::where('status', 1)->inRandomOrder()->paginate($itemsForPageRandom);
@@ -58,7 +63,7 @@ class ApiJsController extends Controller
             ->where('module', $request->input('module'))
             ->whereIn('object_id', explode(",", $request->input('objects')))
             ->pluck('object_id');
-            
+
 
         if (count(collect($query)) > 0) :
             $data = ['status' => 'success', 'count' => count(collect($query)), 'objects' => $query];
@@ -67,5 +72,12 @@ class ApiJsController extends Controller
         endif;
 
         return response()->json($data);
+    }
+
+    public function postProductInventoryVariants($inv)
+    {
+        $query = Inventory::find($inv);
+
+        return response()->json($query->getVariants);
     }
 }

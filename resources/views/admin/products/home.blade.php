@@ -103,7 +103,7 @@
                             </p>
                         </td>
                         <td>
-                            {{Config('configSite.currency')}} {{$product->price}}
+                            {{Config('configSite.currency')}} {{$product->getPrice->min('price')}}
                         </td>
 
 

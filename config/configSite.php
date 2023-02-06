@@ -6,6 +6,6 @@ return [
 'map' => 'Laurelty 4565', 
 'maintenance_mode' => '0', 
 'product_per_page' => '5', 
-'product_per_page_random' => '10', 
+'product_per_page_random' => '5', 
 ] 
 ?>

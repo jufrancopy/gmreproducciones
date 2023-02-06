@@ -1,6 +1,6 @@
-color1 = #288feb
-color2 = #fdd700
-color3 = #334F9A
+color1 = #0D5689
+color2 = #FCA949
+color3 = #52CCE3
 
 body
     background-color: #f9f9f9
@@ -40,7 +40,8 @@ a
             margin-left: calc(50% - 30px)
             height: 60px
             width: 60px
-
+.btop1 
+    border-top: 1px solid #d6d6d6
 .mtop16
     margin-top: 16px
 .mtop24
@@ -49,6 +50,10 @@ a
     margin-top: 32px
 .pleft0
     padding-left: 0px!important
+.ptop16
+    padding-top: 16px
+.hidden
+    display: none
 .form-control
     // border  1px solid red !important
     &:hover
@@ -81,7 +86,7 @@ nav
                 margin-right: 4px
                 padding: 5px 16px !important
                 &:hover
-                    color color3
+                    color color1
             a.btn
                 border: 1px solid color1
                 color: black
@@ -401,8 +406,8 @@ nav
         border-radius: 4px
         border: 1px solid #f0f0f0
         background-color: color1
-        
         color: #fff
+        font-size: .8em
         position relative
         width: 40%
         margin-left: 30%
@@ -423,8 +428,8 @@ nav
         float: left
         margin-bottom: 24px
         margin-right: 2.4%
-        width: 18%
         position: relative
+        width: 18%
         &:nth-child(5n)
             margin-right: 0px
         .image
@@ -434,6 +439,7 @@ nav
             overflow: hidden
             .overlay
                 background-color: rgba(0,0,0,.4)
+                border-radius: 4px
                 display: none
                 flex: 1
                 height: 100% 
@@ -462,7 +468,6 @@ nav
                         width: 32%
                         &:last-child
                             margin-right: 0px
-
             img
                 display: block
                 border-radius: 4px
@@ -487,11 +492,13 @@ nav
                 display: block
                 width: 100%
             .title
+                margin-top: 8px
+            .title
                 color #111111
+                display: block
                 font-size: 1.2em
                 overflow: hidden
                 text-overflow: ellipsis
-                margin-top: 8px
                 white-space: nowrap
                 width: 100%
             .price  
@@ -501,6 +508,7 @@ nav
                 color: #111111
 .favorite_active
     background-color: #fc0335!important
+    border: 1px solid #d9256a !important
     color: #fff!important
 .product_single
     background-color: #fff
@@ -561,6 +569,19 @@ nav
         border-top: 1px solid #f0f0f0
         margin-top: 24px
         padding-top: 24px
+        .btn
+            font-size: .9em
+        .btn-favorite
+            border 1px solid #d6d6d6
+            background-color: #f6f7f8
+            display block
+            text-align: center
+            width: 100% 
+            &:hover
+                background-color: #fc0335 !important
+                border: 1px solid #d9256a !important
+                color: #ffff !important
+
     .quantity
         overflow: hidden
         .amount_action
@@ -569,11 +590,13 @@ nav
             border-radius: 50%
             display: flex
             justify-content: center
+            font-size: .8em
+            margin-top: 4px
             float: left
             color: #fff
             text-decoration: none
-            width: 32px
-            height: 32px
+            width: 28px
+            height: 28px
             &:first-child
                 margin-right: 8px
             &:last-child
@@ -582,15 +605,18 @@ nav
             float: left
             width: calc(100% - 80px)
     .variants
+        p
+            margin-bottom: 4px
         ul
             margin 0px
             padding: 0px
             li
                 display: inline-block
                 margin-bottom: 6px
+                margin-right: 6px
                 a
                     border 1px solid #f0f0f0
-                    border-radius: 8px
+                    border-radius: 7px
                     color #333
                     font-size: .8em
                     display: block
@@ -639,8 +665,53 @@ nav
 .home_title
     font-size: 1.8em
     font-weight: 700
+.store
+    margin-bottom: 24px
+    .categories_list
+        background-color: #fff
+        border-radius: 8px
+        h2.title
+            background-color: color1
+            border-radius: 8px 8px 0px 0px
+            color: #fff
+            display: block
+            font-size 1.1em
+            margin: 0px
+            padding: 12px
+        ul
+            list-style: none
+            margin 0px
+            padding 0px
+            li 
+                border-bottom: 1px solid #d6d6d6
+                &:last-child
+                    border: 0px
+                    a
+                        border-radius: 0px 0px 8px 8px
+                a
+                    color: #212529
+                    display: block 
+                    text-decoration: none
+                    font-size: 1.2em
+                    margin: 0px
+                    padding: 8px 12px
+                    img
+                        margin-right: 8px
+                        width: 36px
+                    &:hover
+                        background-color: color2
+                        color#fff
+    .store_white
+        background-color: #fff
+        border-radius: 8px
+        padding: 24px
+        h2.home_title
+            margin-top: 0px
+            font-size: 1.2em !important
+            margin-bottom: 24px
+            
 @media only screen and (max-width 728px)
-     nav
+    nav
         .navbar-nav
             display block !important
             margin-top: 16px
@@ -656,10 +727,10 @@ nav
                     text-align center
                     span
                         display: block
-                        width 100%
                         font-size: 1em
                         font-weight: normal
                         margin-top 4px
+                        width 100%
                     i
                         font-size: 3em
                 &:last-child
@@ -697,12 +768,12 @@ nav
         display: none
     .products_list
         .product
-            margin-right: 2%
-            width: 49% !important   
-            &:nth-child(5n)
-                margin-right: 2% !important
+            margin-right: 2% !important
+            width: 48% !important   
             &:nth-child(even)
                 margin-right: 0px
+            &:nth-child(5n)
+                margin-right: 2% !important
     .product_single
         .pleft0
             padding-left: initial !important
@@ -713,6 +784,9 @@ nav
             padding: 8px
         .inside
             padding 2px
+        .before_quantity
+            .btn
+                margin-top: 16px;
 @keyframes loading_image{
     0%{
         margin-left: -100px

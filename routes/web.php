@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'ContentController@getHome')->name('home');
 
+// Module Store
+Route::get('/store', 'Frontend\StoreController@getStore')->name('store');
+
 Route::get('timeline-show', 'Admin\TimelineController@getHomeWeb')->name('timeline-show');
 
 // Rutas de Autenticacion
@@ -42,3 +45,4 @@ Route::post('/account/edit/info', 'UserController@postAccountInfo')->name('accou
 Route::get('/api/load/products/{section}', 'ApiJsController@getProductsSection');
 Route::post('/api/load/user/favorites', 'ApiJsController@postUserFavorites');
 Route::post('/api/favorites/add/{object}/{module}', 'ApiJsController@postFavoriteAdd');
+Route::post('/api/load/product/inventory/{inv}/variants', 'ApiJsController@postProductInventoryVariants');

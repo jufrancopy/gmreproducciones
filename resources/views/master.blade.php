@@ -119,7 +119,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{url('/')}}" class="nav-link">
+                        <a href="{{url('/store')}}" class="nav-link">
                             <i class="fas fa-store-alt" aria-hidden="true"></i>
                             <span>Tienda</span>
                         </a>

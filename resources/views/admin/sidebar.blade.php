@@ -9,11 +9,13 @@
                 {{Auth::user()->name}}{{Auth::user()->lastname}}
                 <a href="{{ url('/logout') }}" data-toogle="tooltip" data-toggle="tooltip" data-placement="top"
                     title="Salir">
-                    <i class="fas fa-sign-out-alt"></i></a>
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
             </div>
             <div class="email">
                 {{Auth::user()->email}}
             </div>
+            <a href="/">Ver Sitio</a>
         </div>
     </div>
 

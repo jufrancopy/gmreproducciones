@@ -413,6 +413,7 @@ class ProductController extends Controller
         $inventory = Inventory::findOrFail($id);
 
         if ($inventory->delete()) :
+            $this->getUpdateMinPrice($inventory->product_id);
             return back()->with('message', 'Inventario enviado a la Papelerea')->with('typealert', 'success');
         endif;
     }

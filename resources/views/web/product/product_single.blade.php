@@ -56,24 +56,36 @@
                     </div>
                     <div class="add_cart">
                         {!! Form::open(['url'=>'/cart/add']) !!}
+                        {!! Form::hidden('inventory', null, ['id'=>'field_inventory']) !!}
+                        {!! Form::hidden('variant', null, ['id'=>'field_variant']) !!}
                         <div class="row">
-                            <div class="col-md-6 mt-2">
-                                <div class="variants" id="variants">
-                                    <ul class="variants">
+                            <div class="col-md-12 mt-2">
+                                <div class="variants">
+                                    <p><strong>Opciones del Producto</strong></p>
+                                    <ul id="inventory">
                                         @foreach ($product->getInventory as $inventory)
-                                        <li><a href="#" class="inventory" data-inventory-id="{{$inventory->id}}">{{$inventory->name}} - <span class="price">
-                                            {{ Config::get('configSite.currency').number_format($inventory->price,
-                                            2 , '.',',') }}</span></a></li>
-                                            
+                                        <li>
+                                            <a href="#" class="inventory" id="inventory_{{$inventory->id}}"
+                                                data-inventory-id="{{$inventory->id}}">{{$inventory->name}} - <span
+                                                    class="price">
+                                                    {{
+                                                    Config::get('configSite.currency').number_format($inventory->price,
+                                                    2 , '.',',') }}</span>
+                                            </a>
+                                        </li>
                                         @endforeach
                                     </ul>
+                                </div>
+                                <div class="variants hidden btop1 ptop16 mtop16" id="variants_div">
+                                    <p><strong>Más opciones del Producto</strong></p>
+                                    <ul id="variants"></ul>
                                 </div>
                             </div>
                         </div>
                         <div class="before_quantity">
                             <h5 class="title">Cantidad??</h5>
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-4 col-12">
                                     <div class="quantity">
                                         <a href="#" class="amount_action" data-actoion='minus'>
                                             <i class="fas fa-minus"></i>
@@ -85,9 +97,16 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4 col-12">
                                     <button type="submit" class="btn btn-success"><i
-                                            class="fas fa-cart-plus"></i>Agregar al carrito</button>
+                                            class="fas fa-cart-plus"></i>Agregar al carrito
+                                    </button>
+                                </div>
+
+                                <div class="col-md-4 col-12">
+                                    <a href="#" id="favorite_1_{{$product->id}}"
+                                        onclick="add_to_favorites({{$product->id}},'1'); return false" class="btn btn-favorite"><i
+                                            class="fas fa-heart"></i>Agregar a Favoritos</a>
                                 </div>
                             </div>
                         </div>

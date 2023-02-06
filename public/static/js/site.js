@@ -63,15 +63,24 @@ document.addEventListener('DOMContentLoaded', function() {
         load_products('home')
     }
 
+    if (route == 'store') {
+        load_products('store')
+    }
+
     if (route == "product_single") {
-        inventory = document.getElementsByClassName('inventory');
+        var inventory = document.getElementsByClassName('inventory');
         for (i = 0; i < inventory.length; i++) {
-            inventory[i].addEventListener('click', load_product_variants);
+            inventory[i].addEventListener('click', function(e) {
+                e.preventDefault()
+                load_product_variants(this.getAttribute('data-inventory-id'))
+            });
         }
+        mark_user_favorites([document.getElementsByName('product_id')[0].getAttribute('content')])
     }
 });
 
 function load_products(section) {
+    loader.style.display = 'flex';
     page_section = section;
     var url = base + '/api/load/products/' + page_section + '?page=' + page;
 
@@ -80,6 +89,7 @@ function load_products(section) {
     http.send();
     http.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+            loader.style.display = 'none';
             page = page + 1;
             var data = this.responseText;
             data = JSON.parse(data)
@@ -95,6 +105,7 @@ function load_products(section) {
                 div += "<div class= \"btns\">";
                 div += "<a href=\"" + base + "/product/" + product.id + "/" + product.slug + "\"><i class=\"fas fa-eye\"></i></a>";
                 div += "<a href=\"\"><i class=\"fas fa-cart-plus\"></i></a>";
+
                 if (auth == 1) {
                     div += "<a href=\"\" id=\"favorite_1_" + product.id + "\" onclick=\"add_to_favorites('" + product.id + "','1'); return false\"><i class=\"fas fa-heart\"></i></a>";
                 } else {
@@ -151,7 +162,6 @@ function loginPlease() {
             confirmButton: 'btn btn-success',
             cancelButton: 'btn btn-danger'
         },
-        // buttonsStyling: false
     })
 
     swalWithBootstrapButtons.fire({
@@ -187,8 +197,52 @@ function add_to_favorites(object, module) {
     }
 }
 
-function load_product_variants(e) {
+function load_product_variants(inventory_id) {
+    document.getElementById('variants_div').style.display = 'none'
+    document.getElementById('variants').innerHTML = "";
+    document.getElementById('field_variant').value = null;
+    loader.style.display = 'flex';
+    var inventory_list = document.getElementsByClassName('inventory');
+    for (i = 0; i < inventory_list.length; i++) {
+        inventory_list[i].classList.remove('active')
+    }
     var product_id = document.getElementsByName('product_id')[0].getAttribute('content');
-    var inv = this.getAttribute('data-inventory-id')
-    this.classList.add('active')
+    var inv = inventory_id
+    document.getElementById('field_inventory').value = inv;
+    document.getElementById('inventory_' + inv).classList.add('active')
+
+    var url = base + '/api/load/product/inventory/' + inv + '/variants';
+    http.open('POST', url, true);
+    http.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+    http.send();
+    http.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            loader.style.display = 'none';
+            var data = this.responseText;
+            data = JSON.parse(data)
+            if (data.length > 0) {
+                document.getElementById('variants_div').style.display = 'block'
+                data.forEach(function(element, index) {
+                    variant = "";
+                    variant += '<li>';
+                    variant += '<a href="#" class="variant" onclick="variants_active_remove(); document.getElementById(\'field_variant\').value = ' + element.id + '; this.classList.add(\'active\'); return false;">';
+                    variant += element.name;
+                    variant += '</a>';
+                    variant += '</li>';
+                    document.getElementById('variants').innerHTML += variant;
+                });
+            }
+
+            console.log(data);
+
+        }
+    }
+
+}
+
+function variants_active_remove() {
+    var li_variants = document.getElementsByClassName('variant')
+    for (i = 0; i < li_variants.length; i++) {
+        li_variants[i].classList.remove('active');
+    }
 }

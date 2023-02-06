@@ -10,23 +10,24 @@
                 <div class="categories">
                     <a href=""><i class="fas fa-stream"></i> Categorias</a>
                     <ul class="shadow">
-                        @foreach ( $categories as  $category)
-                            <li>
-                                <a href="{{ url('/store/category/'.$category->id.'/'.$category->slug) }}">
-                                    <img src="{{ url('/uploads/'.$category->file_path.'/'.$category->icono) }}" alt="">{{$category->name}}
-                                </a>
-                            </li>
+                        @foreach ( $categories as $category)
+                        <li>
+                            <a href="{{ url('/store/category/'.$category->id.'/'.$category->slug) }}">
+                                <img src="{{ url('/uploads/'.$category->file_path.'/'.$category->icono) }}"
+                                    alt="">{{$category->name}}
+                            </a>
+                        </li>
                         @endforeach
                     </ul>
                 </div>
             </div>
             <div class="col-md-9">
                 {!! Form::open(['url' => '/search']) !!}
-                    <div class="input-group">
-                        <i class="fas fa-search"></i>
-                        {!! Form::text('search_query', null, ['class'=>'form-control', 'placeholder'=>'Buscar algo...']) !!}
-                        <button class="btn" type="submit">Buscar</button>
-                    </div>
+                <div class="input-group">
+                    <i class="fas fa-search"></i>
+                    {!! Form::text('search_query', null, ['class'=>'form-control', 'placeholder'=>'Buscar algo...']) !!}
+                    <button class="btn" type="submit">Buscar</button>
+                </div>
                 {!! Form::close() !!}
             </div>
         </div>
@@ -36,16 +37,10 @@
     @include('components/sliders_home')
 </section>
 <section>
-    <h2 class="home_title mtop32">
-        Productos Destacados
-    </h2>
-        <div class="col-md-4">
-            <div class="products_list" id="products_list"></div>
-        </div>
-        {{-- <div class="load_more_products">
-            <a href="#" id="load_more_products">Cargar Más</a>
-        </div> --}}
+    <h2 class="home_title mtop32">Productos Destacados</h2>
+    <div class="products_list" id="products_list"></div>
+    <div class="load_more_products">
+        <a href="#" id="load_more_products">Cargar Más</a>
+    </div>
 </section>
-
 @endsection
-
