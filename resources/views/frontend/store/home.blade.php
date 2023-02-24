@@ -11,7 +11,7 @@
                 <ul>
                     @foreach($categories as $category)
                     <li>
-                        <a href="#">
+                        <a href="{{ url('/store/category/'.$category->id.'/'.$category->slug) }}">
                             <img src="{{ url('/uploads/'.$category->file_path.'/'.$category->icono) }}" alt="">
                             {{$category->name}}
                         </a>

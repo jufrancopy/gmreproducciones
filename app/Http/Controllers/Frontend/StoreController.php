@@ -16,4 +16,13 @@ class StoreController extends Controller
 
         return view('frontend.store.home', $data);
     }
+
+    public function getCategory($id, $slug){
+        $category = Category::findOrFail($id);
+        $categories = $categories = Category::where('module', 0)->where('parent', $id)->orderBy('order', 'ASC')->get();
+
+        $data = ['categories'=>$categories,'category'=>$category];
+
+        return view('frontend.store.category', $data);
+    }
 }
