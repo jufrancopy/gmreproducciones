@@ -67,6 +67,11 @@ document.addEventListener('DOMContentLoaded', function() {
         load_products('store')
     }
 
+    if (route == 'store_category') {
+        load_products('store_category')
+    }
+
+
     if (route == "product_single") {
         var inventory = document.getElementsByClassName('inventory');
         for (i = 0; i < inventory.length; i++) {
@@ -82,8 +87,12 @@ document.addEventListener('DOMContentLoaded', function() {
 function load_products(section) {
     loader.style.display = 'flex';
     page_section = section;
-    var url = base + '/api/load/products/' + page_section + '?page=' + page;
-
+    if (section == 'store_category') {
+        var object_id = document.getElementsByName('category_id')[0].getAttribute('content');
+        var url = base + '/api/load/products/' + page_section + '?page=' + page + '&object_id=' + object_id;
+    } else {
+        var url = base + '/api/load/products/' + page_section + '?page=' + page;
+    }
     http.open('GET', url, true);
     http.setRequestHeader('X-CSRF-TOKEN', csrfToken);
     http.send();

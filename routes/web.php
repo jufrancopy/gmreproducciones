@@ -18,6 +18,7 @@ Route::get('/', 'ContentController@getHome')->name('home');
 // Module Store
 Route::get('/store', 'Frontend\StoreController@getStore')->name('store');
 Route::get('/store/category/{id}/{slug}', 'Frontend\StoreController@getCategory')->name('store_category');
+Route::post('/search', 'Frontend\StoreController@postSearch')->name('search');
 
 Route::get('timeline-show', 'Admin\TimelineController@getHomeWeb')->name('timeline-show');
 

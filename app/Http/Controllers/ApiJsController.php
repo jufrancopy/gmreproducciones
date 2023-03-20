@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Favorite;
 use App\Models\Inventory;
+use App\Models\Category;
 
 use Illuminate\Http\Request;
 
@@ -28,6 +29,9 @@ class ApiJsController extends Controller
             case 'store':
                 $products = Product::where('status', 1)->orderBy('id', 'DESC')->paginate($itemsForPageRandom);
                 break;
+            case 'store_category':
+                $products = $this->getProductsCategory($request->get('object_id'), $itemsForPage);
+                break;
             default:
                 $products = Product::where('status', 1)->inRandomOrder()->paginate($itemsForPageRandom);
                 break;
@@ -35,6 +39,16 @@ class ApiJsController extends Controller
 
         return $products;
     }
+
+    public function getProductsCategory($id, $itemsForPage){
+        $category = Category::find($id);
+        if($category->parent == 0):
+        $query = Product::where('status', 1)->where('category_id', $id)->orderBy('id', 'DESC')->paginate($itemsForPage);
+        else:
+            $query = Product::where('status', 1)->where('subCategory_id', $id)->orderBy('id', 'DESC')->paginate($itemsForPage);
+        endif;
+        return $query;
+    } 
 
     function postFavoriteAdd($object, $module, Request $request)
     {

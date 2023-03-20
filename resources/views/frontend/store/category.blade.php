@@ -2,6 +2,10 @@
 
 @section('title', 'Tienda - ' .$category->name)
 
+@section('custom_meta')
+<meta name="category_id" content="{{$category->id}}">
+@stop
+
 @section('content')
 <div class="store">
     <div class="row mtop32">
