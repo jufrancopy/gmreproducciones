@@ -113,13 +113,13 @@
             <div class="collapse navbar-collapse" id="navigationMain">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a href="{{url('/')}}" class="nav-link">
+                        <a href="{{url('/')}}" class="nav-link lk-home">
                             <i class="fa fa-home" aria-hidden="true"></i>
                             <span>Inicio</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{url('/store')}}" class="nav-link">
+                        <a href="{{url('/store')}}" class="nav-link lk-store lk-store_category lk-product_single">
                             <i class="fas fa-store-alt" aria-hidden="true"></i>
                             <span>Tienda</span>
                         </a>
@@ -137,7 +137,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{url('/')}}" class="nav-link">
+                        <a href="{{url('/cart')}}" class="nav-link lk-cart">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                             <span class="carnumber">0</span>
                             <span>Carrito</span>
@@ -158,6 +158,7 @@
 
                     <li class="nav-item link-acc link-user dropdown">
                         <a href="{{url('/login')}}" class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+                        Bienvenido
                             data-bs-toggle="dropdown" aria-expanded="false">
 
                             @if(is_null(Auth::user()->avatar))

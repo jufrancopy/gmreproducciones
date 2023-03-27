@@ -55,7 +55,7 @@
                         </ul>
                     </div>
                     <div class="add_cart">
-                        {!! Form::open(['url'=>'/cart/add']) !!}
+                        {!! Form::open(['url'=>'/cart/product/'.$product->id.'/add']) !!}
                         {!! Form::hidden('inventory', null, ['id'=>'field_inventory']) !!}
                         {!! Form::hidden('variant', null, ['id'=>'field_variant']) !!}
                         <div class="row">
@@ -87,12 +87,12 @@
                             <div class="row">
                                 <div class="col-md-4 col-12">
                                     <div class="quantity">
-                                        <a href="#" class="amount_action" data-actoion='minus'>
+                                        <a href="#" class="amount_action" data-action='minus'>
                                             <i class="fas fa-minus"></i>
                                         </a>
                                         {!! Form::number('quantity', 1, ['class'=>'form-control', 'min'=>1,
                                         'id'=>'add_to_cart_quantity']) !!}
-                                        <a href="#" class="amount_action" data-actoion='plus'>
+                                        <a href="#" class="amount_action" data-action='plus'>
                                             <i class="fas fa-plus"></i>
                                         </a>
                                     </div>

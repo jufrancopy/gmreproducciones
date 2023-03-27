@@ -31,7 +31,7 @@ class UserController extends Controller
         ];
 
         $messages = [
-            'avatar.required' => 'Debe agregar un nombre al Producto',
+            'avatar.required' => 'Debe agregar una imagen',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -65,7 +65,6 @@ class UserController extends Controller
                         $img->save($upload_path . '/' . $path . '/av_' . $fileName);
                     endif;
 
-                    unlink($upload_path . '/' . $path . '/' . $avatar);
                     unlink($upload_path . '/' . $path . '/av_' . $avatar);
 
                     return back()

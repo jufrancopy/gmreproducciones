@@ -22,6 +22,7 @@ window.onload = function() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    route_active = document.getElementsByClassName('lk-' + route)[0].classList.add('active');
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
@@ -81,6 +82,15 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
         mark_user_favorites([document.getElementsByName('product_id')[0].getAttribute('content')])
+
+        var amount_action = document.getElementsByClassName('amount_action');
+        for (i = 0; i < amount_action.length; i++) {
+            amount_action[i].addEventListener('click', function(e) {
+                e.preventDefault()
+                product_single_amount(this.getAttribute('data-action'));
+
+            });
+        }
     }
 });
 
@@ -254,4 +264,20 @@ function variants_active_remove() {
     for (i = 0; i < li_variants.length; i++) {
         li_variants[i].classList.remove('active');
     }
+}
+
+function product_single_amount(action) {
+    var quantity = document.getElementById('add_to_cart_quantity')
+    var new_quantity;
+    if (action == 'plus') {
+        new_quantity = parseInt(quantity.value) + parseInt(1);
+        quantity.value = parseInt(new_quantity);
+    }
+    if (action == 'minus') {
+        if (parseInt(quantity.value) > 1) {
+            new_quantity = parseInt(quantity.value) - parseInt(1);
+            quantity.value = parseInt(new_quantity);
+        }
+    }
+
 }

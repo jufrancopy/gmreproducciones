@@ -1,6 +1,7 @@
 color1 = #0D5689
 color2 = #FCA949
 color3 = #52CCE3
+color4 = #11111
 
 body
     background-color: #f9f9f9
@@ -64,9 +65,9 @@ a
     
 nav
     background-color: #fff
-    border-bottom:  2px solid color1
-
+    padding: 0px !important
     .navbar-brand
+        padding: 0px !important
         img
             width: 100px
     .navbar-toggler
@@ -80,15 +81,17 @@ nav
     .navbar-nav
         li.nav-item
             a.nav-link
-                border: 1px solid #fff
-                border-radius: 4px
+                border: 2px solid #fff
                 color: #000
                 font-size: .9em
-                font-weight: bold
                 margin-right: 4px
-                padding: 5px 16px !important
+                margin-bottom: -1px
+                padding: 16px !important
                 &:hover
+                    border-bottom: 2px solid color1                 
                     color color1
+            a.active
+                border-bottom: 2px solid color1                 
             a.btn
                 border: 1px solid color1
                 color: black
@@ -98,14 +101,14 @@ nav
             ul.dropdown-menu
                 border-radius: 0px 0px 4px 4px
                 background-color: #fff
-                border-bottom: 1px solid color1
                 border 0px
-                top 132% !important
+                top 96% !important
                 li
                     border-bottom: 1px solid #fff
                     a
                         color #000
                         display: block
+                        font-size: .9em !important
                         flaot none
                         width: 100%
                     &:last-child
@@ -712,8 +715,33 @@ nav
             font-size: 1.2em !important
             margin-bottom: 24px
             
+.cart
+    .inside
+        padding 16px 
+    .no_items
+        background-color: #fff
+        border-radius: 6px
+        display: block
+        padding: 32px
+        p
+        display: block
+        text-align: center
+        &:first-child
+            img
+                width: 150px
+        &:last-child
+            margin-top: 32px
+            a
+                border-radius: 6px
+                background-color: color1
+                color #fff
+                display: inline-block
+                padding 8px 18px 
+                text-decoration: none
+                text-transform: uppercase
 @media only screen and (max-width 728px)
     nav
+        padding: 16px 8px !important
         .navbar-nav
             display block !important
             margin-top: 16px

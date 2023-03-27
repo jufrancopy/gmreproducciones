@@ -20,6 +20,7 @@ class SettingController extends Controller
     }
 
     public function postHome(Request $request){
+        $app_project_path = '/Users/juliofranco/Desktop/Programacion/gmreproducciones_pwa/config';
         if(!file_exists(config_path().'/configSite.php')):
             fopen(config_path().'/configSite.php', 'w');
         endif;
@@ -40,6 +41,7 @@ class SettingController extends Controller
         fwrite($file, '?>' .PHP_EOL);
         fclose($file);
 
+        copy(config_path().'/configSite.php', $app_project_path.'/configSite.php');
         return back()
                 ->with('message', 'Las configuraciones fueron guardadas con éxito.')
                 ->with('typealert', 'success');
