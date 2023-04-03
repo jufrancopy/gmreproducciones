@@ -27,9 +27,10 @@ class CreateProductsTable extends Migration
             $table->integer('subCategory_id')->default(0);
             $table->string('file_path');
             $table->string('image');
-            $table->decimal('price', 11, 3)->default(0);
+            $table->decimal('price', 11, 3)->nullable()->default(0);
             $table->integer('inventory')->default(0);
             $table->integer('in_discount');
+            $table->date('discount_until_date')->nullable();
             $table->integer('discount');
             $table->text('content');
             $table->softDeletes();

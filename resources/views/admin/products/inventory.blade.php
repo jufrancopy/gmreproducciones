@@ -116,11 +116,7 @@
                                                 class="fas fa-edit"></i>
                                         </a>
 
-                                        <a href="#" data-path="admin/product/variant" data-action="delete" data-object={{
-                                            $inventory->id
-                                            }} data-toggle="tooltip" data-placement="top"
-                                            title="Eliminar" class="btn_deleted deleted" class=""><i
-                                                class="fas fa-trash-alt"></i>
+                                        <a href="#" data-path="admin/product/inventory" data-action="delete" data-object={{$inventory->id}} data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn_deleted deleted" class=""><i class="fas fa-trash-alt"></i>
                                         </a>
                                     </div>
                                 </td>

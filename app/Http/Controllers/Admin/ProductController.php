@@ -175,6 +175,7 @@ class ProductController extends Controller
 
             $product->in_discount = $request->input('in_discount');
             $product->discount = $request->input('discount');
+            $product->discount_until_date = $request->input('discount_until_date');
             $product->content = e($request->input('content'));
 
             if ($product->save()) :
@@ -462,7 +463,6 @@ class ProductController extends Controller
     public function getUpdateMinPrice($id){
         $product = Product::find($id);
         $price = $product->getPrice->min('price');
-
         $product->price = $price;
         $product->save();
     }

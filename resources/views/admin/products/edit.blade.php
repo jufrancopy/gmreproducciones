@@ -52,7 +52,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row mtop16">
                         <div class="col-md-3">
                             <label for="in_discount">En descuento:</label>
                             <div class="input-group">
@@ -69,13 +69,15 @@
                                 {!!Form::number('discount', $product->discount,['class' => 'form-select'])!!}
                             </div>
                         </div>
+
                         <div class="col-md-3">
-                            <label for="code">Código de Sistema:</label>
+                            <label for="discount_until_date">Fecha limite de descuento:</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-keyboard"></i></span>
-                                {!!Form::text('code', $product->code,['class' => 'form-control'])!!}
+                                {!!Form::date('discount_until_date', $product->discount_until_date,['class' => 'form-control'])!!}
                             </div>
                         </div>
+
                         <div class="col-md-3">
                             <label for="image">Imagen destacada:</label>
                             <div class="custom-file">
@@ -87,6 +89,14 @@
                     </div>
                     <div class="row mtop16">
                         <div class="col-md-3">
+                            <label for="code">Código de Sistema:</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-keyboard"></i></span>
+                                {!!Form::text('code', $product->code,['class' => 'form-control'])!!}
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
                             <label for="status">Estado:</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-keyboard"></i></span>
@@ -94,7 +104,6 @@
                                 'form-select'])!!}
                             </div>
                         </div>
-
                     </div>
                     <div class="row mtop16">
                         <div class="col-md-12">

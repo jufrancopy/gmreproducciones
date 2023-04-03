@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'ContentController@getHome')->name('home');
 
 // Module Cart
-Route::get('/cart', 'Admin\CartController@getCart')->name('cart');
+Route::get('/cart', 'Frontend\CartController@getCart')->name('cart');
 Route::post('/cart/product/{id}/add', 'Frontend\CartController@postCartAdd')->name('cart_add');
 
 // Module Store

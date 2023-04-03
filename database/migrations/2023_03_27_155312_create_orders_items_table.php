@@ -24,6 +24,7 @@ class CreateOrdersItemsTable extends Migration
             $table->text('quantity')->default(1);
             $table->integer('discount_status')->default(0);
             $table->integer('discount')->default(0);
+            $table->decimal('price_initial', 11,2);
             $table->decimal('price_unit', 11,2);
             $table->decimal('total', 11,2);
             $table->timestamps();
