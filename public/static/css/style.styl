@@ -1,7 +1,11 @@
 color1 = #0D5689
+color1-500 = #81f1be
 color2 = #FCA949
+color2-500= #f6d4ae
 color3 = #52CCE3
+color3-500 = #cbe8ee
 color4 = #111111
+color4-500 = #820d0d
 
 body
     background-color: #f9f9f9
@@ -719,7 +723,8 @@ nav
     .inside
         padding 16px 
     .items
-        background-color: #fff
+        .panel
+            background-color: #fff
         .btn-delete
             align-items center
             background-color: #C70D0E
@@ -735,6 +740,28 @@ nav
         a
             color color4
             text-decoration: none
+        .form_quantity
+            background-color: #fff
+            border 1px solid #f0f0f0
+            border-radius: 2px
+            overflow: hidden
+            border-radius: 8px
+            .form-control
+                border: 0px
+                float: left
+                width: 70%
+                display: block
+            button
+                border: 0px
+                background-color: color3
+                border-box box-sizing
+                color #fff 
+                float: left
+                display: block
+                padding: 8.5px 8.5px
+                width: 30%
+                &:hover
+                    background-color: color1-500
     .no_items
         background-color: #fff
         border-radius: 6px

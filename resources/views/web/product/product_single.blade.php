@@ -18,7 +18,6 @@
                                 <img src="{{url('/uploads/'.$product->file_path.'/'.$product->image)}}"
                                     class="img-fluid">
                             </a>
-
                         </div>
 
                         @if(count($product->getGallery) > 0 )
@@ -105,8 +104,8 @@
 
                                 <div class="col-md-4 col-12">
                                     <a href="#" id="favorite_1_{{$product->id}}"
-                                        onclick="add_to_favorites({{$product->id}},'1'); return false" class="btn btn-favorite"><i
-                                            class="fas fa-heart"></i>Agregar a Favoritos</a>
+                                        onclick="add_to_favorites({{$product->id}},'1'); return false"
+                                        class="btn btn-favorite"><i class="fas fa-heart"></i>Agregar a Favoritos</a>
                                 </div>
                             </div>
                         </div>

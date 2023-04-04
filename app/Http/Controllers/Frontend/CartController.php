@@ -132,11 +132,41 @@ class CartController extends Controller
                             endif;
                         else :
                             return back()
-                                        ->with('message', 'Este producto ya está en su carrito.')
-                                        ->with('typealert', 'danger');
+                                ->with('message', 'Este producto ya está en su carrito.')
+                                ->with('typealert', 'danger');
                         endif;
                     endif;
                 endif;
+            endif;
+        endif;
+    }
+
+    public function postCartItemQuantityUpdate(Request $request, $id)
+    {
+        $order = $this->getUserOrder();
+        $oItem = OrderItem::find($id);
+        $inventory = Inventory::find($oItem->inventory_id);
+
+        if ($order->id != $oItem->order_id) :
+            return back()
+                ->with('message', 'No se actualizar la cantidad de este producto.')
+                ->with('typealert', 'danger');
+        else :
+            if ($inventory->limited == 0) :
+                if ($request->input('quantity') > $inventory->quantity) :
+                    return back()
+                        ->with('message', 'La cantidad ingresada supera a la cantidad del inventario disponible.')
+                        ->with('typealert', 'danger');
+                endif;
+            endif;
+            $total = $oItem->price_unit * $request->input('quantity');
+            $oItem->quantity = $request->input('quantity');
+            $oItem->total = $total;
+            
+            if ($oItem->save()) :
+                return back()
+                    ->with('message', 'Cantidad actualizada con éxito.')
+                    ->with('typealert', 'success');
             endif;
         endif;
     }

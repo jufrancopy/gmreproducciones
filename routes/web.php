@@ -18,6 +18,7 @@ Route::get('/', 'ContentController@getHome')->name('home');
 // Module Cart
 Route::get('/cart', 'Frontend\CartController@getCart')->name('cart');
 Route::post('/cart/product/{id}/add', 'Frontend\CartController@postCartAdd')->name('cart_add');
+Route::post('/cart/item/{id}/update', 'Frontend\CartController@postCartItemQuantityUpdate')->name('cart_item_update');
 
 // Module Store
 Route::get('/store', 'Frontend\StoreController@getStore')->name('store');
