@@ -19,6 +19,7 @@ Route::get('/', 'ContentController@getHome')->name('home');
 Route::get('/cart', 'Frontend\CartController@getCart')->name('cart');
 Route::post('/cart/product/{id}/add', 'Frontend\CartController@postCartAdd')->name('cart_add');
 Route::post('/cart/item/{id}/update', 'Frontend\CartController@postCartItemQuantityUpdate')->name('cart_item_update');
+Route::get('/cart/item/{id}/delete', 'Frontend\CartController@getCartItemDelete')->name('cart_item_delete');
 
 // Module Store
 Route::get('/store', 'Frontend\StoreController@getStore')->name('store');

@@ -53,6 +53,17 @@ Route::prefix('/admin')->group(function(){
     Route::post('/slider/{id}/edit', 'Admin\SliderController@postSliderEdit')->name('slider_edit');
     Route::get('/slider/{id}/delete', 'Admin\SliderController@getSliderDelete')->name('slider_delete');
 
+    // Coverage
+    Route::get('/coverage', 'Admin\CoverageController@getList')->name('coverage_list');
+    Route::post('/coverage/state/add', 'Admin\CoverageController@postCoverageStateAdd')->name('coverage_add');
+    Route::post('/coverage/city/add', 'Admin\CoverageController@postCoverageCityAdd')->name('coverage_add');
+    Route::get('/coverage/{id}/edit', 'Admin\CoverageController@getCoverageEdit')->name('coverage_edit');
+    Route::post('/coverage/state/{id}/edit', 'Admin\CoverageController@postCoverageStateEdit')->name('coverage_edit');
+    Route::get('/coverage/city/{id}/edit', 'Admin\CoverageController@getCoverageCityEdit')->name('coverage_edit');
+    Route::post('/coverage/city/{id}/edit', 'Admin\CoverageController@postCoverageCityEdit')->name('coverage_edit');
+    Route::get('/coverage/{id}/cities', 'Admin\CoverageController@getCoverageCities')->name('coverage_list');
+    Route::get('/coverage/{id}/delete', 'Admin\CoverageController@postCoverageDelete')->name('coverage_delete');
+
     // Javascritp Request
     Route::get('/api/load/subCategories/{parent}', 'Admin\ApiController@getSubCategories');
 

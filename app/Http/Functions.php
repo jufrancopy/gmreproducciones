@@ -131,6 +131,16 @@ function user_permissions()
                 'orders_list' => 'Puede ver el listado de órdenes',
             ]
         ],
+        'coverage' => [
+            'icon'  => '<i class="fas fa-shipping-fast"></i>',
+            'title' => 'Cobertura de Envíos',
+            'keys'  => [
+                'coverage_list' => 'Puede ver el listado envíos',
+                'coverage_add' => 'Puede agregar cobertura de envío',
+                'coverage_edit' => 'Puede editar cobertura de envío',
+                'coverage_delete' => 'Puede borrar cobertura de envío',
+            ]
+        ]
     ];
 
     return $permission;
@@ -164,4 +174,48 @@ function getMonths($mode, $key){
     }else{
         return $month[$key];
     }
+}
+
+function getShippingMethod($method = null)
+{
+    $status = [
+        '0' => 'Envío gratuito',
+        '1' => 'Precio Fijo',
+        '2' => 'Precio Variable por Ubicación',
+        '3' => 'Envío Gratuito / Monto Mínimo'
+    ];
+
+    if (is_null($method)) :
+        return $status;
+    else :
+        return $status[$method];
+    endif;
+}
+
+function getCoverageType($type = null)
+{
+    $status = [
+        '0' => 'Departamento',
+        '1' => 'Ciudad',
+        '2' => 'Barrio',
+    ];
+
+    if (is_null($type)) :
+        return $status;
+    else :
+        return $status[$type];
+    endif;
+}
+
+function getCoverageStatus($status = null){
+    $list = [
+        '0' => 'Inactivo',
+        '1' => 'Activo'
+    ];
+
+    if (is_null($status)) :
+        return $list;
+    else :
+        return $list[$status];
+    endif;
 }

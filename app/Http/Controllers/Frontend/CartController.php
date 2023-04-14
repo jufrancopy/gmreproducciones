@@ -122,6 +122,7 @@ class CartController extends Controller
                             $orderItem->quantity = $request->input('quantity');
                             $orderItem->discount_status = $product->in_discount;
                             $orderItem->discount = $product->discount;
+                            $orderItem->discount_until_date = $product->discount_until_date;
                             $orderItem->price_initial = $inventory->price;
                             $orderItem->price_unit = $price;
                             $orderItem->total = $total;
@@ -171,6 +172,15 @@ class CartController extends Controller
         endif;
     }
 
+    public function getCartItemDelete($id){
+        $oItem = OrderItem::find($id);
+        if($oItem->delete()):
+            return back()
+                        ->with('message', 'Eliminado satisfactoriamente.')
+                        ->with('typealert', 'danger');
+        endif;
+    }
+
     public function getCalculatePrice($in_discount, $discount, $price)
     {
         $finalPrice = $price;
@@ -182,4 +192,5 @@ class CartController extends Controller
 
         return $finalPrice;
     }
+
 }

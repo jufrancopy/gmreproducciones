@@ -23,6 +23,7 @@ class CreateOrdersItemsTable extends Migration
             $table->text('label_item')->nullable();
             $table->text('quantity')->default(1);
             $table->integer('discount_status')->default(0);
+            $table->date('discount_until_date')->nullable();
             $table->integer('discount')->default(0);
             $table->decimal('price_initial', 11,2);
             $table->decimal('price_unit', 11,2);

@@ -64,6 +64,14 @@
             </li>
             @endif
 
+            @if(kvfj(Auth::user()->permissions, 'coverage_list'))
+            <li>
+                <a href="{{url('/admin/coverage')}}" class="lk-coverage_list lk-coverage_edit">
+                    <i class="fas fa-shipping-fast" aria-hidden="true"></i>Envíos
+                </a>
+            </li>
+            @endif
+
             @if(kvfj(Auth::user()->permissions, 'sliders_list'))
             <li>
                 <a href="{{url('/admin/sliders')}}" class="lk-sliders_list lk-slider_edit">
