@@ -179,6 +179,12 @@
                             </li>
                             @endif
                             <li>
+                                <a class="dropdown-item" href="{{ url('/account/address') }}">
+                                    <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                                    Direcciones de Entregas
+                                </a>
+                            </li>
+                            <li>
                                 <a class="dropdown-item" href="{{ url('/account/favorites') }}">
                                     <i class="fas fa-heart" aria-hidden="true"></i>
                                     Favoritos

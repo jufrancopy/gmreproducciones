@@ -48,9 +48,14 @@ Route::get('/account/edit', 'UserController@getAccountEdit')->name('account_edit
 Route::post('/account/edit/avatar', 'UserController@postAccountAvatar')->name('account_edit_post');
 Route::post('/account/edit/password', 'UserController@postAccountPassword')->name('account_password_edit');
 Route::post('/account/edit/info', 'UserController@postAccountInfo')->name('account_info_edit');
+Route::get('/account/address', 'UserController@getAccountAddress')->name('account_address');
+Route::post('/account/address/add', 'UserController@postAccountAddress')->name('account_address');
+Route::get('/account/address/{address}/setdefault', 'UserController@getAccountAddressSetDefault')->name('account_address');
+Route::get('/account/address/{address}/delete', 'UserController@getAccountAddressDelete')->name('account_delete');
 
 // Ajax Api Routers
 Route::get('/api/load/products/{section}', 'ApiJsController@getProductsSection');
 Route::post('/api/load/user/favorites', 'ApiJsController@postUserFavorites');
 Route::post('/api/favorites/add/{object}/{module}', 'ApiJsController@postFavoriteAdd');
 Route::post('/api/load/product/inventory/{inv}/variants', 'ApiJsController@postProductInventoryVariants');
+Route::post('/api/load/cities/{state}', 'ApiJsController@postCoverageCitiesFromState');

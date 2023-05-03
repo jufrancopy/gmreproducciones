@@ -81,14 +81,14 @@
                                     <tr>
                                         <td colspan="3"></td>
                                         <td><strong>Precio de Envío:</strong></td>
-                                        <td>{{number_format(0.00, 2, '.',',').''.Config::get('configSite.currency')}}
+                                        <td>{{number_format($order->delivery, 2, '.',',').''.Config::get('configSite.currency')}}
                                         </td>
                                     </tr>
 
                                     <tr>
                                         <td colspan="3"></td>
                                         <td><strong>Total:</strong></td>
-                                        <td>{{number_format(0.00, 2, '.',',').''.Config::get('configSite.currency')}}
+                                        <td>{{number_format($order->total, 2, '.',',').''.Config::get('configSite.currency')}}
                                         </td>
                                     </tr>
                                 </tbody>
@@ -97,24 +97,41 @@
                     </div>
                 </div>
 
-                
-                <div class="col-md-3">
+
+                <div class="col-md-3 detail_shipping">
                     {!! Form::open(['url'=>'/cart']) !!}
                     <div class="panel">
                         <div class="header">
                             <h2 class="title">
-                                <i class="fas fa-map-marker"></i>Dirección de Envío
+                                <i class="fas fa-map-marker"></i> Dirección de Envío
                             </h2>
                         </div>
                         <div class="inside">
-
+                            <div class="detail_shipping_info">
+                                @if(!is_null(Auth::user()->getAddressDefault))
+                                <p><strong>Estado: </strong> {{Auth::user()->getAddressDefault->getState->name}} </p>
+                                <p><strong>Ciudad: </strong> {{Auth::user()->getAddressDefault->getCity->name}} </p>
+                                <p><strong>Barrio: </strong>{{kvfj(Auth::user()->getAddressDefault->addr_info, 'add1')}}
+                                </p>
+                                <p><strong>Dirección: </strong>, {{kvfj(Auth::user()->getAddressDefault->addr_info,
+                                    'add2')}}, {{kvfj(Auth::user()->getAddressDefault->addr_info, 'add3')}}</p>
+                                <p><strong>Referencia:
+                                    </strong>{{kvfj(Auth::user()->getAddressDefault->addr_info,'add1')}}
+                                </p>
+                                <p><a href="{{url('/account/address')}}"><i class="fas fa-edit btn btn-info text-white"></i></a></p>
+                                @else
+                                <p>Aún no tiene direcciones de Envío asignadas.</p>
+                                <p><a href="{{url('/account/address')}}" class="btn btn-dark w-100">Agregar Dirección de Envío</a></p>
+                                @endif
+                                
+                            </div>
                         </div>
                     </div>
 
                     <div class="panel">
                         <div class="header">
                             <h2 class="title">
-                                <i class="fas fa-envelope-open"></i>Más...
+                                <i class="fas fa-envelope-open"></i> Más...
                             </h2>
                         </div>
                         <div class="inside">
@@ -123,14 +140,16 @@
                         </div>
                     </div>
 
-                    <div class="panel">
+                    @if(!is_null(Auth::user()->getAddressDefault))
+                    <div class="panel mtop16">
                         <div class="inside">
-                            {{ Form::submit('Completar la Orden', ['class'=>'btn btn-success']) }}
+                            {{ Form::submit('Completar la Orden', ['class'=>'btn btn-success w-100']) }}
                         </div>
                     </div>
                     {!! Form::close() !!}
+                    @endif
                 </div>
-                
+
             </div>
         </div>
         @endif

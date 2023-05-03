@@ -10,8 +10,9 @@ use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\Variant;
 use App\Models\Inventory;
+use App\Models\Coverage;
 
-use Auth;
+use Auth, Config;
 
 class CartController extends Controller
 {
@@ -24,23 +25,68 @@ class CartController extends Controller
     {
         $order = $this->getUserOrder();
         $items = $order->getItems;
+        $shipping = $this->getShippingValue($order->id);
+        $order = Order::find($order->id);
 
-        $data = ['order' => $order, 'items' => $items];
+        $data = ['order' => $order, 'items' => $items, 'shipping' => $shipping];
 
         return view('frontend.cart.cart', $data);
     }
 
     public function getUserOrder()
     {
-        $order = Order::where('status', 0)->count();
+        $order = Order::where('status', 0)->where('user_id', Auth::id())->count();
         if ($order == 0) :
             $order = new Order;
             $order->user_id = Auth::id();
             $order->save();
         else :
-            $order = Order::where('status', 0)->first();
+            $order = Order::where('status', 0)->where('user_id', Auth::id())->first();
         endif;
         return $order;
+    }
+
+    public function getShippingValue($orderId)
+    {
+        $order = Order::find($orderId);
+        $shipping_method = Config::get('configSite.shipping_method');
+
+        if ($shipping_method == 0) :
+            $price = 0.00;
+        endif;
+
+        if ($shipping_method == 1) :
+            $price = Config::get('configSite.shipping_default_value');
+        endif;
+
+        if ($shipping_method == 2) :
+            $user_address_count = Auth::user()->getAddress()->count();
+            if($user_address_count == 0):   
+                $price = Config::get('configSite.shipping_default_value');
+            else:
+                $user_address = Auth::user()->getAddressDefault->city_id;
+                $coverage = Coverage::find($user_address);
+                $price = $coverage->price;
+            endif;
+        endif;
+
+        if ($shipping_method == 3) :
+            if ($order->getSubTotalOrder >= Config::get('configSite.shipping_amount_min')) :
+                $price = 0.00;
+            else :
+                $price = Config::get('configSite.shipping_default_value');
+            endif;
+        endif;
+
+        if(!is_null(Auth::user()->getAddressDefault)):
+            $order->user_address_id = Auth::user()->getAddressDefault->id;
+        endif;
+        $order->subtotal = $order->getSubtotalOrder();
+        $order->delivery = $price;
+        $order->total = $order->getSubtotalOrder() + $price;
+        $order->save();
+
+        return $price;
     }
 
     public function postCartAdd(Request $request, $id)
@@ -163,8 +209,9 @@ class CartController extends Controller
             $total = $oItem->price_unit * $request->input('quantity');
             $oItem->quantity = $request->input('quantity');
             $oItem->total = $total;
-            
+
             if ($oItem->save()) :
+                $this->getShippingValue($order->id);
                 return back()
                     ->with('message', 'Cantidad actualizada con éxito.')
                     ->with('typealert', 'success');
@@ -172,12 +219,13 @@ class CartController extends Controller
         endif;
     }
 
-    public function getCartItemDelete($id){
+    public function getCartItemDelete($id)
+    {
         $oItem = OrderItem::find($id);
-        if($oItem->delete()):
+        if ($oItem->delete()) :
             return back()
-                        ->with('message', 'Eliminado satisfactoriamente.')
-                        ->with('typealert', 'danger');
+                ->with('message', 'Eliminado satisfactoriamente.')
+                ->with('typealert', 'danger');
         endif;
     }
 
@@ -192,5 +240,4 @@ class CartController extends Controller
 
         return $finalPrice;
     }
-
 }

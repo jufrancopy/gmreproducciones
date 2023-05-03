@@ -37,4 +37,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getAddress(){
+        return $this->hasMany(UserAddress::class, 'user_id', 'id')->with(['getState', 'getCity']);
+    }
+
+    public function getAddressDefault(){
+        return $this->hasOne(UserAddress::class,'user_id', 'id')->where('default', 1)->with(['getState', 'getCity']);
+    }
 }

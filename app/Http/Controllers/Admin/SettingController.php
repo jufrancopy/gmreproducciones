@@ -15,35 +15,41 @@ class SettingController extends Controller
         $this->middleware('isadmin');
     }
 
-    public function getHome(){
+    public function getHome()
+    {
         return view('admin.settings.settings');
     }
 
-    public function postHome(Request $request){
-        $app_project_path = '/Users/juliofranco/Desktop/Programacion/gmreproducciones_pwa/config';
-        if(!file_exists(config_path().'/configSite.php')):
-            fopen(config_path().'/configSite.php', 'w');
+    public function postHome(Request $request)
+    {
+        if (!file_exists(config_path() . '/configSite.php')) :
+            fopen(config_path() . '/configSite.php', 'w');
         endif;
 
-        $file = fopen(config_path().'/configSite.php', 'w');
-        
-        fwrite($file, '<?php ' .PHP_EOL);
-        fwrite($file, 'return [' .PHP_EOL);
-        foreach($request->except(['_token']) as $key => $value):
-            
-            if(is_null($value)):
-                fwrite($file, '\''.$key.'\' => \'\', ' .PHP_EOL);
+        $file = fopen(config_path() . '/configSite.php', 'w');
+ 
+        fwrite($file, '<?php ' . PHP_EOL);
+        fwrite($file, 'return [' . PHP_EOL);
+        foreach ($request->except(['_token']) as $key => $value) :
+
+            if (is_null($value)) :
+                fwrite($file, '\'' . $key . '\' => \'\', ' . PHP_EOL);
             endif;
-            fwrite($file, '\''.$key.'\' => \''.$value.'\', ' .PHP_EOL);
+            fwrite($file, '\'' . $key . '\' => \'' . $value . '\', ' . PHP_EOL);
 
         endforeach;
-        fwrite($file, '] ' .PHP_EOL);
-        fwrite($file, '?>' .PHP_EOL);
+        fwrite($file, '] ' . PHP_EOL);
+        fwrite($file, '?>' . PHP_EOL);
         fclose($file);
 
-        copy(config_path().'/configSite.php', $app_project_path.'/configSite.php');
+        if ($request->server_webapp_path != '') :
+            if (file_exists('server_webapp_path')) :
+                copy(config_path() . '/configSite.php', $request->server_webapp_path . '/config/configSite.php');
+            endif;
+        endif;
+
         return back()
-                ->with('message', 'Las configuraciones fueron guardadas con éxito.')
-                ->with('typealert', 'success');
-        }
+            ->with('message', 'Las configuraciones fueron guardadas con éxito.')
+            ->with('typealert', 'success');
+    }
 }

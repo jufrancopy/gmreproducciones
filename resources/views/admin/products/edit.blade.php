@@ -18,6 +18,7 @@
             <div class="panel shadow">
                 <div class="header">
                     <h2 class="title"><i class="fas fa-edit"></i>Editar Producto</h2>
+                    {{-- {{config('configSite.upload_server_path')}} --}}
                 </div>
                 <div class="inside">
                     {!!Form::open(['url'=>'admin/product/'.$product->id.'/edit', 'files'=>true])!!}

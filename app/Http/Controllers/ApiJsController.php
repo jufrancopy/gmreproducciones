@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Favorite;
 use App\Models\Inventory;
 use App\Models\Category;
+use App\Models\Coverage;
 
 use Illuminate\Http\Request;
 
@@ -93,5 +94,10 @@ class ApiJsController extends Controller
         $query = Inventory::find($inv);
 
         return response()->json($query->getVariants);
+    }
+
+    public function postCoverageCitiesFromState($state){
+        $cities = Coverage::where('coverage_type', 1)->where('state_id', $state)->get();
+        return response()->json($cities);
     }
 }

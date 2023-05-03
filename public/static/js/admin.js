@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     route_active = document.getElementsByClassName('lk-' + route)[0].classList.add('active');
+
     btn_deleted = document.getElementsByClassName('btn_deleted');
     for (i = 0; i < btn_deleted.length; i++) {
         btn_deleted[i].addEventListener('click', delete_object);

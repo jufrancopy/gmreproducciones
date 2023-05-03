@@ -219,3 +219,17 @@ function getCoverageStatus($status = null){
         return $list[$status];
     endif;
 }
+
+function getEnableOrNotEnable($status = null){
+    $list = [
+        '0' => 'Inactivo',
+        '1' => 'Activo'
+    ];
+
+    if (is_null($status)) :
+        return $list;
+    else :
+        return $list[$status];
+    endif;
+}
+

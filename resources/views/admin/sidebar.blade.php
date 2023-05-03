@@ -28,7 +28,7 @@
                 </a>
             </li>
             @endif
-
+            
             @if(kvfj(Auth::user()->permissions, 'products'))
             <li>
                 <a href="{{url('/admin/products/1')}}" 

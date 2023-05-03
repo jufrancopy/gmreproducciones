@@ -40,7 +40,7 @@ return [
     | Supported Drivers: "local", "ftp", "sftp", "s3"
     |
     */
-
+    
     'disks' => [
 
         'local' => [
@@ -55,17 +55,29 @@ return [
             'visibility' => 'public',
         ],
 
+        // 'uploads' => [
+        //     'driver' => 'local',
+        //     'root' => public_path('uploads'),
+        // ],
+
+        // 'uploads_users' => [
+        //     'driver' => 'local',
+        //     'root' => public_path('uploads_users'),
+        // ],
+
+
         'uploads' => [
             'driver' => 'local',
-            'root' => public_path('uploads'),
+            'root' => config('configSite.upload_server_path'),
         ],
 
         'uploads_users' => [
             'driver' => 'local',
-            'root' => public_path('uploads_users'),
+            'root' => config('configSite.upload_server_user_path'),
         ],
-
-        's3' => [
+        
+        
+        's3' => [   
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
             'secret' => env('AWS_SECRET_ACCESS_KEY'),
@@ -76,6 +88,8 @@ return [
         ],
 
     ],
+
+    
 
     /*
     |--------------------------------------------------------------------------
