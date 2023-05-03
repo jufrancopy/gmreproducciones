@@ -1,9 +1,9 @@
 <?php 
 return [
-'name' => 'GM', 
-'website' => 'https://ipu.org', 
+'name' => 'GMRE - Producciones', 
+'website' => 'https://gmre.com.py', 
 'phone' => '0981574711', 
-'email_from' => 'noreply@gmre.com.py', 
+'email_from' => 'no-reply@gmre.com.py', 
 'maintenance_mode' => '0', 
 'currency' => 'Gs', 
 'purchase_min_amount' => '100', 

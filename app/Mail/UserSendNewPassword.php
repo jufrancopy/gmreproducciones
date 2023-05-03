@@ -30,7 +30,7 @@ class UserSendNewPassword extends Mailable
      */
     public function build()
     {
-        return $this->from(env('MAIL_FROM'), env('APP_NAME'))
+        return $this->from(config('configSite.email_from'), config('configSite.name'))
                 ->view('emails.user_send_new_password')
                 ->subject('Cambio de Contraseña')
                 ->with($this->data);
