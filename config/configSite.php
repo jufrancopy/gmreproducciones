@@ -3,7 +3,7 @@ return [
 'name' => 'GMRE - Producciones', 
 'website' => 'https://gmre.com.py', 
 'phone' => '0981574711', 
-'email_from' => 'no-reply@gmre.com.py', 
+'email_from' => 'admin@gmre.com.py', 
 'maintenance_mode' => '0', 
 'currency' => 'Gs', 
 'purchase_min_amount' => '100', 

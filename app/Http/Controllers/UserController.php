@@ -48,8 +48,7 @@ class UserController extends Controller
             if ($request->hasFile('avatar')) :
                 $path = '/' . Auth::id();
                 $fileExt = trim($request->file('avatar')->getClientOriginalExtension());
-                $upload_path = Config::get('configSite.upload_server_user_path');
-                // return $upload_path;
+                $upload_path = Config::get('filesystems.disks.uploads_users.root');
                 $name = Str::slug(str_replace($fileExt, '', $request->file('avatar')->getClientOriginalName()));
                 $fileName = rand(1, 999) . '_' . $name . '.' . $fileExt;
                 $finalFile = $upload_path . '/' . $path . '/' . $fileName;
@@ -69,7 +68,7 @@ class UserController extends Controller
                         $img->save($upload_path . '/' . $path . '/av_' . $fileName);
                     endif;
 
-                    // unlink($upload_path . '/' . $path . '/av_' . $avatar);
+                    unlink($upload_path . '/' . $path . '/av_' . $avatar);
 
                     return back()
                         ->with('message', 'Avatar subido con éxito.')

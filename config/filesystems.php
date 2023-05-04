@@ -55,26 +55,26 @@ return [
             'visibility' => 'public',
         ],
 
-        // 'uploads' => [
-        //     'driver' => 'local',
-        //     'root' => public_path('uploads'),
-        // ],
-
-        // 'uploads_users' => [
-        //     'driver' => 'local',
-        //     'root' => public_path('uploads_users'),
-        // ],
-
-
         'uploads' => [
             'driver' => 'local',
-            'root' => config('configSite.upload_server_path'),
+            'root' => public_path('uploads'),
         ],
 
         'uploads_users' => [
             'driver' => 'local',
-            'root' => config('configSite.upload_server_user_path'),
+            'root' => public_path('uploads_users'),
         ],
+
+
+        // 'uploads' => [
+        //     'driver' => 'local',
+        //     'root' => config('configSite.upload_server_path'),
+        // ],
+
+        // 'uploads_users' => [
+        //     'driver' => 'local',
+        //     'root' => config('configSite.upload_server_user_path'),
+        // ],
         
         
         's3' => [   
