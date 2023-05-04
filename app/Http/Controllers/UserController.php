@@ -69,7 +69,7 @@ class UserController extends Controller
                     endif;
 
                     if ($avatar) :
-                        unlink($upload_path . '/' . $path . $avatar);
+                        unlink($upload_path . '/' . $path .'/'. $avatar);
                         unlink($upload_path . '/' . $path . '/av_' . $avatar);
                     endif;
 
