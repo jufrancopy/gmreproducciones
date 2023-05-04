@@ -68,7 +68,7 @@ class UserController extends Controller
                         $img->save($upload_path . '/' . $path . '/av_' . $fileName);
                     endif;
 
-                    unlink($upload_path . '/' . $path . '/av_' . $avatar);
+                    unlink($upload_path . '/' . $path . 'av_' . $avatar);
 
                     return back()
                         ->with('message', 'Avatar subido con éxito.')
