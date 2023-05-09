@@ -146,7 +146,8 @@ function user_permissions()
     return $permission;
 }
 
-function getUserYears(){
+function getUserYears()
+{
     $currentYear = date('Y');
     $minimumAge = $currentYear - 18;
     $maximumAge = $minimumAge - 62;
@@ -154,24 +155,25 @@ function getUserYears(){
     return [$minimumAge, $maximumAge];
 }
 
-function getMonths($mode, $key){
+function getMonths($mode, $key)
+{
     $month = [
-         '01'  => 'Enero',
-         '02'  => 'Febrero',
-         '03'  => 'Marzo',
-         '04'  => 'Abril',
-         '05'  => 'Mayo',
-         '06'  => 'Junio',
-         '07'  => 'Julio',
-         '08'  => 'Agosto',
-         '09'  => 'Setiembre',
-         '10' => 'Octubre',
-         '11' => 'Noviembre',
-         '12' => 'Diciembre'
+        '01'  => 'Enero',
+        '02'  => 'Febrero',
+        '03'  => 'Marzo',
+        '04'  => 'Abril',
+        '05'  => 'Mayo',
+        '06'  => 'Junio',
+        '07'  => 'Julio',
+        '08'  => 'Agosto',
+        '09'  => 'Setiembre',
+        '10' => 'Octubre',
+        '11' => 'Noviembre',
+        '12' => 'Diciembre'
     ];
-    if($mode == 'list'){
+    if ($mode == 'list') {
         return $month;
-    }else{
+    } else {
         return $month[$key];
     }
 }
@@ -207,7 +209,8 @@ function getCoverageType($type = null)
     endif;
 }
 
-function getCoverageStatus($status = null){
+function getCoverageStatus($status = null)
+{
     $list = [
         '0' => 'Inactivo',
         '1' => 'Activo'
@@ -220,7 +223,8 @@ function getCoverageStatus($status = null){
     endif;
 }
 
-function getEnableOrNotEnable($status = null){
+function getEnableOrNotEnable($status = null)
+{
     $list = [
         '0' => 'Inactivo',
         '1' => 'Activo'
@@ -233,3 +237,42 @@ function getEnableOrNotEnable($status = null){
     endif;
 }
 
+function getPaymentsMethods($method = null)
+{
+    $list = [
+        '0' => 'Efectivo',
+        '1' => 'Transferencia Bancaria',
+        '2' => 'Paypal',
+        '3' => 'Tarjeta de Crédito'
+    ];
+
+    if (is_null($method)) :
+        return $list;
+    else :
+        return $list[$method];
+    endif;
+}
+
+function getOrderStatus($status = null)
+{
+    $list = [
+        '0' => 'En Proceos',
+        '1' => 'Pago pendiente de Confirmación',
+        '2' => 'Pago Recibido',
+        '3' => 'Procesando Orden',
+        '4' => 'Orden Enviada',
+        '5' => 'Orden Entregada',
+        '100' => 'Orden Rechazada',
+    ];
+
+    if (is_null($status)) :
+        return $list;
+    else :
+        return $list[$status];
+    endif;
+}
+
+function number($number)
+{
+    return number_format($number, 2, '.', ',') . '' . Config::get('configSite.currency');
+}

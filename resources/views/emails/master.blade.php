@@ -18,11 +18,20 @@
         width:60%;
         margin:0px auto; 
         max-width:728px;">
-         
-        <img src="{{url('/static/images/header_email.jpg')}}" style="width:100%; display:block;">
-        
-        <div 
-            style="background-color: #fff;
+
+        <div style="
+            background-color: #5f5a5a;
+            display: flex;
+            justify-content: center;
+            ">
+            <img src="{{url('/static/images/Logo_GMRE-03.png')}}" style="
+                width:100px;
+                height:50%;
+                display:block;
+                ">
+        </div>
+
+        <div style="background-color: #fff;
             padding:24px;">
             @yield('content')
         </div>

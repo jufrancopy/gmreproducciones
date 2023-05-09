@@ -132,6 +132,16 @@
                         =>'form-select','required'])!!}
                     </div>
 
+                    <label for="to_go" class="mtop16">Ordenes To Go:</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">
+                            <i class="fas fa-map-pin"></i>
+                        </span>
+                        {!! Form::select('to_go',
+                        getEnableOrNotEnable(),Config::get('configSite.to_go'), ['class'
+                        =>'form-select'])!!}
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -214,6 +224,16 @@
                         =>'form-select'])!!}
                     </div>
 
+                    <label for="payment_method_transfer" class="mtop16">Transferencia Bancaria:</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">
+                            <i class="fas fa-exchange-alt"></i>
+                        </span>
+                        {!! Form::select('payment_method_transfer',
+                        getEnableOrNotEnable(),Config::get('configSite.payment_method_transfer'),
+                        ['class'=>'form-select'])!!}
+                    </div>
+
                     <label for="payment_method_paypal" class="mtop16">Paypal:</label>
                     <div class="input-group">
                         <span class="input-group-text" id="basic-addon1">
@@ -221,6 +241,16 @@
                         </span>
                         {!! Form::select('payment_method_paypal',
                         getEnableOrNotEnable(),Config::get('configSite.payment_method_paypal'), ['class'
+                        =>'form-select'])!!}
+                    </div>
+
+                    <label for="payment_method_credit_card" class="mtop16">Tarjeta de Crédito:</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">
+                            <i class="fas fa-credit-card"></i>
+                        </span>
+                        {!! Form::select('payment_method_credit_card',
+                        getEnableOrNotEnable(),Config::get('configSite.payment_method_credit_card'), ['class'
                         =>'form-select'])!!}
                     </div>
                 </div>
@@ -266,7 +296,7 @@
                     <label for="upload_server_path" class="mtop16">Upload Server Path:</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fas fa-cash-register"></i>
+                            <i class="far fa-keyboard"></i>
                         </span>
                         {!! Form::text('upload_server_path',Config::get('configSite.upload_server_path'), ['class'
                         =>'form-control', 'required'])!!}
@@ -275,7 +305,7 @@
                     <label for="upload_server_user_path" class="mtop16"> Upload Server User Path:</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fab fa-paypal"></i>
+                            <i class="far fa-keyboard"></i>
                         </span>
                         {!! Form::text('upload_server_user_path',Config::get('configSite.upload_server_user_path'),
                         ['class'
@@ -285,7 +315,7 @@
                     <label for="server_webapp_path" class="mtop16"> Path webapp: </label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fab fa-paypal"></i>
+                            <i class="far fa-keyboard"></i>
                         </span>
                         {!! Form::text('server_webapp_path',Config::get('configSite.server_webapp_path'),
                         ['class'

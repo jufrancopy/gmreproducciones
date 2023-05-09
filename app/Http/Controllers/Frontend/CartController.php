@@ -33,6 +33,60 @@ class CartController extends Controller
         return view('frontend.cart.cart', $data);
     }
 
+    public function getOrderChangeType(Order $order, $type)
+    {
+        if ($order->user_id != Auth::id()) :
+            return redirect('/');
+        endif;
+
+        if ($order->status == 0) :
+            $order->o_type = $type;
+            if ($type == 1) :
+                $order->user_address_id = 0.00;
+                $order->delivery = 0.00;
+            endif;
+
+            if ($order->save()) :
+                return back();
+            endif;
+        else :
+            return redirect('/');
+
+        endif;
+    }
+
+    public function postCart(Request $request)
+    {
+        // $orderId = $this->getUserOrder()->id;
+        // $order = Order::find($orderId);
+        $order = Order::find(29);
+        if ($order->payment_method == 0) :
+            $order->o_number = $this->getOrderNumberGenerate();
+            $order->status = 1;
+        endif;
+
+        $order->payment_method = $request->payment_method;
+        $order->user_comment = $request->user_comment;
+        $order->save();
+
+        if ($order->save()) :
+            if ($order->payment_method == 0 && $order->status == 1) :
+                return $this->getOrderEmailDetails($order->id);
+                //return redirect('account/history/order/ ' . $order->id);
+            else :
+                return redirect('/cart/payment');
+            endif;
+        endif;
+    }
+
+    public function getOrderNumberGenerate()
+    {
+        $orders = Order::where('status', '>', 0)->count();
+        $orderNumber = $orders + 1;
+
+        return $orderNumber;
+    }
+
     public function getUserOrder()
     {
         $order = Order::where('status', 0)->where('user_id', Auth::id())->count();
@@ -49,42 +103,49 @@ class CartController extends Controller
     public function getShippingValue($orderId)
     {
         $order = Order::find($orderId);
-        $shipping_method = Config::get('configSite.shipping_method');
 
-        if ($shipping_method == 0) :
-            $price = 0.00;
-        endif;
-
-        if ($shipping_method == 1) :
-            $price = Config::get('configSite.shipping_default_value');
-        endif;
-
-        if ($shipping_method == 2) :
-            $user_address_count = Auth::user()->getAddress()->count();
-            if($user_address_count == 0):   
-                $price = Config::get('configSite.shipping_default_value');
-            else:
-                $user_address = Auth::user()->getAddressDefault->city_id;
-                $coverage = Coverage::find($user_address);
-                $price = $coverage->price;
-            endif;
-        endif;
-
-        if ($shipping_method == 3) :
-            if ($order->getSubTotalOrder >= Config::get('configSite.shipping_amount_min')) :
+        if ($order->o_type == 0 || Config::get('configSite.to_go') == 0) :
+            $shipping_method = Config::get('configSite.shipping_method');
+            if ($shipping_method == 0) :
                 $price = 0.00;
-            else :
+            endif;
+
+            if ($shipping_method == 1) :
                 $price = Config::get('configSite.shipping_default_value');
             endif;
-        endif;
 
-        if(!is_null(Auth::user()->getAddressDefault)):
-            $order->user_address_id = Auth::user()->getAddressDefault->id;
+            if ($shipping_method == 2) :
+                $user_address_count = Auth::user()->getAddress()->count();
+                if ($user_address_count == 0) :
+                    $price = Config::get('configSite.shipping_default_value');
+                else :
+                    $user_address = Auth::user()->getAddressDefault->city_id;
+                    $coverage = Coverage::find($user_address);
+                    $price = $coverage->price;
+                endif;
+            endif;
+
+            if ($shipping_method == 3) :
+                if ($order->getSubTotalOrder >= Config::get('configSite.shipping_amount_min')) :
+                    $price = 0.00;
+                else :
+                    $price = Config::get('configSite.shipping_default_value');
+                endif;
+            endif;
+
+            if (!is_null(Auth::user()->getAddressDefault)) :
+                $order->user_address_id = Auth::user()->getAddressDefault->id;
+            endif;
+            $order->o_type = 0;
+            $order->subtotal = $order->getSubtotalOrder();
+            $order->delivery = $price;
+            $order->total = $order->getSubtotalOrder() + $price;
+            $order->save();
+        else :
+            $price = 0.00;
+            $order->total = $order->getSubtotalOrder();
+            $order->save();
         endif;
-        $order->subtotal = $order->getSubtotalOrder();
-        $order->delivery = $price;
-        $order->total = $order->getSubtotalOrder() + $price;
-        $order->save();
 
         return $price;
     }

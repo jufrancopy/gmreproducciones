@@ -24,4 +24,8 @@ class Order extends Model
         ->orWhere(function($query){$query->where('discount_until_date', '>=', date('Y-m-d'));
         })->sum('total');
     }
+
+    public function getUser(){
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

@@ -112,7 +112,26 @@ document.addEventListener('DOMContentLoaded', function() {
     for (i = 0; i < btn_deleted.length; i++) {
         btn_deleted[i].addEventListener('click', delete_object);
     }
+
+    var btn_payment_method = document.getElementsByClassName('btn_payment_method');
+    if (btn_payment_method) {
+        btn_payment_method_selected = null;
+        for (i = 0; i < btn_payment_method.length; i++) {
+
+            btn_payment_method[i].addEventListener('click', function(e) {
+                e.preventDefault();
+                if (btn_payment_method_selected) {
+                    document.getElementById(btn_payment_method_selected).classList.remove('active');
+                }
+                this.classList.add('active')
+                document.getElementById('field_payment_method_id').value = this.getAttribute('data-payment-method-id')
+                document.getElementById('pay_btn_complete').classList.remove('disabled');
+                btn_payment_method_selected = this.getAttribute('id');
+            });
+        }
+    }
 });
+
 
 function load_products(section) {
     loader.style.display = 'flex';

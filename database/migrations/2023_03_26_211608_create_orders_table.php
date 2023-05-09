@@ -15,7 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('o_number')->nullable();
+            $table->string('o_number')->nullable();
             $table->integer('status')->default('0');
             $table->integer('o_type')->default('0');
             $table->integer('user_id');
@@ -24,7 +24,7 @@ class CreateOrdersTable extends Migration
             $table->decimal('subtotal', 11,2)->default(0.00);
             $table->decimal('delivery', 11,2)->default(0.00);
             $table->decimal('total', 11,2)->default(0.00);
-            $table->integer('payment_method')->default(0);
+            $table->integer('payment_method')->nullable();
             $table->text('payment_info')->nullable();
             $table->dateTime('paid_at')->nullable();
             $table->timestamps();

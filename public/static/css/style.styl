@@ -51,6 +51,8 @@ table
             width: 60px
 .btop1 
     border-top: 1px solid #d6d6d6
+.mtop8
+    margin-top: 8px
 .mtop16
     margin-top: 16px
 .mtop24
@@ -812,6 +814,24 @@ nav
                 padding 8px 18px 
                 text-decoration: none
                 text-transform: uppercase
+    .payments_methods
+        a
+            border-radius: 6px
+            border: 1px solid #f0f0f0
+            display: block
+            margin-bottom: 6px
+            padding: 8px 16px
+            width: 100%
+            i
+                color: color1
+            &:last-child
+                margin-bottom: 0px
+            &:hover
+                background-color: color1
+                color: #fff
+        a.active
+            background-color: color1
+            color: #fff
 .detail_shipping .detail_shipping_info
     p
         margin-bottom: 2px
@@ -893,6 +913,26 @@ nav
         .before_quantity
             .btn
                 margin-top: 16px;
+.mcswitch
+    background-color: #f0f0f0
+    border-radius: 20.4px
+    overflow: hidden
+    padding: 4px
+    a
+        border-radius: 16.4px
+        display: block
+        float: left
+        font-size: .8em
+        text-align: center
+        padding: 8px
+        width: 49%
+        &:hover
+            background-color: #fff
+        &:last-child
+            margin-left: 2%
+    a.active
+        background-color: color1
+        color: #fff
 @keyframes loading_image{
     0%{
         margin-left: -100px
