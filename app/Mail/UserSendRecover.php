@@ -18,7 +18,7 @@ class UserSendRecover extends Mailable
      */
     public $data;
 
-    public function __construct($data)
+    public function __Construct($data)
     {
         $this->data = $data;
     }

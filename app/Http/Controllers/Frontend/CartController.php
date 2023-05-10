@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\Variant;
 use App\Models\Inventory;
 use App\Models\Coverage;
+use App\Mail\OrderSendDetails;
 
 use Auth, Config;
 
@@ -57,9 +58,10 @@ class CartController extends Controller
 
     public function postCart(Request $request)
     {
-        // $orderId = $this->getUserOrder()->id;
+        $orderId = $this->getUserOrder()->id;
         // $order = Order::find($orderId);
-        $order = Order::find(29);
+        $order = Order::find($orderId);
+
         if ($order->payment_method == 0) :
             $order->o_number = $this->getOrderNumberGenerate();
             $order->status = 1;
@@ -71,8 +73,8 @@ class CartController extends Controller
 
         if ($order->save()) :
             if ($order->payment_method == 0 && $order->status == 1) :
-                return $this->getOrderEmailDetails($order->id);
-                //return redirect('account/history/order/ ' . $order->id);
+                $this->getOrderEmailDetails($order->id);
+                return redirect('account/history/order/ ' . $order->id);
             else :
                 return redirect('/cart/payment');
             endif;

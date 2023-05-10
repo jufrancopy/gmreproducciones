@@ -8,6 +8,10 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\Order;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\OrderSendDetails;
+
 
 class Controller extends BaseController
 {
@@ -16,8 +20,7 @@ class Controller extends BaseController
     public function getOrderEmailDetails($orderId){
         $order = Order::find($orderId);
         $data = ['order'=>$order];
-        
-        return view('emails.order_details', $data);
+        Mail::to($order->getUser->email)->send(new OrderSendDetails($data));
     }
 }
 

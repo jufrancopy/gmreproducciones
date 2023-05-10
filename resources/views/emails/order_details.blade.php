@@ -2,7 +2,7 @@
 @section('content')
 
 <p>Hola: <span>{{$order->getUser->name}} {{$order->getUser->lastname}}</span></p>
-<p>Hemos reibido su orden. A continuación tendrá detalles de su compra:</p>
+<p>Hemos reibido su orden #{{$order->o_number}}. A continuación tendrá detalles de su compra:</p>
 <table class="table table-striped align-middle table-hover">
     <thead>
         <tr>
@@ -21,7 +21,7 @@
             <td style="vertical-align:top; border-bottom:1px solid #f0f0f0; padding:4px 0px"><a
                     href="{{url('/product/'.$item->getProduct->id.'/'.$item->getProduct->slug)}}"
                     style="color:#333; text-decoration:none; border-radiud:4px">{{$item->label_item}}</a>
-                <div class="price_discount">
+                <div class="price_discount" style="font-weight: 700">
                     Precio:
                     @if($item->discount_status == 1)
                     <small>
@@ -69,4 +69,26 @@
         </tr>
     </tbody>
 </table>
+
+
+@if(!is_null($order->user_address_id))
+<p style="margin-top:0px"><strong>La orden será enviada a la dirección:</strong> </p>
+<p style="margin-top:0px"><strong>Estado: </strong> {{ $order->getUserAddress->getState->name }} </p>
+<p style="margin-top:0px"><strong>Ciudad: </strong> {{$order->getUserAddress->getCity->name}} </p>
+<p style="margin-top:0px"><strong>Barrio: </strong>{{kvfj($order->getUserAddress->addr_info, 'add1')}}
+</p>
+<p style="margin-top:0px"><strong>Dirección: </strong>, {{kvfj($order->getUserAddress->addr_info,
+    'add2')}}, {{kvfj($order->getUserAddress->addr_info, 'add3')}}</p>
+<p style="margin-top:0px"><strong>Referencia:
+    </strong>{{kvfj($order->getUserAddress->addr_info,'add4')}}
+</p>
+@endif
+<hr>
+<p>
+    La empresa se reserva el derecho de cancelar o rechazar una orden, sin previo aviso. Si usted transfierió o pagó por
+    Tarjeta de Crédito, la misma será reembolsada en las próximas 48 horas hábiles
+</p>
+@if($order->payment_method == 0)
+<p>Ha seleccionado pagar en ventanilla</p>
+@endif
 @stop

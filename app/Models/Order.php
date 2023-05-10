@@ -19,6 +19,10 @@ class Order extends Model
         })->with(['getProduct']);
     }
 
+    public function getUserAddress(){
+        return $this->hasOne(UserAddress::class, 'id', 'user_address_id');
+    }
+
     public function getSubTotalOrder(){
         return $this->hasMany(OrderItem::class, 'order_id', 'id')->whereNull('discount_until_date')
         ->orWhere(function($query){$query->where('discount_until_date', '>=', date('Y-m-d'));

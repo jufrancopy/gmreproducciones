@@ -115,7 +115,7 @@
                                 <p><strong>Dirección: </strong>, {{kvfj(Auth::user()->getAddressDefault->addr_info,
                                     'add2')}}, {{kvfj(Auth::user()->getAddressDefault->addr_info, 'add3')}}</p>
                                 <p><strong>Referencia:
-                                    </strong>{{kvfj(Auth::user()->getAddressDefault->addr_info,'add1')}}
+                                    </strong>{{kvfj(Auth::user()->getAddressDefault->addr_info,'add4')}}
                                 </p>
                                 <p><a href="{{url('/account/address')}}"><i
                                             class="fas fa-edit btn btn-info text-white"></i></a></p>
@@ -136,7 +136,7 @@
                                         class="sl @if($order->o_type == '1') active @endif "><i
                                             class="fas fa-car-side"></i> To Go
                                     </a>
-                                
+
                                 </div>
                                 @endif
                             </div>

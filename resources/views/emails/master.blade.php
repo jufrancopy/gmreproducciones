@@ -31,9 +31,42 @@
                 ">
         </div>
 
-        <div style="background-color: #fff;
+        <div style="
+            background-color: #fff;
             padding:24px;">
             @yield('content')
+            <div style="margin-top:16px">
+                <p>Encuentranos en las siguientes redes sociales</p>
+                @if(Config('configSite.social_facebook') != "")
+                <a href="{{Config('configSite.social_facebook')}}">
+                    <img src="{{url('/static/images/iconos/facebook.png')}}" style="width:36px; margin-right:6px">
+                </a>
+                @endif
+
+                @if(Config('configSite.social_instagram') != "")
+                <a href="{{Config('configSite.social_facebook')}}">
+                    <img src="{{url('/static/images/iconos/instagram.png')}}" style="width:36px">
+                </a>
+                @endif
+
+                @if(Config('configSite.social_twitter') != "")
+                <a href="{{Config('configSite.social_twitter')}}">
+                    <img src="{{url('/static/images/iconos/twitter.png')}}" style="width:36px">
+                </a>
+                @endif
+
+                @if(Config('configSite.social_youtube') != "")
+                <a href="{{Config('configSite.social_youtube')}}">
+                    <img src="{{url('/static/images/iconos/youtube.png')}}" style="width:36px">
+                </a>
+                @endif
+
+                @if(Config('configSite.social_whatsapp') != "")
+                <a href="{{Config('configSite.social_whatsapp')}}">
+                    <img src="{{url('/static/images/iconos/whatsapp.png')}}" style="width:36px">
+                </a>
+                @endif
+            </div>
         </div>
     </div>
 </body>

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class UserSendNewPassword extends Mailable
+class OrderSendDetails extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -31,8 +31,8 @@ class UserSendNewPassword extends Mailable
     public function build()
     {
         return $this->from(config('configSite.email_from'), config('configSite.name'))
-                ->view('emails.user_send_new_password')
-                ->subject('Cambio de Contraseña')
+                ->view('emails.order_details')
+                ->subject('Detalle de su compra en '.config('configSite.name'))
                 ->with($this->data);
     }
 }
