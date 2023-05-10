@@ -74,7 +74,7 @@ class CartController extends Controller
         if ($order->save()) :
             if ($order->payment_method == 0 && $order->status == 1) :
                 $this->getOrderEmailDetails($order->id);
-                return redirect('account/history/order/ ' . $order->id);
+                return redirect('account/history/order/'.$order->id);
             else :
                 return redirect('/cart/payment');
             endif;
