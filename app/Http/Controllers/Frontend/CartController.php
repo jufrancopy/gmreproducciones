@@ -58,9 +58,10 @@ class CartController extends Controller
 
     public function postCart(Request $request)
     {
+        
         $orderId = $this->getUserOrder()->id;
-        // $order = Order::find($orderId);
         $order = Order::find($orderId);
+        // $order = Order::find(1);
 
         if ($order->payment_method == 0) :
             $order->o_number = $this->getOrderNumberGenerate();

@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 
 use App\Mail\OrderSendDetails;
+use App\Mail\OrderSendDetailsAdmin;
 
 
 class Controller extends BaseController
@@ -21,6 +22,15 @@ class Controller extends BaseController
         $order = Order::find($orderId);
         $data = ['order'=>$order];
         Mail::to($order->getUser->email)->send(new OrderSendDetails($data));
+
+        foreach($this->getAdminsEmails() as $admin):
+            $data = ['order'=>$order, 'name'=>$admin->name.' '.$admin->lastname];
+            Mail::to($admin->email)->send(new OrderSendDetailsAdmin($data));
+        endforeach;
+    }
+
+    public function getAdminsEmails(){
+        return User::where('role', 1)->get();
     }
 }
 

@@ -19,7 +19,7 @@ class CreateOrdersTable extends Migration
             $table->integer('status')->default('0');
             $table->integer('o_type')->default('0');
             $table->integer('user_id');
-            $table->integer('user_address_id')->nullable();
+            $table->integer('user_address_id')->nullable()->default(NULL);
             $table->text('user_comment')->nullable();
             $table->decimal('subtotal', 11,2)->default(0.00);
             $table->decimal('delivery', 11,2)->default(0.00);

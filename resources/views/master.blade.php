@@ -173,11 +173,17 @@
                             @if(Auth::user()->role == 1)
                             <li>
                                 <a class="dropdown-item" href="{{ url('/admin') }}">
-                                    <i class="fas fa-chalkboard-teacher " aria-hidden="true"></i>
+                                    <i class="fas fa-chalkboard-teacher" aria-hidden="true"></i>
                                     Administración
                                 </a>
                             </li>
                             @endif
+                            <li>
+                                <a class="dropdown-item" href="{{ url('/account/history/orders') }}">
+                                    <i class="fas fa-history" aria-hidden="true"></i>
+                                    Historial de Compras
+                                </a>
+                            </li>
                             <li>
                                 <a class="dropdown-item" href="{{ url('/account/address') }}">
                                     <i class="fas fa-map-marker-alt" aria-hidden="true"></i>

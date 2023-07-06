@@ -1,8 +1,8 @@
 @extends('emails.master')
 @section('content')
 
-<p>Hola: <span>{{$order->getUser->name}} {{$order->getUser->lastname}}</span></p>
-<p>Hemos reibido su orden #{{$order->o_number}}. A continuación tendrá detalles de su compra:</p>
+<p>Hola: <span>{{$name}}</span></p>
+<p>Hemos reibido una nueva orden de compra. La orden #{{$order->o_number}}. A continuación tendrá detalles de la orden:</p>
 <table class="table table-striped align-middle table-hover">
     <thead>
         <tr>
@@ -82,13 +82,8 @@
 <p style="margin-top:0px"><strong>Referencia:
     </strong>{{kvfj($order->getUserAddress->addr_info,'add4')}}
 </p>
+@else
+<p><strong>El comprador pasará a retirar su pedido. Contarse con el.</strong></p>
 @endif
-<hr>
-<p>
-    La empresa se reserva el derecho de cancelar o rechazar una orden, sin previo aviso. Si usted transfierió o pagó por
-    Tarjeta de Crédito, la misma será reembolsada en las próximas 48 horas hábiles
-</p>
-@if($order->payment_method == 0)
-<p>Ha seleccionado pagar en ventanilla</p>
-@endif
+
 @stop

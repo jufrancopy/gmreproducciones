@@ -67,7 +67,7 @@
                                                 {!! Form::close() !!}
                                             </div>
                                         </td>
-                                        <th>{{number($item->quantity)}}</th>
+                                        <th>{{number($item->total)}}</th>
                                     </tr>
                                     @endforeach
                                     <tr>

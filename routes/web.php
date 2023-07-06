@@ -45,7 +45,7 @@ Route::get('/logout', 'ConnectController@getLogout')->name('logout');
 // Module Products
 Route::get('/product/{id}/{slug}', 'Frontend\ProductController@getProduct')->name('product_single');
 
-// Module Accounts
+// Module User Actions
 Route::get('/account/edit', 'UserController@getAccountEdit')->name('account_edit');
 Route::post('/account/edit/avatar', 'UserController@postAccountAvatar')->name('account_edit_post');
 Route::post('/account/edit/password', 'UserController@postAccountPassword')->name('account_password_edit');
@@ -54,6 +54,7 @@ Route::get('/account/address', 'UserController@getAccountAddress')->name('accoun
 Route::post('/account/address/add', 'UserController@postAccountAddress')->name('account_address');
 Route::get('/account/address/{address}/setdefault', 'UserController@getAccountAddressSetDefault')->name('account_address');
 Route::get('/account/address/{address}/delete', 'UserController@getAccountAddressDelete')->name('account_delete');
+Route::get('/account/history/orders', 'Frontend\UserOrderController@getHistory')->name('account_user_order_history');
 
 // Ajax Api Routers
 Route::get('/api/load/products/{section}', 'ApiJsController@getProductsSection');
