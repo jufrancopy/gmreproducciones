@@ -8,14 +8,14 @@
     <title>@yield('title') - GMRE</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="routeName" content="{{ Route::currentRouteName() }}">
-    
-    {{-- CDN CSS Integrados--}}
+
+    {{-- CDN CSS Integrados --}}
     {{-- Boostrap 5 --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
     {{-- Mis Estilos --}}
-    <link rel="stylesheet" href="{{  url('/static/css/admin.css?v='.time()) }}">
+    <link rel="stylesheet" href="{{ url('/static/css/admin.css?v=' . time()) }}">
 
     {{-- ROBOTO --}}
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@
     {{-- Timeline Style --}}
     {{-- <link rel="stylesheet" href="{{ url('/static/libs/jQueryTimerline/css/style.css') }}"> --}}
 
-    {{--CDN JavaScripts Integrados  --}}
+    {{-- CDN JavaScripts Integrados  --}}
     {{-- FontAwesome --}}
     <script src="https://kit.fontawesome.com/776ed7f2a9.js" crossorigin="anonymous"></script>
 
@@ -45,20 +45,20 @@
     </script>
 
 
-    {{-- LightBox--}}
+    {{-- LightBox --}}
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
     <script src="{{ url('/static/libs/ckeditor/ckeditor.js') }}"></script>
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script src="{{ url('/static/js/admin.js?v='.time()) }}"></script>
-    
+    <script src="{{ url('/static/js/admin.js?v=' . time()) }}"></script>
+
     {{-- TimelineJs --}}
     {{-- <script src="{{ url('/static/libs/jQueryTimerline/js/jquery.timelinr-0.9.7.js') }}"></script> --}}
     <script>
-        $(document).ready(function(){
-            $(function () {
+        $(document).ready(function() {
+            $(function() {
                 $('[data-toggle="tooltip"]').tooltip()
             });
         });
@@ -79,7 +79,7 @@
                 <div class="collapse navbar-collapse ml-2">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="{{'/admin'}}"><i class="fas fa-tachometer-alt"> Dashboard</i></a>
+                            <a href="{{ '/admin' }}"><i class="fas fa-tachometer-alt"> Dashboard</i></a>
                         </li>
                     </ul>
                 </div>
@@ -91,7 +91,7 @@
                     <nav aria-label="breadcrumb shadow">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{'/admin'}}"><i class="fas fa-tachometer-alt"> Dashboard</i></a>
+                                <a href="{{ '/admin' }}"><i class="fas fa-tachometer-alt"> Dashboard</i></a>
                             </li>
                             @section('breadcrumb')
                             @show
@@ -100,24 +100,29 @@
                 </div>
 
                 {{-- Mensajes de errores --}}
-                @if(Session::has('message'))
-                <div class="container">
-                    <div class="alert alert-{{ Session::get('typealert')}}" style="display:none;">
-                        {{Session::get('message')}}
-                        @if ($errors->any())
-                        <ul>
-                            @foreach ($errors->all() as $error )
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                        @endif
-                        <script>
-                            $('.alert').slideDown();
-                                setTimeout(function(){ $('.alert').slideUp();},10000) 
-                        </script>
+                @if (Session::has('message'))
+                    <div class="container-fluid">
+                        <div class="alert alert-{{ Session::get('typealert') }}"
+                            style="display:none;">
+                            {{ Session::get('message') }}
+                            @if ($errors->any())
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                            <script>
+                                $('.alert').slideDown();
+                                setTimeout(function() {
+                                    $('.alert').slideUp();
+                                }, 10000);
+                            </script>
+                        </div>
                     </div>
-                </div>
                 @endif
+
+
 
                 {{-- Contenido Principal --}}
                 @section('content')

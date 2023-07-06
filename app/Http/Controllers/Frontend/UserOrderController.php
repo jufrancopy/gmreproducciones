@@ -12,8 +12,8 @@ class UserOrderController extends Controller
         $this->middleware('auth');
     }
 
-    public function UserOrderController(){
-        
+    public function getHistory(){
+        return view('users.orders_history');        
     }
 
 }

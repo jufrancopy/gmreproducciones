@@ -4,7 +4,7 @@
 
 @section('breadcrumb')
 <li class="breadcrumb-item">
-    <a href="{{'/admin/categories'}}"><i class="far fa-folder-open"></i>Categorias</a>
+    <a href="{{'/admin/categories/0'}}"><i class="far fa-folder-open"></i>Categorias</a>
 </li>
 <li class="breadcrumb-item">
     <a href="#"><i class="far fa-folder-open"></i>Categoria: {{$category->name}}</a>

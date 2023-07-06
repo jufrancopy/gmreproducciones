@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
-
-use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
-use Validator, Image, Auth, Config, Str, Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
+// Intervention Image
+use Image;
+
+//Models
 use App\Models\User;
 use App\Models\Coverage;
 use App\Models\UserAddress;
@@ -24,7 +30,7 @@ class UserController extends Controller
 
         $data = ['birthday' => $birthday];
 
-        return view('users.account_edit', $data);
+        return view('users.accounts.account_edit', $data);
     }
 
     public function postAccountAvatar(Request $request)

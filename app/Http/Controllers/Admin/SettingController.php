@@ -27,13 +27,18 @@ class SettingController extends Controller
         endif;
 
         $file = fopen(config_path() . '/configSite.php', 'w');
- 
+
         fwrite($file, '<?php ' . PHP_EOL);
         fwrite($file, 'return [' . PHP_EOL);
         foreach ($request->except(['_token']) as $key => $value) :
 
             if (is_null($value)) :
                 fwrite($file, '\'' . $key . '\' => \'\', ' . PHP_EOL);
+            else :  // Verificar si el valor contiene una barra invertida
+                if (strpos($value, '\\') !== false) {
+                    $value = str_replace('\\', '\\\\', $value);
+                }
+
             endif;
             fwrite($file, '\'' . $key . '\' => \'' . $value . '\', ' . PHP_EOL);
 
