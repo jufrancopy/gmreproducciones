@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'ContentController@getHome')->name('home');
+Route::get('/phpinfo', function () {
+    return phpinfo();
+});
 
 // Module Cart
 Route::get('/cart', 'Frontend\CartController@getCart')->name('cart');

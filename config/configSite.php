@@ -22,8 +22,8 @@ return [
 'payment_method_credit_card' => '1', 
 'product_per_page' => '2', 
 'product_per_page_random' => '3', 
-'upload_server_path' => '\\Users\\jufranco\\Desktop\\Proyectos\\gmreproducciones\\public\\uploads\\', 
-'upload_server_user_path' => '\\Users\\jufranco\\Desktop\\Proyectos\\gmreproducciones\\public\\uploads_users\\', 
-'server_webapp_path' => '\\Users\\jufranco\\Desktop\\Proyectos\\gmreproducciones', 
+'upload_server_path' => '/Users/juliofranco/Desktop/Programacion/gmreproducciones/public/uploads/', 
+'upload_server_user_path' => '/Users/juliofranco/Desktop/Programacion/gmreproducciones/public/uploads_users/', 
+'server_webapp_path' => '/Users/juliofranco/Desktop/Programacion/gmreproducciones', 
 ] 
 ?>

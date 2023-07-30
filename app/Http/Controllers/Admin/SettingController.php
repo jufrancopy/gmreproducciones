@@ -34,10 +34,6 @@ class SettingController extends Controller
 
             if (is_null($value)) :
                 fwrite($file, '\'' . $key . '\' => \'\', ' . PHP_EOL);
-            else :  // Verificar si el valor contiene una barra invertida
-                if (strpos($value, '\\') !== false) {
-                    $value = str_replace('\\', '\\\\', $value);
-                }
 
             endif;
             fwrite($file, '\'' . $key . '\' => \'' . $value . '\', ' . PHP_EOL);
