@@ -79,4 +79,6 @@ Route::prefix('/admin')->group(function(){
     Route::post('/timeline/{id}/delete', 'Admin\TimelineController@getTimelineDelete')->name('timeline_delete');
     Route::post('/timeline/{id}/gallery/add', 'Admin\TimelineController@postTimelineGallery')->name('timeline_gallery_add');
     Route::get('/timeline/{id}/gallery/{gid}/delete', 'Admin\TimelineController@getTimelineGalleryDelete')->name('timeline_gallery_delete');
+
+    Route::get('/orders/{status}', 'Admin\OrderController@getList')->name('orders_list');
 });

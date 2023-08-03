@@ -257,7 +257,7 @@ function getPaymentsMethods($method = null)
 function getOrderStatus($status = null)
 {
     $list = [
-        '0' => 'En Proceos',
+        '0' => 'En Proceos', 
         '1' => 'Pago pendiente de Confirmación',
         '2' => 'Pago Recibido',
         '3' => 'Procesando Orden',
