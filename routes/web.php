@@ -58,6 +58,7 @@ Route::post('/account/address/add', 'UserController@postAccountAddress')->name('
 Route::get('/account/address/{address}/setdefault', 'UserController@getAccountAddressSetDefault')->name('account_address');
 Route::get('/account/address/{address}/delete', 'UserController@getAccountAddressDelete')->name('account_delete');
 Route::get('/account/history/orders', 'Frontend\UserOrderController@getHistory')->name('account_user_order_history');
+Route::get('/account/history/order/{order}', 'Frontend\UserOrderController@getOrder')->name('account_user_order_detail');
 
 // Ajax Api Routers
 Route::get('/api/load/products/{section}', 'ApiJsController@getProductsSection');

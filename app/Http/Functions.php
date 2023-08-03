@@ -1,5 +1,6 @@
 <?php
 
+
 // Key Value Form Json
 function kvfj($json, $key)
 {
@@ -263,6 +264,20 @@ function getOrderStatus($status = null)
         '4' => 'Orden Enviada',
         '5' => 'Orden Entregada',
         '100' => 'Orden Rechazada',
+    ];
+
+    if (is_null($status)) :
+        return $list;
+    else :
+        return $list[$status];
+    endif;
+}
+
+function getOrderType($status = null)
+{
+    $list = [
+        '0' => 'Entrega a Domicilio',
+        '1' => 'To Go'
     ];
 
     if (is_null($status)) :

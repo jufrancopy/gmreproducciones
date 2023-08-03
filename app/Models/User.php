@@ -45,4 +45,12 @@ class User extends Authenticatable
     public function getAddressDefault(){
         return $this->hasOne(UserAddress::class,'user_id', 'id')->where('default', 1)->with(['getState', 'getCity']);
     }
+
+    public function getOrders(){
+        return $this->hasMany(Order::class, 'user_id', 'id');
+    }
+
+    public function getOrdersProcess(){
+        return $this->hasMany(Order::class, 'user_id', 'id')->whereNot('status', '!=',0);
+    }
 }
