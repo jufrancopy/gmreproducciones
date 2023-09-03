@@ -17,15 +17,15 @@ class OrderController extends Controller
         $this->middleware('isadmin');
     }
 
-    public function getList($status){
-        if($status == 'all'):
+    public function getList($status)
+    {
+        if ($status == 'all') :
             $orders = Order::where('status', '!=', 0)->paginate(30);
-        else:
+        else :
             $orders = Order::where('status', $status)->paginate(30);
         endif;
 
-        $data = ['orders'=>$orders, 'status'=>$status];
+        $data = ['orders' => $orders, 'status' => $status];
         return view('admin.orders.list', $data);
     }
-
 }
