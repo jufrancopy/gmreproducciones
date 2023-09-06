@@ -1,7 +1,18 @@
+color1 = #0D5689
+color1-500 = #81f1be
+color2 = #FCA949
+color2-500= #f6d4ae
+color3 = #52CCE3
+color3-500 = #cbe8ee
+color4 = #111111
+color4-500 = #820d0d
+
 body
     background-color: #f5f6fa
     font-size: 14px
     font-family: 'Roboto', sans-serif;
+a
+    text-decoration: none !important
 
 h2,h3,h4,h5,ul,body,html
     padding: 0px
@@ -13,6 +24,8 @@ h2,h3,h4,h5,ul,body,html
         outline: none
 .mtop16
     margin-top 16px
+.mtop32
+    margin-top 32px
 
 .mb16
     margin-bottom: 16px
@@ -164,15 +177,20 @@ h2,h3,h4,h5,ul,body,html
                 text-align: center
                 width: 100%
         .list-group
-            border-radius: !important
+            border-radius: 0px!important
             a.list-group-item   
                 border-left: 0px
                 border-right: 0px
+                .badge
+                    float right !important
                 &:first-child
                     border-top: 0px
                 &:last-child
                     border-bottom: 0px
-                    
+            a.active
+                .badge
+                    background-color #fff !important
+                    color #333
 
 
 .opts
@@ -310,3 +328,58 @@ h2,h3,h4,h5,ul,body,html
     ul
         list-style-position inside
         margin-left 16px
+
+.order
+    .profile
+        .photo
+            display block
+            width 100%
+            img
+                background #fff
+                display block
+                margin 0 auto
+                width 96px
+        .info
+            ul
+                list-style: none
+                li
+                    margin-bottom: 4px
+.switch
+    background-color: #f0f0f0
+    border-radius: 20.4px
+    overflow: hidden
+    padding: 4px
+    a
+        border-radius: 16.4px
+        display: block
+        float: left
+        font-size: .8em
+        text-align: center
+        padding: 8px
+        width: 49%
+        &:hover
+            background-color: #fff
+        &:last-child
+            margin-left: 2%
+    a.active
+        background-color: color1
+        color: #fff
+
+.payments_methods
+        a
+            border-radius: 6px
+            border: 1px solid #f0f0f0
+            display: block
+            margin-bottom: 6px
+            padding: 8px 16px
+            width: 100%
+            i
+                color: color1
+            &:last-child
+                margin-bottom: 0px
+            &:hover
+                background-color: color1
+                color: #fff
+        a.active
+            background-color: color1
+            color: #fff

@@ -3,15 +3,15 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::prefix('/admin')->group(function(){
+Route::prefix('/admin')->group(function () {
     Route::get('/', 'Admin\DashboardController@getDashboard')->name('dashboard');
 
     // Settings
-    Route::get('/settings','Admin\SettingController@getHome')->name('settings');
-    Route::post('/settings','Admin\SettingController@postHome')->name('settings');
+    Route::get('/settings', 'Admin\SettingController@getHome')->name('settings');
+    Route::post('/settings', 'Admin\SettingController@postHome')->name('settings');
     // Users
     Route::get('/users/{status}', 'Admin\UserController@getUsers')->name('user_list');
-    Route::get('/user/{id}/edit', 'Admin\UserController@getUserEdit')->name('user_edit');
+    Route::get('/user/{id}/view', 'Admin\UserController@getUserView')->name('user_view');
     Route::post('/user/{id}/post', 'Admin\UserController@postUserEdit')->name('user_edit');
     Route::get('/user/{id}/banned', 'Admin\UserController@getUserBanned')->name('user_banned');
     Route::get('/user/{id}/permissions', 'Admin\UserController@getUserPermissions')->name('user_permissions');
@@ -80,5 +80,8 @@ Route::prefix('/admin')->group(function(){
     Route::post('/timeline/{id}/gallery/add', 'Admin\TimelineController@postTimelineGallery')->name('timeline_gallery_add');
     Route::get('/timeline/{id}/gallery/{gid}/delete', 'Admin\TimelineController@getTimelineGalleryDelete')->name('timeline_gallery_delete');
 
-    Route::get('/orders/{status}', 'Admin\OrderController@getList')->name('orders_list');
+    //Orders
+    Route::get('/orders/{status}/{type}', 'Admin\OrderController@getList')->name('orders_list');
+    Route::get('/order/{order}/view', 'Admin\OrderController@getOrder')->name('order_view');
+    Route::post('/order/{order}/view', 'Admin\OrderController@postOrderStatusUpdate')->name('order_view');
 });

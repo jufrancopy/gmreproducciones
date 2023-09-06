@@ -26,16 +26,16 @@ class ProductController extends Controller
     {
         switch ($status) {
             case '0':
-                $products = Product::with(['category', 'subCategory','getPrice'])->where('status', 0)->orderBy('id', 'DESC')->paginate(10);
+                $products = Product::with(['category', 'subCategory', 'getPrice'])->where('status', 0)->orderBy('id', 'DESC')->paginate(10);
                 break;
             case '1':
-                $products = Product::with(['category', 'subCategory','getPrice'])->where('status', 1)->orderBy('id', 'DESC')->paginate(10);
+                $products = Product::with(['category', 'subCategory', 'getPrice'])->where('status', 1)->orderBy('id', 'DESC')->paginate(10);
                 break;
             case 'all':
-                $products = Product::with(['category', 'subCategory','getPrice'])->orderBy('id', 'DESC')->paginate(10);
+                $products = Product::with(['category', 'subCategory', 'getPrice'])->orderBy('id', 'DESC')->paginate(10);
                 break;
             case 'trash':
-                $products = Product::with(['category', 'subCategory','getPrice'])->onlyTrashed()->orderBy('id', 'DESC')->paginate(10);
+                $products = Product::with(['category', 'subCategory', 'getPrice'])->onlyTrashed()->orderBy('id', 'DESC')->paginate(10);
                 break;
         }
 
@@ -316,6 +316,9 @@ class ProductController extends Controller
     {
         $product = Product::onlyTrashed()->where('id', $id)->first();
         if ($product->restore()) :
+            $product->status = 0;
+            $product->save();
+
             return redirect('/admin/product/' . $product->id . '/edit')->with('message', 'Producto reactivado')->with('typealert', 'success');
         endif;
     }
@@ -460,7 +463,8 @@ class ProductController extends Controller
         endif;
     }
 
-    public function getUpdateMinPrice($id){
+    public function getUpdateMinPrice($id)
+    {
         $product = Product::find($id);
         $price = $product->getPrice->min('price');
         $product->price = $price;

@@ -13,7 +13,8 @@ use App\Models\Inventory;
 use App\Models\Coverage;
 use App\Mail\OrderSendDetails;
 
-use Auth, Config;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 
 class CartController extends Controller
 {
@@ -58,37 +59,29 @@ class CartController extends Controller
 
     public function postCart(Request $request)
     {
-        
         $orderId = $this->getUserOrder()->id;
         $order = Order::find($orderId);
-        // $order = Order::find(1);
 
         if ($order->payment_method == 0) :
-            $order->o_number = $this->getOrderNumberGenerate();
-            $order->status = 1;
-        endif;
+            $this->getProcessOrder($order->id);
 
+        endif;
         $order->payment_method = $request->payment_method;
         $order->user_comment = $request->user_comment;
         $order->save();
 
         if ($order->save()) :
+            $order = Order::find($order->id);
             if ($order->payment_method == 0 && $order->status == 1) :
                 $this->getOrderEmailDetails($order->id);
-                return redirect('account/history/order/'.$order->id);
+                return redirect('account/history/order/' . $order->id);
             else :
                 return redirect('/cart/payment');
             endif;
         endif;
     }
 
-    public function getOrderNumberGenerate()
-    {
-        $orders = Order::where('status', '>', 0)->count();
-        $orderNumber = $orders + 1;
 
-        return $orderNumber;
-    }
 
     public function getUserOrder()
     {

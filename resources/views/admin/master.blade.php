@@ -16,6 +16,7 @@
 
     {{-- Mis Estilos --}}
     <link rel="stylesheet" href="{{ url('/static/css/admin.css?v=' . time()) }}">
+    <link rel="stylesheet" href="{{ url('/static/libs/jeAlert/style.css') }}">
 
     {{-- ROBOTO --}}
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -33,25 +34,12 @@
     {{-- JQuery --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    {{-- Boostrap 4 --}}
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
-    </script>
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
-    </script>
-
-
     {{-- LightBox --}}
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
     <script src="{{ url('/static/libs/ckeditor/ckeditor.js') }}"></script>
 
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <script src="{{ url('/static/libs/jeAlert/jealert.js') }}"></script>
     <script src="{{ url('/static/js/admin.js?v=' . time()) }}"></script>
 
     {{-- TimelineJs --}}
@@ -66,6 +54,15 @@
 </head>
 
 <body>
+    <div class="jealert" id="je_alert_dom">
+        <div class="je_alert_inside" id="je_alert_inside">
+            <div class="je_alert_content" id="je_alert_content"></div>
+            <div class="je_alert_footer" id="je_alert_footer">
+                <div class="je_alert_footer_other_btns" id="je_alert_footer_other_btns"></div>
+                <a href="#" class="je_alert_btn_close" id="je_alert_btn_close">Cerrar</a>
+            </div>
+        </div>
+    </div>
     <div class="wrapper">
         {{-- Seccion de la Izquiera - Sidebar --}}
         <div class="col1">
@@ -102,8 +99,7 @@
                 {{-- Mensajes de errores --}}
                 @if (Session::has('message'))
                     <div class="container-fluid">
-                        <div class="alert alert-{{ Session::get('typealert') }}"
-                            style="display:none;">
+                        <div class="alert alert-{{ Session::get('typealert') }}" style="display:none;">
                             {{ Session::get('message') }}
                             @if ($errors->any())
                                 <ul>
@@ -130,6 +126,15 @@
             </div>
         </div>
     </div>
+
+    {{-- Boostrap 4 --}}
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

@@ -11,25 +11,31 @@ class Order extends Model
 
     protected $dates    = ['deleted_at'];
     protected $table   = 'orders';
-    protected $hidden   =  ['created_at','updated_at'];
+    protected $hidden   =  ['created_at', 'updated_at'];
 
-    public function getItems(){
+    public function getItems()
+    {
         return $this->hasMany(OrderItem::class, 'order_id', 'id')->whereNull('discount_until_date')
-        ->orWhere(function($query){$query->where('discount_until_date', '>=', date('Y-m-d'));
-        })->with(['getProduct']);
+            ->orWhere(function ($query) {
+                $query->where('discount_until_date', '>=', date('Y-m-d'));
+            })->with(['getProduct']);
     }
 
-    public function getUserAddress(){
+    public function getUserAddress()
+    {
         return $this->hasOne(UserAddress::class, 'id', 'user_address_id');
     }
 
-    public function getSubTotalOrder(){
+    public function getSubTotalOrder()
+    {
         return $this->hasMany(OrderItem::class, 'order_id', 'id')->whereNull('discount_until_date')
-        ->orWhere(function($query){$query->where('discount_until_date', '>=', date('Y-m-d'));
-        })->sum('total');
+            ->orWhere(function ($query) {
+                $query->where('discount_until_date', '>=', date('Y-m-d'));
+            })->sum('total');
     }
 
-    public function getUser(){
+    public function getUser()
+    {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 }
