@@ -14,25 +14,30 @@ class Product extends Model
 
     protected $dates    = ['deleted_at'];
     protected $table   = 'products';
-    protected $hidden   =  ['created_at','updated_at'];
+    protected $hidden   =  ['created_at', 'updated_at'];
 
-    public function category(){
-        return $this->hasOne(Category::class, 'id', 'category_id');
+    public function category()
+    {
+        return $this->hasOne(Category::class, 'id', 'category_id')->withTrashed();
     }
 
-    public function subCategory(){
+    public function subCategory()
+    {
         return $this->hasOne(Category::class, 'id', 'subCategory_id');
     }
 
-    public function getGallery(){
-        return $this->hasMany(PGallery::class, 'product_id','id');
+    public function getGallery()
+    {
+        return $this->hasMany(PGallery::class, 'product_id', 'id');
     }
 
-    public function getInventory(){
+    public function getInventory()
+    {
         return $this->hasMany(Inventory::class, 'product_id', 'id')->orderBy('price', 'ASC');
     }
 
-    public function getPrice(){
+    public function getPrice()
+    {
         return $this->hasMany(Inventory::class, 'product_id', 'id');
     }
 }

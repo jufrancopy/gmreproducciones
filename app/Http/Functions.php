@@ -100,6 +100,7 @@ function user_permissions()
             'title' => 'Modulo Dashboard',
             'keys'  => [
                 'user_list' => 'Puede listar usuarios',
+                'user_view' => 'Puede ver usuarios',
                 'user_edit' => 'Puede editar usuarios',
                 'user_banned' => 'Puede bannear usuarios',
                 'user_permissions' => 'Puede administrar permisos a usuarios',
@@ -130,6 +131,8 @@ function user_permissions()
             'title' => 'Modulo de Órdenes',
             'keys'  => [
                 'orders_list' => 'Puede ver el listado de órdenes',
+                'order_view' => 'Puede ver el detalle de una orden',
+                'order_change_status' => 'Puede cambiar el estado de una orden',
             ]
         ],
         'coverage' => [
@@ -257,13 +260,14 @@ function getPaymentsMethods($method = null)
 function getOrderStatus($status = null)
 {
     $list = [
-        '0' => 'En Proceos', 
+        '0' => 'En Proceso',
         '1' => 'Pago pendiente de Confirmación',
         '2' => 'Pago Recibido',
         '3' => 'Procesando Orden',
         '4' => 'Orden Enviada',
-        '5' => 'Orden Entregada',
-        '100' => 'Orden Rechazada',
+        '5' => 'Lista para Recoger',
+        '6' => 'Orden Entregada',
+        '100' => 'Orden Rechazada'
     ];
 
     if (is_null($status)) :

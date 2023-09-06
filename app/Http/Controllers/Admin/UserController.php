@@ -30,12 +30,12 @@ class UserController extends Controller
         return view('admin.users.home', get_defined_vars());
     }
 
-    public function getUserEdit($id)
+    public function getUserView($id)
     {
         $user = User::findOrFail($id);
         $data = ['user', $user];
 
-        return view('admin.users.edit', get_defined_vars());
+        return view('admin.users.view', get_defined_vars());
     }
 
     public function postUserEdit(Request $request, $id)

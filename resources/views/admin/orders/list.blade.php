@@ -11,20 +11,83 @@
             <div class="col-md-3">
                 <div class="panel shadow">
                     <div class="header">
-                        <h2 class="title"><i class="fas fa-filter"></i> Filtrar</h2>
+                        <h2 class="title"><i class="fas fa-filter"></i> Filtrar por estado </h2>
                     </div>
 
                     <div class="list-group">
-                        <a href="{{ url('/admin/orders/all') }}" class="list-group-item list-group-item-action"
-                            @if ($status == 'all') active @endif>
+                        <a href="{{ url('/admin/orders/all/' . $type) }}"
+                            class="list-group-item list-group-item-action
+                            @if ($status == 'all') active @endif "
+                            aria-current="true">
                             <i class="fas fa-chevron-right"></i> Todas
+                            <span class="badge bg-primary rounded-pill">{{ $allOrders->count() }}
+                            </span>
                         </a>
                         @foreach (Arr::except(getOrderStatus(), ['0']) as $key => $value)
-                            <a href="{{ url('/admin/orders/' . $key) }}" class="list-group-item list-group-item-action"
-                                @if ($status == $key) active @endif aria-current="true">
+                            <a href="{{ url('/admin/orders/' . $key . '/' . $type) }}"
+                                class="list-group-item list-group-item-action
+                                @if ($status == $key) active @endif "
+                                aria-current="true">
                                 <i class="fas fa-chevron-right"></i> {{ $value }}
+                                <span class="badge bg-primary rounded-pill">{{ $allOrders->where('status', $key)->count() }}
+                                </span>
                             </a>
                         @endforeach
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="panel shadow">
+                    <div class="header">
+                        <h2 class="title"><i class="fas fa-clipboard-list"></i> Órdenes</h2>
+                    </div>
+
+                    <div class="inside">
+                        <ul class="nav nav-pills nav-fill">
+                            <li class="nav-item">
+                                <a class="nav-link @if ($type == 'all') active @endif" aria-current="page"
+                                    href="{{ url('/admin/orders/' . $status . '/all') }}">Todas</a>
+                            </li>
+                            @foreach (getORderType() as $key => $value)
+                                <li class="nav-item">
+                                    <a class="nav-link @if ($type == $key) active @endif" aria-current="page"
+                                        href="{{ url('/admin/orders/' . $status . '/' . $key) }}">{{ $value }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <table class="table mtop16">
+                            <thead>
+                                <th>#</th>
+                                <th>Usuarios</th>
+                                <th>Tipo</th>
+                                <th>Fecha de Solicitud</th>
+                                <th>Total</th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+                                @foreach ($orders as $order)
+                                    <tr>
+                                        <td>{{ $order->o_number }}</td>
+                                        <td>{{ $order->getUser->name }} @if ($order->getUser->lastname)
+                                                {{ $order->getUser->lastname }}
+                                            @endif
+                                        </td>
+                                        <td>{{ getORderType($order->o_type) }}</td>
+                                        <td>{{ $order->request_at }}</td>
+                                        <td>{{ number($order->total) }}</td>
+                                        <td>
+                                            <a href="{{ url('/admin/order/' . $order->id . '/view') }}"
+                                                class="btn btn-primary btn-sm"><i class="fa fa-eye" aria-hidden="true"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                <tr>
+                                    <td colspan="6">{!! $orders->render() !!}</td>
+                                </tr>
+                            </tbody>
+
+                        </table>
                     </div>
                 </div>
             </div>

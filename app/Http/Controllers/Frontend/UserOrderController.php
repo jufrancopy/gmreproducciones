@@ -23,11 +23,11 @@ class UserOrderController extends Controller
 
     public function getOrder(Order $order)
     {
-        if ($order->status == 0 || $order->user_id != Auth::id()) :
+        if ($order->status == "0" || $order->user_id != Auth::id()) :
             return redirect('/');
         else :
             $data = ['order' => $order];
         endif;
-        return view('users.order_detail', $data);
+        return view('users.order_details', $data);
     }
 }
