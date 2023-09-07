@@ -7,7 +7,11 @@ use Illuminate\Http\Request;
 
 use App\Models\Slider;
 
-use Validator, Str, Config, Image, Auth;
+use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 
 class SliderController extends Controller
@@ -22,13 +26,11 @@ class SliderController extends Controller
     public function getHome()
     {
         $sliders = Slider::orderBy('s_order', 'ASC')->get();
-        
+
         $data = ['sliders' => $sliders];
 
         return view('admin.sliders.home', $data);
     }
-
-    
 
     public function postSliderAdd(Request $request)
     {
@@ -89,6 +91,7 @@ class SliderController extends Controller
 
     public function postSliderEdit(Request $request, $id)
     {
+        dd($request->all());
 
         $rules = [
             'name'      =>  'required',

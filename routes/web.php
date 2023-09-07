@@ -38,9 +38,9 @@ Route::get('/login', 'ConnectController@getLogin')->name('login');
 Route::post('/login', 'ConnectController@postLogin')->name('post-login');
 Route::get('/recover', 'ConnectController@getRecover')->name('recover');
 Route::post('/recover', 'ConnectController@postRecover')->name('post-recover');
-Route::get('/reset','ConnectController@getReset')->name('reset');
-Route::post('/reset','ConnectController@postReset')->name('post-reset');
-Route::get('/register','ConnectController@getRegister')->name('register');
+Route::get('/reset', 'ConnectController@getReset')->name('reset');
+Route::post('/reset', 'ConnectController@postReset')->name('post-reset');
+Route::get('/register', 'ConnectController@getRegister')->name('register');
 Route::post('/register', 'ConnectController@postRegister')->name('post-register');
 Route::get('/logout', 'ConnectController@getLogout')->name('logout');
 // Route::get('/timeline-show', 'Admin\TimelineController@getHomeWeb')->name('timeline-show');
@@ -66,3 +66,13 @@ Route::post('/api/load/user/favorites', 'ApiJsController@postUserFavorites');
 Route::post('/api/favorites/add/{object}/{module}', 'ApiJsController@postFavoriteAdd');
 Route::post('/api/load/product/inventory/{inv}/variants', 'ApiJsController@postProductInventoryVariants');
 Route::post('/api/load/cities/{state}', 'ApiJsController@postCoverageCitiesFromState');
+
+
+//Infonet Controller Routes
+Route::get('/infonet/invoices/{tid}/{prd_id}/{sub_id}/{addl}', 'InfonetController@invoices')->name('infonet_invoices');
+Route::post('/infonet/payment', [App\Http\Controllers\InfonetController::class, 'payment'])->name('payment');
+Route::post('/infonet/reverse', [App\Http\Controllers\InfonetController::class, 'reverse'])->name('reverse');
+
+Route::get('/about', function () {
+    return view('frontend.pages.home');
+});

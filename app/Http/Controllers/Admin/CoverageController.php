@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Coverage;
 use Illuminate\Http\Request;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class CoverageController extends Controller
 {
@@ -101,7 +101,7 @@ class CoverageController extends Controller
     {
         $state = Coverage::findOrfail($id);
         $cities = Coverage::where('state_id', $id)->get();
-        $data = ['cities' => $cities,'id'=>$id, 'state'=>$state];
+        $data = ['cities' => $cities, 'id' => $id, 'state' => $state];
 
         return view('admin.coverage.cities', $data);
     }
@@ -110,7 +110,7 @@ class CoverageController extends Controller
     {
         $rules = [
             'name' => 'required',
-            'shipping_value' =>' required'
+            'shipping_value' => ' required'
         ];
 
         $messages = [
@@ -140,7 +140,7 @@ class CoverageController extends Controller
             endif;
         endif;
     }
-    
+
     public function getCoverageCityEdit($id)
     {
         $coverage = Coverage::findOrFail($id);
@@ -153,7 +153,7 @@ class CoverageController extends Controller
     {
         $rules = [
             'name' => 'required',
-            'shipping_value' =>' required'
+            'shipping_value' => ' required'
         ];
 
         $messages = [

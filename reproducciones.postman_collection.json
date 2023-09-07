@@ -1,0 +1,102 @@
+{
+	"info": {
+		"_postman_id": "b1e186d2-243c-4984-aefa-2db975ee8cda",
+		"name": "reproducciones",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26637894",
+		"_collection_link": "https://cloudy-firefly-170285.postman.co/workspace/Ereerea-API-TEST~94cacc47-091b-4ba2-8ce9-24bfbdee532c/collection/26637894-b1e186d2-243c-4984-aefa-2db975ee8cda?action=share&creator=26637894&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "1 - invoices",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/infonet/invoices/3/3/3/2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"infonet",
+						"invoices",
+						"3",
+						"3",
+						"3",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2- payment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tid\": 12345,\n    \"prd_id\": 3,\n    \"sub_id\": \"abcdef\",\n    \"amt\": 90000,\n    \"inv_id\": \"3\",\n    \"curr\": \"PYG\",\n    \"trn_dat\": \"20220101\",\n    \"trn_hou\": \"120000\",\n    \"cm_amt\": 90000,\n    \"addl\": \"some-data\",\n    \"cm_curr\": \"PYG\",\n    \"barcode\": \"1234567890\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/infonet/payment",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"infonet",
+						"payment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3 -reverse",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tid\": 12345,\n    \"prd_id\": 3,\n    \"sub_id\": \"abcdef\",\n    \"amt\": 90000,\n    \"inv_id\": \"3\",\n    \"curr\": \"PYG\",\n    \"trn_dat\": \"20220101\",\n    \"trn_hou\": \"120000\",\n    \"cm_amt\": 90000,\n    \"addl\": \"some-data\",\n    \"cm_curr\": \"PYG\",\n    \"barcode\": \"1234567890\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/infonet/reverse",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"infonet",
+						"reverse"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -8,7 +8,7 @@ var page = 1;
 var page_section = "";
 var products_list_ids_temp = [];
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('.slick-slider').slick({
         dots: true,
         infinte: true,
@@ -17,18 +17,18 @@ $(document).ready(function() {
     });
 });
 
-window.onload = function() {
+window.onload = function () {
     loader.style.display = 'none'
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var page_route_name = document.getElementsByClassName('lk-' + route)[0];
 
     if (page_route_name) {
         page_route_name.classList.add('active')
     }
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
     var loader = document.getElementById('loader')
@@ -41,21 +41,21 @@ document.addEventListener('DOMContentLoaded', function() {
     var load_more_products = document.getElementById('load_more_products');
 
     if (btn_avatar_edit) {
-        btn_avatar_edit.addEventListener('click', function(e) {
+        btn_avatar_edit.addEventListener('click', function (e) {
             e.preventDefault();
             input_file_avatar.click();
         });
     }
 
     if (load_more_products) {
-        load_more_products.addEventListener('click', function(e) {
+        load_more_products.addEventListener('click', function (e) {
             e.preventDefault();
             load_products(page_section)
         });
     }
 
     if (input_file_avatar) {
-        input_file_avatar.addEventListener('change', function() {
+        input_file_avatar.addEventListener('change', function () {
             var load_img = '<img src="' + base + '/static/images/load.svg" />';
             avatar_change_overlay.innerHTML = load_img;
             avatar_change_overlay.style.display = 'flex';
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (route == "product_single") {
         var inventory = document.getElementsByClassName('inventory');
         for (i = 0; i < inventory.length; i++) {
-            inventory[i].addEventListener('click', function(e) {
+            inventory[i].addEventListener('click', function (e) {
                 e.preventDefault()
                 load_product_variants(this.getAttribute('data-inventory-id'))
             });
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var amount_action = document.getElementsByClassName('amount_action');
         for (i = 0; i < amount_action.length; i++) {
-            amount_action[i].addEventListener('click', function(e) {
+            amount_action[i].addEventListener('click', function (e) {
                 e.preventDefault()
                 product_single_amount(this.getAttribute('data-action'));
 
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
         btn_payment_method_selected = null;
         for (i = 0; i < btn_payment_method.length; i++) {
 
-            btn_payment_method[i].addEventListener('click', function(e) {
+            btn_payment_method[i].addEventListener('click', function (e) {
                 e.preventDefault();
                 if (btn_payment_method_selected) {
                     document.getElementById(btn_payment_method_selected).classList.remove('active');
@@ -145,7 +145,7 @@ function load_products(section) {
     http.open('GET', url, true);
     http.setRequestHeader('X-CSRF-TOKEN', csrfToken);
     http.send();
-    http.onreadystatechange = function() {
+    http.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             loader.style.display = 'none';
             page = page + 1;
@@ -154,7 +154,7 @@ function load_products(section) {
             if (data.data.length == 0) {
                 load_more_products.style.display = "none"
             }
-            data.data.forEach(function(product, index) {
+            data.data.forEach(function (product, index) {
                 products_list_ids_temp.push(product.id)
                 var div = "";
                 div += "<div class= \"product\">";
@@ -162,13 +162,13 @@ function load_products(section) {
                 div += "<div class= \"overlay\">";
                 div += "<div class= \"btns\">";
                 div += "<a href=\"" + base + "/product/" + product.id + "/" + product.slug + "\"><i class=\"fas fa-eye\"></i></a>";
-                div += "<a href=\"\"><i class=\"fas fa-cart-plus\"></i></a>";
+                // div += "<a href=\"\"><i class=\"fas fa-cart-plus\"></i></a>";
 
-                if (auth == 1) {
-                    div += "<a href=\"\" id=\"favorite_1_" + product.id + "\" onclick=\"add_to_favorites('" + product.id + "','1'); return false\"><i class=\"fas fa-heart\"></i></a>";
-                } else {
-                    div += "<a href=\"\" id=\"favorite_1_" + product.id + "\" onclick=\"loginPlease(); return false\"><i class=\"fas fa-heart\"></i></a>";
-                }
+                // if (auth == 1) {
+                //     div += "<a href=\"\" id=\"favorite_1_" + product.id + "\" onclick=\"add_to_favorites('" + product.id + "','1'); return false\"><i class=\"fas fa-heart\"></i></a>";
+                // } else {
+                //     div += "<a href=\"\" id=\"favorite_1_" + product.id + "\" onclick=\"loginPlease(); return false\"><i class=\"fas fa-heart\"></i></a>";
+                // }
 
                 div += "</div>";
                 div += "</div>";
@@ -176,7 +176,7 @@ function load_products(section) {
                 div += "</div>";
                 div += "<a href=\"" + base + "/product/" + product.id + "/" + product.slug + "\" title=\"" + product.name + "\">"
                 div += "<div class= \"title\">" + product.name + "</div>";
-                div += "<div class= \"price\">" + currency + " " + product.price + " </div>";
+                // div += "<div class= \"price\">" + currency + " " + product.price + " </div>";
                 div += "<div class= \"options\"> </div>";
                 div += "</a>";
                 div += "</div>";
@@ -198,14 +198,14 @@ function mark_user_favorites(objects) {
     http.setRequestHeader('X-CSRF-TOKEN', csrfToken);
     http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     http.send(params);
-    http.onreadystatechange = function() {
+    http.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var data = this.responseText;
             // console.log(data.objects)
             data = JSON.parse(data)
             console.log(data.objects);
             if (data.count > 0) {
-                data.objects.forEach(function(favorite, index) {
+                data.objects.forEach(function (favorite, index) {
                     document.getElementById('favorite_1_' + favorite).removeAttribute('onclick');
                     document.getElementById('favorite_1_' + favorite).classList.add('favorite_active');
                 });
@@ -242,7 +242,7 @@ function add_to_favorites(object, module) {
     http.open('POST', url, true);
     http.setRequestHeader('X-CSRF-TOKEN', csrfToken);
     http.send();
-    http.onreadystatechange = function() {
+    http.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var data = this.responseText;
             data = JSON.parse(data);
@@ -273,14 +273,14 @@ function load_product_variants(inventory_id) {
     http.open('POST', url, true);
     http.setRequestHeader('X-CSRF-TOKEN', csrfToken);
     http.send();
-    http.onreadystatechange = function() {
+    http.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             loader.style.display = 'none';
             var data = this.responseText;
             data = JSON.parse(data)
             if (data.length > 0) {
                 document.getElementById('variants_div').style.display = 'block'
-                data.forEach(function(element, index) {
+                data.forEach(function (element, index) {
                     variant = "";
                     variant += '<li>';
                     variant += '<a href="#" class="variant" onclick="variants_active_remove(); document.getElementById(\'field_variant\').value = ' + element.id + '; this.classList.add(\'active\'); return false;">';
@@ -329,13 +329,13 @@ function load_cities() {
     var url = base + '/api/load/cities/' + state_id.value;
     http.open('POST', url, true);
     http.setRequestHeader('X-CSRF-TOKEN', csrfToken);
-    http.onreadystatechange = function() {
+    http.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             loader.style.display = 'none';
             var data = this.responseText;
             data = JSON.parse(data);
             if (data.length > 0) {
-                data.forEach(function(element, index) {
+                data.forEach(function (element, index) {
                     cities_select.innerHTML += '<option value="' + element.id + '">' + element.name + '</option>';
                 })
             }
