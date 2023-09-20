@@ -51,4 +51,9 @@ class Controller extends BaseController
 
         return $orderNumber;
     }
+
+    public function postFileUpload()
+    {
+        $part = Order::all();
+    }
 }
