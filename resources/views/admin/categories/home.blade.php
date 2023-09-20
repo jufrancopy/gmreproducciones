@@ -48,7 +48,7 @@
                             </div>
                             <label for="module" class="mtop16">Ícono:</label>
                             <div class="form-file">
-                                {!! Form::file('icono', [
+                                {!! Form::file('icon', [
                                     'class' => 'form-control',
                                     'id' => 'customFile',
                                     'accept' => 'image/*',

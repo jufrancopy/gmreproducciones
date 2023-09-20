@@ -6,6 +6,10 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config; 
+
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
@@ -52,8 +56,29 @@ class Controller extends BaseController
         return $orderNumber;
     }
 
-    public function postFileUpload()
+    public function postFileUpload($field, Request $request, $thumbails = null)
     {
-        $part = Order::all();
+        $path = date('Y/m/d');
+        $originalName = $request->file($field)->getClientOriginalName();
+        $finalName = Str::slug($request->file($field)->getClientOriginalName().'_'.time()).'.'.trim($request->file($field)->getClientOriginalExtension());
+
+        if($request->$field->storeAs($path, $originalName, 'uploads')):
+            $data = json_encode(['upload'=>'success', 'path'=>$path, 'originalName'=>$originalName, 'finalName'=>$finalName]);
+        else:
+             $data= ['upload'=>'error'];
+        endif;
+
+        if($thumbails):
+            $filePath = Config::get('filesystems.disks.uploads.root').'/'.$path.'/'.$finalName;
+            foreach($thumbails as $thumbail):
+                $img = Image::make($filePath)->orientate();
+                $img->fit($thumbail[0], $thumbail[1], function($constraint){
+                    $constraint->aspectRatio();
+                });
+                $img->save(Config::get('filesystems.disks.uploads.root').'/'.$path.'/'.$thumbail[2]._.'/'.$finalName, 75);
+            endforeach;
+        endif;
+
+        return $data;    
     }
 }

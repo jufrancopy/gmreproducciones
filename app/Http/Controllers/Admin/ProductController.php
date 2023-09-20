@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Validator, Str, Config, Image;
+
+use Illuminate\Validation\Validator;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Config;
+use Intervention\Image\Image;
 
 use App\Models\Category;
 use App\Models\Product;

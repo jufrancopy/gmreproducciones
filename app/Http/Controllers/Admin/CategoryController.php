@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Config;
+use Intervention\Image\Facades\Image;
 
 use App\Models\Category;
-use Validator, Str, Config, Image;
 
 class CategoryController extends Controller
 {
@@ -34,12 +37,12 @@ class CategoryController extends Controller
     {
         $rules = [
             'name' =>    'required',
-            'icono' =>    'required',
+            'icon' =>    'required',
         ];
 
         $messages = [
             'name.required' => 'Debe darle un nombre a la nueva categoría',
-            'icono.required' => 'Debe elegir un icono',
+            'icon.required' => 'Debe elegir un icono',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -49,26 +52,21 @@ class CategoryController extends Controller
                 ->with('message', 'Se ha producido un error')
                 ->with('typealert', 'danger');
         else :
-            $path = '/' . date('Y-m-d');
-            $fileExt = trim($request->file('icono')->getClientOriginalExtension());
-            $upload_path = Config::get('filesystems.disks.uploads.root');
-            $name = Str::slug(str_replace($fileExt, '', $request->file('icono')->getClientOriginalName()));
-            $fileName = rand(1, 999) . '-' . $name . '.' . $fileExt;
+            $uploadIcon = $this->postFileUpload('icon', $request);
+            $icon = json_decode($uploadIcon, true);
+            if($icon['upload'] == "error"):
+                return back()->with('message', 'No se pudo subir el archivo.')->with('typealert', 'danger');
+            endif;
 
             $category = new Category;
             $category->module = $module;
             $category->parent = $request->input('parent');
             $category->name = e($request->input('name'));
             $category->slug = Str::slug($request->input('name'));
-            $category->file_path = date('Y-m-d');
-            $category->icono = $fileName;
+            $category->icon= $uploadIcon;
 
             if ($category->save()) :
-                if ($request->hasFile('icono')) :
-                    $fl = $request->icono->storeAs($path, $fileName, 'uploads');
-                endif;
                 return back()->with('message', 'Categoría creada con éxito.')->with('typealert', 'success');
-
             endif;
         endif;
     }

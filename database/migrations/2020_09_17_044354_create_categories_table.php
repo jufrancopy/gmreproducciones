@@ -19,8 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->integer('parent')->default(0);
             $table->string('name');
             $table->string('slug');
-            $table->string('file_path')->nullable();
-            $table->string('icono');
+            $table->text('icon')->default(null);
             $table->integer('order')->default(0);
             $table->softDeletes();
             $table->timestamps();
