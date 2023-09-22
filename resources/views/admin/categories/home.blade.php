@@ -90,8 +90,8 @@
                                 @foreach ($cats as $category)
                                     <tr>
                                         <td>
-                                            @if (!is_null($category->icono))
-                                                <img src="{{ url('/uploads/' . $category->file_path . '/' . $category->icono) }}"
+                                            @if (!is_null($category->icon))
+                                                <img src="{{ getUrlFileUploads($category->icon) }}"
                                                     class="img-fluid">
                                             @endif
                                         </td>

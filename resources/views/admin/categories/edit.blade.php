@@ -40,7 +40,7 @@
                     
                     <label for="icono" class="mtop16">Ícono:</label>
                     <div class="form-file">
-                        {!! Form::file('icono', ['class'=>'form-control',
+                        {!! Form::file('icon', ['class'=>'form-control',
                         'id'=>'customFile',
                         'accept'=>'image/*',
                         'lang'=>'es']) !!}

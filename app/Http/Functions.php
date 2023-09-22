@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Config;
 
 // Key Value Form Json
 function kvfj($json, $key)
@@ -24,6 +25,11 @@ function getModulesArray()
         // '1' =>  'Web',
     ];
     return $a;
+}
+
+function getUrlFileUploads($file){
+    $file = json_decode($file, true);
+    return url ('/uploads/'.$file['path'].'/'.$file['finalName']);
 }
 
 function getRoleUserArray($mode, $id)

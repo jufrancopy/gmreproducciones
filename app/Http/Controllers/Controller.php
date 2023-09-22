@@ -62,7 +62,7 @@ class Controller extends BaseController
         $originalName = $request->file($field)->getClientOriginalName();
         $finalName = Str::slug($request->file($field)->getClientOriginalName().'_'.time()).'.'.trim($request->file($field)->getClientOriginalExtension());
 
-        if($request->$field->storeAs($path, $originalName, 'uploads')):
+        if($request->$field->storeAs($path, $finalName, 'uploads')):
             $data = json_encode(['upload'=>'success', 'path'=>$path, 'originalName'=>$originalName, 'finalName'=>$finalName]);
         else:
              $data= ['upload'=>'error'];
@@ -80,5 +80,14 @@ class Controller extends BaseController
         endif;
 
         return $data;    
+    }
+
+    public function getDeleteFile($disk, $file){
+        $endFile =  json_decode($file, true);
+        $filePath = Config::get('filesystems.'.$disk.'.uploads.root').'/'.$endFile['path'].'/'.$endFile['finalName'];
+        
+        if(file_exists($filePath)):
+            unlink($filePath);
+        endif;
     }
 }

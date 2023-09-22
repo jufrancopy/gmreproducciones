@@ -52,18 +52,12 @@ class CategoryController extends Controller
                 ->with('message', 'Se ha producido un error')
                 ->with('typealert', 'danger');
         else :
-            $uploadIcon = $this->postFileUpload('icon', $request);
-            $icon = json_decode($uploadIcon, true);
-            if($icon['upload'] == "error"):
-                return back()->with('message', 'No se pudo subir el archivo.')->with('typealert', 'danger');
-            endif;
-
             $category = new Category;
             $category->module = $module;
             $category->parent = $request->input('parent');
             $category->name = e($request->input('name'));
             $category->slug = Str::slug($request->input('name'));
-            $category->icon= $uploadIcon;
+            $category->icon= $this->postFileUpload('icon', $request);
 
             if ($category->save()) :
                 return back()->with('message', 'Categoría creada con éxito.')->with('typealert', 'success');
@@ -101,23 +95,14 @@ class CategoryController extends Controller
             $category = Category::find($id);
             $category->name = e($request->input('name'));
             $category->slug = Str::slug($request->input('name'));
-            if ($request->hasFile('icono')) :
-                $actual_icon = $category->icono;
-                $actual_file_path = $category->file_path;
-                $path = '/' . date('Y-m-d');
-                $fileExt = trim($request->file('icono')->getClientOriginalExtension());
-                $upload_path = Config::get('filesystems.disks.uploads.root');
-                $name = Str::slug(str_replace($fileExt, '', $request->file('icono')->getClientOriginalName()));
-                $fileName = rand(1, 999) . '-' . $name . '.' . $fileExt;
-                $fl = $request->icono->storeAs($path, $fileName, 'uploads');
-                $category->file_path = date('Y-m-d');
-                $category->icono = $fileName;
-                if (!is_null($actual_icon)) :
-                    unlink($upload_path . '/' . $actual_file_path . '/' . $actual_icon);
+            if ($request->hasFile('icon')) :
+                $actualIcon = $category->icon;
+                if (!is_null($actualIcon)):
+                    $this->getDeleteFile('uploads', $actualIcon);
                 endif;
+                $category->icon = $this->postFileUpload('icon', $request);
             endif;
             $category->order = $request->input('order');
-
             if ($category->save()) :
                 return back()->with('message', 'Categoría editada con éxito.')->with('typealert', 'success');
             endif;
