@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use Illuminate\Validation\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Config;
-use Intervention\Image\Image;
+
+use Validator;
+use Image;
 
 use App\Models\Category;
 use App\Models\Product;
@@ -100,7 +101,7 @@ class ProductController extends Controller
             $product->slug = Str::slug($request->input('name'));
             $product->category_id = e($request->input('category_id'));
             $product->subCategory_id = e($request->input('subCategory_id'));
-            $product->file_path = date('Y-m-d');
+            // $product->file_path = date('Y-m-d');
             $product->image = $fileName;
             $product->in_discount = $request->input('in_discount');
             $product->discount = $request->input('discount');
@@ -143,7 +144,6 @@ class ProductController extends Controller
         $messages = [
             'name.required'         => 'Debe agregar un nombre al Producto',
             'category_id.required'  => 'Defina a que categoría pertenecerá el producto',
-            'imagen.image'          => 'El archivo incluido, no es una imagen',
             'content.required'      => 'Debe describir el producto',
 
         ];
@@ -167,14 +167,11 @@ class ProductController extends Controller
             $product->subCategory_id = e($request->input('subCategory_id'));
 
             if ($request->hasFile('image')) :
-                $path = '/' . date('Y-m-d');
-                $fileExt = trim($request->file('image')->getClientOriginalExtension());
-                $upload_path = Config::get('filesystems.disks.uploads.root');
-                $name = Str::slug(str_replace($fileExt, '', $request->file('image')->getClientOriginalName()));
-                $fileName = rand(1, 999) . '-' . $name . '.' . $fileExt;
-                $finalFile = $upload_path . '/' . $path . '/' . $fileName;
-                $product->file_path = date('Y-m-d');
-                $product->image = $fileName;
+                $actualImage = $product->image;
+                if (!is_null($actualImage)) :
+                    $this->getDeleteFile('uploads', $actualImage, ['328x328', '512x512']);
+                endif;
+                $product->image = $this->postFileUpload('image', $request, [[328,328, '328x328'], [512,512,'512x512']]);
             endif;
 
             $product->in_discount = $request->input('in_discount');
@@ -184,16 +181,6 @@ class ProductController extends Controller
 
             if ($product->save()) :
                 $this->getUpdateMinPrice($product->id);
-                if ($request->hasFile('image')) :
-                    $fl = $request->image->storeAs($path, $fileName, 'uploads');
-                    $img = Image::make($finalFile);
-                    $img->fit(512, 512, function ($constraint) {
-                        $constraint->upsize();
-                    });
-                    $img->save($upload_path . '/' . $path . '/t_' . $fileName);
-                    unlink($upload_path . '/' . $imgPrevPath . '/' . $imgPrev);
-                    unlink($upload_path . '/' . $imgPrevPath . '/t_' . $imgPrev);
-                endif;
                 return back()
                     ->with('message', 'Producto editado con éxito.')
                     ->with('typealert', 'success');

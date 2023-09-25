@@ -10,6 +10,8 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config; 
 
+use Image;
+
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
@@ -56,7 +58,7 @@ class Controller extends BaseController
         return $orderNumber;
     }
 
-    public function postFileUpload($field, Request $request, $thumbails = null)
+    public function postFileUpload($field, Request $request, $thumbnails = null)
     {
         $path = date('Y/m/d');
         $originalName = $request->file($field)->getClientOriginalName();
@@ -68,26 +70,34 @@ class Controller extends BaseController
              $data= ['upload'=>'error'];
         endif;
 
-        if($thumbails):
+        if($thumbnails):
             $filePath = Config::get('filesystems.disks.uploads.root').'/'.$path.'/'.$finalName;
-            foreach($thumbails as $thumbail):
+            foreach($thumbnails as $thumbnail):
                 $img = Image::make($filePath)->orientate();
-                $img->fit($thumbail[0], $thumbail[1], function($constraint){
+                $img->fit($thumbnail[0], $thumbnail[1], function($constraint){
                     $constraint->aspectRatio();
                 });
-                $img->save(Config::get('filesystems.disks.uploads.root').'/'.$path.'/'.$thumbail[2]._.'/'.$finalName, 75);
+                $img->save(Config::get('filesystems.disks.uploads.root').'/'.$path.'/'.$thumbnail[2]._.'/'.$finalName, 75);
             endforeach;
         endif;
 
         return $data;    
     }
 
-    public function getDeleteFile($disk, $file){
+    public function getDeleteFile($disk, $file, $thumbnails=null){
         $endFile =  json_decode($file, true);
-        $filePath = Config::get('filesystems.'.$disk.'.uploads.root').'/'.$endFile['path'].'/'.$endFile['finalName'];
+        $filePath = Config::get('filesystems.disks.'.$disk.'.root').'/'.$endFile['path'].'/'.$endFile['finalName'];
         
         if(file_exists($filePath)):
             unlink($filePath);
+            foreach($thumbnails as $thumbnail):
+                $thumbnailPath = Config::get('filesystems.disks.'.$disk.'.root').'/'.$endFile['path'].'/'.$thumbnail.'_'.$endFile['finalName'];
+                
+                if(file_exists($thumbnailPath)):
+                    unlink($thumbnailPath);
+                endif;
+                
+            endforeach;
         endif;
     }
 }

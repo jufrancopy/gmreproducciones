@@ -25,8 +25,7 @@ class CreateProductsTable extends Migration
                     ->onDelete('cascade')
                     ->onUpdate('cascade');
             $table->integer('subCategory_id')->default(0);
-            $table->string('file_path');
-            $table->string('image');
+            $table->text('image')->default(null);
             $table->decimal('price', 11, 3)->nullable()->default(0);
             $table->integer('inventory')->default(0);
             $table->integer('in_discount');

@@ -127,7 +127,7 @@
                 <div class="header">
                     <h2 class="title"><i class="far fa-image"></i> Imagen Destacada</h2>
                     <div class="inside">
-                        <img src="{{'/uploads/'.$product->file_path.'/'.$product->image}}" class="img-fluid">
+                        <img src="{{ getUrlFileUploads($product->image) }}" class="img-fluid">
                     </div>
                 </div>
             </div>
