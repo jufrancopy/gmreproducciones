@@ -16,8 +16,7 @@ class CreateProductGalleryTable extends Migration
         Schema::create('product_gallery', function (Blueprint $table) {
             $table->id();
             $table->integer('product_id');
-            $table->string('file_path');
-            $table->string('file_name');
+            $table->text('file_name')->default(null);
             $table->softDeletes();
 
             $table->timestamps();

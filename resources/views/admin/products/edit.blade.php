@@ -127,7 +127,7 @@
                 <div class="header">
                     <h2 class="title"><i class="far fa-image"></i> Imagen Destacada</h2>
                     <div class="inside">
-                        <img src="{{ getUrlFileUploads($product->image) }}" class="img-fluid">
+                        <img src="{{ getUrlFileFromUploads($product->image) }}" class="img-fluid">
                     </div>
                 </div>
             </div>
@@ -154,7 +154,7 @@
                                     class="fas fa-trash-alt"></i>
                             </a>
                             @endif
-                            <img src="{{ url('/uploads/'.$img->file_path.'/t_'.$img->file_name) }}">
+                            <img src="{{ getUrlFileFromUploads($img->file_name) }}">
                         </div>
                         @endforeach
                     </div>

@@ -80,8 +80,7 @@
                                 <td width="64">
                                     <a href="{{ '/uploads/' . $product->file_path . '/t_' . $product->image }}"
                                         data-fancybox="gallery">
-                                        <img src="{{ '/uploads/' . $product->file_path . '/t_' . $product->image }}"
-                                            width="64">
+                                        <img src="{{ getUrlFileFromUploads($product->image) }}" width="48px"
                                     </a>
                                 </td>
 

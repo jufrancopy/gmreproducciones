@@ -91,7 +91,7 @@
                                     <tr>
                                         <td>
                                             @if (!is_null($category->icon))
-                                                <img src="{{ getUrlFileUploads($category->icon) }}"
+                                                <img src="{{ getUrlFileFromUploads($category->icon) }}"
                                                     class="img-fluid">
                                             @endif
                                         </td>

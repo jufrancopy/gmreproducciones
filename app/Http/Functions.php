@@ -27,9 +27,13 @@ function getModulesArray()
     return $a;
 }
 
-function getUrlFileUploads($file){
-    $file = json_decode($file, true);
-    return url ('/uploads/'.$file['path'].'/'.$file['finalName']);
+function getUrlFileFromUploads($file)
+{
+    if (!is_null($file)) :
+
+        $file = json_decode($file, true);
+        return url('/uploads/' . $file['path'] . '/' . $file['finalName']);
+    endif;
 }
 
 function getRoleUserArray($mode, $id)

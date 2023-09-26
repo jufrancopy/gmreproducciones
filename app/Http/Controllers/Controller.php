@@ -77,7 +77,7 @@ class Controller extends BaseController
                 $img->fit($thumbnail[0], $thumbnail[1], function($constraint){
                     $constraint->aspectRatio();
                 });
-                $img->save(Config::get('filesystems.disks.uploads.root').'/'.$path.'/'.$thumbnail[2]._.'/'.$finalName, 75);
+                $img->save(Config::get('filesystems.disks.uploads.root').'/'.$path.'/'.$thumbnail[2].'_'.$finalName, 75);
             endforeach;
         endif;
 
@@ -89,15 +89,17 @@ class Controller extends BaseController
         $filePath = Config::get('filesystems.disks.'.$disk.'.root').'/'.$endFile['path'].'/'.$endFile['finalName'];
         
         if(file_exists($filePath)):
+            
             unlink($filePath);
+
             foreach($thumbnails as $thumbnail):
                 $thumbnailPath = Config::get('filesystems.disks.'.$disk.'.root').'/'.$endFile['path'].'/'.$thumbnail.'_'.$endFile['finalName'];
                 
                 if(file_exists($thumbnailPath)):
                     unlink($thumbnailPath);
                 endif;
-                
             endforeach;
+            
         endif;
     }
 }

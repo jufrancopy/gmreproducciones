@@ -83,17 +83,6 @@ class ProductController extends Controller
                 ->with('typealert', 'danger')
                 ->withInput();
         else :
-
-            // Validation images
-            $path = '/' . date('Y-m-d');
-            $fileExt = trim($request->file('image')->getClientOriginalExtension());
-            $upload_path = Config::get('filesystems.disks.uploads.root');
-            $name = Str::slug(str_replace($fileExt, '', $request->file('image')->getClientOriginalName()));
-
-            $fileName = rand(1, 999) . '-' . $name . '.' . $fileExt;
-            $finalFile = $upload_path . '/' . $path . '/' . $fileName;
-
-            // Insertion to DB
             $product = new Product;
             $product->status = 0;
             $product->code = e($request->input('code'));
@@ -101,21 +90,12 @@ class ProductController extends Controller
             $product->slug = Str::slug($request->input('name'));
             $product->category_id = e($request->input('category_id'));
             $product->subCategory_id = e($request->input('subCategory_id'));
-            // $product->file_path = date('Y-m-d');
-            $product->image = $fileName;
+            $product->image = $this->postFileUpload('image', $request, [[328,328, '328x328']]);
             $product->in_discount = $request->input('in_discount');
             $product->discount = $request->input('discount');
             $product->content = e($request->input('content'));
 
             if ($product->save()) :
-                if ($request->hasFile('image')) :
-                    $fl = $request->image->storeAs($path, $fileName, 'uploads');
-                    $img = Image::make($finalFile);
-                    $img->fit(256, 256, function ($constraint) {
-                        $constraint->upsize();
-                    });
-                    $img->save($upload_path . '/' . $path . '/t_' . $fileName);
-                endif;
                 return redirect('/admin/product/' . $product->id . '/edit')
                     ->with('message', 'Producto agregado con éxito.')
                     ->with('typealert', 'success');
@@ -171,7 +151,7 @@ class ProductController extends Controller
                 if (!is_null($actualImage)) :
                     $this->getDeleteFile('uploads', $actualImage, ['328x328', '512x512']);
                 endif;
-                $product->image = $this->postFileUpload('image', $request, [[328,328, '328x328'], [512,512,'512x512']]);
+                $product->image = $this->postFileUpload('image', $request, [[328,328, '328x328']]);
             endif;
 
             $product->in_discount = $request->input('in_discount');
@@ -208,28 +188,14 @@ class ProductController extends Controller
                 ->withInput();
         else :
             if ($request->hasFile('file_image')) :
-                $path = '/' . date('Y-m-d');
-                $fileExt = trim($request->file('file_image')->getClientOriginalExtension());
-                $upload_path = Config::get('filesystems.disks.uploads.root');
-                $name = Str::slug(str_replace($fileExt, '', $request->file('file_image')->getClientOriginalName()));
-                $fileName = rand(1, 999) . '-' . $name . '.' . $fileExt;
-                $finalFile = $upload_path . '/' . $path . '/' . $fileName;
-
+                
                 // Make Gallery
                 $gallery = new PGallery;
                 $gallery->product_id = $id;
-                $gallery->file_path = date('Y-m-d');
-                $gallery->file_name = $fileName;
-
+                $gallery->file_name = $this->postFileUpload('file_image', $request, [[328,328, '328x328']]);
+                
                 if ($gallery->save()) :
-                    if ($request->hasFile('file_image')) :
-                        $fl = $request->file_image->storeAs($path, $fileName, 'uploads');
-                        $img = Image::make($finalFile);
-                        $img->fit(256, 256, function ($constraint) {
-                            $constraint->upsize();
-                        });
-                        $img->save($upload_path . '/' . $path . '/t_' . $fileName);
-                    endif;
+                    
                     return back()
                         ->with('message', 'Imagen subida con éxito.')
                         ->with('typealert', 'success');
@@ -242,8 +208,6 @@ class ProductController extends Controller
     public function getProductGalleryDelete($id, $gid)
     {
         $gallery = PGallery::findOrFail($gid);
-        $path = $gallery->file_path;
-        $file = $gallery->file_name;
         $upload_path = Config::get('filesystems.disks.uploads.root');
 
         if ($gallery->product_id != $id) {
@@ -252,8 +216,6 @@ class ProductController extends Controller
                 ->with('typealert', 'danger');
         } else {
             if ($gallery->delete()) :
-                unlink($upload_path . '/' . $path . '/' . $file);
-                unlink($upload_path . '/' . $path . '/t_' . $file);
                 return back()
                     ->with('message', 'La Imagen se eliminó con éxito.')
                     ->with('typealert', 'success');
