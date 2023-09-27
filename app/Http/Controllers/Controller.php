@@ -8,7 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config; 
+use Illuminate\Support\Facades\Config;
 
 use Image;
 
@@ -62,44 +62,45 @@ class Controller extends BaseController
     {
         $path = date('Y/m/d');
         $originalName = $request->file($field)->getClientOriginalName();
-        $finalName = Str::slug($request->file($field)->getClientOriginalName().'_'.time()).'.'.trim($request->file($field)->getClientOriginalExtension());
+        $finalName = Str::slug($request->file($field)->getClientOriginalName() . '_' . time()) . '.' . trim($request->file($field)->getClientOriginalExtension());
 
-        if($request->$field->storeAs($path, $finalName, 'uploads')):
-            $data = json_encode(['upload'=>'success', 'path'=>$path, 'originalName'=>$originalName, 'finalName'=>$finalName]);
-        else:
-             $data= ['upload'=>'error'];
+        if ($request->$field->storeAs($path, $finalName, 'uploads')) :
+            $data = json_encode(['upload' => 'success', 'path' => $path, 'originalName' => $originalName, 'finalName' => $finalName]);
+        else :
+            $data = ['upload' => 'error'];
         endif;
 
-        if($thumbnails):
-            $filePath = Config::get('filesystems.disks.uploads.root').'/'.$path.'/'.$finalName;
-            foreach($thumbnails as $thumbnail):
+        if ($thumbnails) :
+            $filePath = Config::get('filesystems.disks.uploads.root') . '/' . $path . '/' . $finalName;
+            foreach ($thumbnails as $thumbnail) :
                 $img = Image::make($filePath)->orientate();
-                $img->fit($thumbnail[0], $thumbnail[1], function($constraint){
+                $img->fit($thumbnail[0], $thumbnail[1], function ($constraint) {
                     $constraint->aspectRatio();
                 });
-                $img->save(Config::get('filesystems.disks.uploads.root').'/'.$path.'/'.$thumbnail[2].'_'.$finalName, 75);
+                $img->save(Config::get('filesystems.disks.uploads.root') . '/' . $path . '/' . $thumbnail[2] . '_' . $finalName, 75);
             endforeach;
         endif;
 
-        return $data;    
+        return $data;
     }
 
-    public function getDeleteFile($disk, $file, $thumbnails=null){
+    public function getDeleteFile($disk, $file, $thumbnails = null)
+    {
         $endFile =  json_decode($file, true);
-        $filePath = Config::get('filesystems.disks.'.$disk.'.root').'/'.$endFile['path'].'/'.$endFile['finalName'];
-        
-        if(file_exists($filePath)):
-            
+        $filePath = Config::get('filesystems.disks.' . $disk . '.root') . '/' . $endFile['path'] . '/' . $endFile['finalName'];
+
+        if (file_exists($filePath)) :
+
             unlink($filePath);
 
-            foreach($thumbnails as $thumbnail):
-                $thumbnailPath = Config::get('filesystems.disks.'.$disk.'.root').'/'.$endFile['path'].'/'.$thumbnail.'_'.$endFile['finalName'];
-                
-                if(file_exists($thumbnailPath)):
+            foreach ($thumbnails as $thumbnail) :
+                $thumbnailPath = Config::get('filesystems.disks.' . $disk . '.root') . '/' . $endFile['path'] . '/' . $thumbnail . '_' . $endFile['finalName'];
+
+                if (file_exists($thumbnailPath)) :
                     unlink($thumbnailPath);
                 endif;
             endforeach;
-            
+
         endif;
     }
 }
