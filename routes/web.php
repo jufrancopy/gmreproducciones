@@ -43,7 +43,7 @@ Route::post('/reset', 'ConnectController@postReset')->name('post-reset');
 Route::get('/register', 'ConnectController@getRegister')->name('register');
 Route::post('/register', 'ConnectController@postRegister')->name('post-register');
 Route::get('/logout', 'ConnectController@getLogout')->name('logout');
-// Route::get('/timeline-show', 'Admin\TimelineController@getHomeWeb')->name('timeline-show');
+Route::get('/timeline-show', 'Admin\TimelineController@getHomeWeb')->name('timeline-show');
 
 // Module Products
 Route::get('/product/{id}/{slug}', 'Frontend\ProductController@getProduct')->name('product_single');

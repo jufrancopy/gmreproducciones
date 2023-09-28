@@ -64,6 +64,17 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-3">
+            <div class="panel shadow">
+                <div class="header">
+                    <h2 class="title"><i class="fas fa-edit"></i> Ícono</h2>
+                </div>
+                <div class="inside">
+                    
+                </div>
+            </div>
+        </div>
         @if(!is_null($category->icono))
         <div class="col-md-3">
             <div class="panel shadow">

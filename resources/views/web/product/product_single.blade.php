@@ -13,9 +13,9 @@
                 <div class="col-md-4 pleft0">
                     <div class="slick-slider">
                         <div>
-                            <a href="{{url('/uploads/'.$product->file_path.'/'.$product->image)}}"
+                            <a href="{{getUrlFileFromUploads($product->image)}}"
                                 data-fancybox="gallery">
-                                <img src="{{url('/uploads/'.$product->file_path.'/'.$product->image)}}"
+                                <img src="{{getUrlFileFromUploads($product->image)}}"
                                     class="img-fluid">
                             </a>
                         </div>
@@ -23,9 +23,10 @@
                         @if(count($product->getGallery) > 0 )
                         @foreach ($product->getGallery as $gallery )
                         <div>
-                            <a href="{{url('/uploads/'.$gallery->file_path.'/t_'.$gallery->file_name)}}"
+
+                            <a href="{{getUrlFileFromUploads($gallery->file_name)}}"
                                 data-fancybox="gallery">
-                                <img src="{{url('/uploads/'.$gallery->file_path.'/t_'.$gallery->file_name)}}"
+                                <img src="{{getUrlFileFromUploads($gallery->file_name)}}"
                                     class="img-fluid">
                             </a>
                         </div>

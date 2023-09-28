@@ -92,15 +92,15 @@ class Controller extends BaseController
         if (file_exists($filePath)) :
 
             unlink($filePath);
+            if ($thumbnails) :
+                foreach ($thumbnails as $thumbnail) :
+                    $thumbnailPath = Config::get('filesystems.disks.' . $disk . '.root') . '/' . $endFile['path'] . '/' . $thumbnail . '_' . $endFile['finalName'];
 
-            foreach ($thumbnails as $thumbnail) :
-                $thumbnailPath = Config::get('filesystems.disks.' . $disk . '.root') . '/' . $endFile['path'] . '/' . $thumbnail . '_' . $endFile['finalName'];
-
-                if (file_exists($thumbnailPath)) :
-                    unlink($thumbnailPath);
-                endif;
-            endforeach;
-
+                    if (file_exists($thumbnailPath)) :
+                        unlink($thumbnailPath);
+                    endif;
+                endforeach;
+            endif;
         endif;
     }
 }
