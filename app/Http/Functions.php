@@ -27,12 +27,15 @@ function getModulesArray()
     return $a;
 }
 
-function getUrlFileFromUploads($file)
+function getUrlFileFromUploads($file, $size = null)
 {
     if (!is_null($file)) :
-
         $file = json_decode($file, true);
-        return url('/uploads/' . $file['path'] . '/' . $file['finalName']);
+        if ($size) :
+            return url('/uploads/' . $file['path'] . '/' . $size . '_' . $file['finalName']);
+        else :
+            return url('/uploads/' . $file['path'] . '/' . $file['finalName']);
+        endif;
     endif;
 }
 

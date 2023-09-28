@@ -52,32 +52,10 @@ class UserController extends Controller
                 ->withInput();
         else :
             if ($request->hasFile('avatar')) :
-                $path = '/' . Auth::id();
-                $fileExt = trim($request->file('avatar')->getClientOriginalExtension());
-                $upload_path = Config::get('filesystems.disks.uploads_users.root');
-                $name = Str::slug(str_replace($fileExt, '', $request->file('avatar')->getClientOriginalName()));
-                $fileName = rand(1, 999) . '_' . $name . '.' . $fileExt;
-                $finalFile = $upload_path . '/' . $path . '/' . $fileName;
-
-                // Add Avatar
                 $user = User::find(Auth::id());
-                $avatar = $user->avatar;
-                $user->avatar = $fileName;
+                $user->avatar = $this->postFileUpload('avatar', $request, [[64, 64, '64x64'], [128, 128, '128x128'], [256, 256, '256x256']]);
 
                 if ($user->save()) :
-                    if ($request->hasFile('avatar')) :
-                        $fl = $request->avatar->storeAs($path, $fileName, 'uploads_users');
-                        $img = Image::make($finalFile);
-                        $img->fit(256, 256, function ($constraint) {
-                            $constraint->upsize();
-                        });
-                        $img->save($upload_path . '/' . $path . '/av_' . $fileName);
-                    endif;
-
-                    if ($avatar) :
-                        unlink($upload_path . '/' . $path .'/'. $avatar);
-                        unlink($upload_path . '/' . $path . '/av_' . $avatar);
-                    endif;
 
                     return back()
                         ->with('message', 'Avatar subido con éxito.')
