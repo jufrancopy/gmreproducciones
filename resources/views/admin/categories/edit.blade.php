@@ -71,7 +71,7 @@
                     <h2 class="title"><i class="fas fa-edit"></i> Ícono</h2>
                 </div>
                 <div class="inside">
-                    
+                    <img src="{{ getUrlFileFromUploads($category->icon) }}" class="img-fluid">
                 </div>
             </div>
         </div>

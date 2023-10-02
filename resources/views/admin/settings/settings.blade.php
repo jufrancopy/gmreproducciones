@@ -234,6 +234,15 @@
                         ['class'=>'form-select'])!!}
                     </div>
 
+                    <label for="payment_method_transfer_accounts_bank" class="mtop16">Mensaje:</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">
+                            <i class="fas fa-exchange-alt"></i>
+                        </span>
+                        {!! Form::textarea('payment_method_transfer',Config::get('configSite.upload_server_path'), ['class'
+                        =>'form-control'])!!}
+                    </div>
+
                     <label for="payment_method_paypal" class="mtop16">Paypal:</label>
                     <div class="input-group">
                         <span class="input-group-text" id="basic-addon1">

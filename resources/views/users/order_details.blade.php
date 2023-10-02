@@ -27,8 +27,8 @@
                                         @foreach ($order->getItems as $item)
                                             <tr>
 
-                                                <td><img src="{{ url('/uploads/' . $item->getProduct->file_path . '/t_' . $item->getProduct->image) }}"
-                                                        alt="" class="img-fluid rounded"></td>
+                                                <td><img src="{{ getUrlFileFromUploads($item->getProduct->image) }}"
+                                                    alt="" class="img-fluid rounded"></td>
                                                 <td>
                                                     <a
                                                         href="{{ url('/product/' . $item->getProduct->id . '/' . $item->getProduct->slug) }}">

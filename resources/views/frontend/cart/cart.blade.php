@@ -20,6 +20,9 @@
             <div class="row">
                 <div class="col-md-9">
                     <div class="panel">
+                        <div class="header">
+                            <h2 class="title"><i class="fas fa-shopping-cart"></i> Carrito de Compras</h2>
+                        </div>
                         <div class="inside">
                             <table class="table table-striped align-middle table-hover">
                                 <thead>
@@ -39,7 +42,7 @@
                                                 <i class="far fa-trash-alt"></i>
                                             </a>
                                         </td>
-                                        <td><img src="{{url('/uploads/'.$item->getProduct->file_path.'/t_'.$item->getProduct->image)}}"
+                                        <td><img src="{{ getUrlFileFromUploads($item->getProduct->image) }}"
                                                 alt="" class="img-fluid rounded"></td>
                                         <td><a
                                                 href="{{url('/product/'.$item->getProduct->id.'/'.$item->getProduct->slug)}}">{{$item->label_item}}</a>
@@ -92,8 +95,21 @@
                             </table>
                         </div>
                     </div>
+                    <div class="row mtop32">
+                        <div class="col-md-6">
+                            <div class="panel mtop32">
+                                <div class="inside">
+                                    <div class="header">
+                                        <h2 class="title"><i class="fas fa-shopping-cart"></i> Tranferencia y Depósito</h2>
+                                    </div>
+                                    <div class="inside">
+                                        Para depósito y tranferencia, use las siguientes informaciones de cuentas.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
 
                 <div class="col-md-3 detail_shipping">
                     {!! Form::open(['url'=>'/cart']) !!}
