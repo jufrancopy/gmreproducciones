@@ -113,6 +113,14 @@ document.addEventListener('DOMContentLoaded', function () {
         btn_deleted[i].addEventListener('click', delete_object);
     }
 
+    var payment_method_transfer_file = document.getElementById('payment_method_transfer_file');
+    if (payment_method_transfer_file) {
+        payment_method_transfer_file.addEventListener('change', function (e) {
+            imagePreview(this, 'payment_method_transfer_img_prew');
+            document.getElementById('pay_btn_complete').classList.remove('disabled');
+        })
+    }
+
     var btn_payment_method = document.getElementsByClassName('btn_payment_method');
     if (btn_payment_method) {
         btn_payment_method_selected = null;
@@ -123,12 +131,30 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (btn_payment_method_selected) {
                     document.getElementById(btn_payment_method_selected).classList.remove('active');
                 }
+                //Add class active to payment method
                 this.classList.add('active')
                 document.getElementById('field_payment_method_id').value = this.getAttribute('data-payment-method-id')
-                document.getElementById('pay_btn_complete').classList.remove('disabled');
                 btn_payment_method_selected = this.getAttribute('id');
+
+                //Method Payment = Transfer
+                if (this.getAttribute('data-payment-method-id') == "1") {
+                    document.getElementById('payment_method_transfer_info').style.display = "flex";
+                    document.getElementById('pay_btn_complete').classList.add('disabled');
+                } else {
+                    payment_method_transfer_file.value = "";
+                    document.getElementById('payment_method_transfer_img_prew').setAttribute('src', '');
+                    document.getElementById('payment_method_transfer_info').style.display = "none";
+                    document.getElementById('pay_btn_complete').classList.remove('disabled');
+                }
             });
         }
+    }
+    var payment_method_transfer_select_file = document.getElementById('payment_method_transfer_select_file');
+    if (payment_method_transfer_select_file) {
+        payment_method_transfer_select_file.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('payment_method_transfer_file').click()
+        })
     }
 });
 
@@ -376,4 +402,16 @@ function delete_object(e) {
             window.location.href = url;
         }
     })
+}
+
+function imagePreview(input, toprew) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            document.getElementById(toprew).setAttribute('src', e.target.result);
+
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
 }

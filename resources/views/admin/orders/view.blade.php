@@ -25,7 +25,7 @@
                                         <img src="{{ url('static/images/avatar_default.png') }}"
                                             class="img-fluid rounded-circle">
                                     @else
-                                        <img src="{{ url('uploads_users/' . $order->getUser->id . '/' . $order->getUser->avatar) }}"
+                                        <img src="{{ getUrlFileFromUploads($order->getUser->avatar) }}"
                                             class="img-fluid rounded-circle">
                                     @endif
                                 </div>
@@ -86,7 +86,6 @@
                     <div class="panel shadow">
                         <div class="header">
                             <h2 class="title"><i class="fas fa-clipboard-list"></i> Órdenes</h2>
-
                         </div>
 
                         <div class="inside">
@@ -102,8 +101,7 @@
                                 <tbody>
                                     @foreach ($order->getItems as $item)
                                         <tr>
-
-                                            <td><img src="{{ url('/uploads/' . $item->getProduct->file_path . '/t_' . $item->getProduct->image) }}"
+                                            <td><img src="{{ getUrlFileFromUploads($item->getProduct->image) }}"
                                                     alt="" class="img-fluid rounded"></td>
                                             <td>
                                                 <a
@@ -212,6 +210,19 @@
                         </div>
                     </div>
 
+                    @if ($order->payment_method == 1)
+                        <div class="panel shadow mtop16">
+                            <div class="inside">
+                                <div class="header">
+                                    <h2 class="title"><i class="fas fa-shopping-cart"></i> Comprobante
+                                    </h2>
+                                </div>
+                                <div class="inside">
+                                    <img src="{{ getUrlFileFromUploads($order->voucher) }}" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                     <div class="panel shadow mtop16">
                         <div class="header">
                             <h2 class="title"><i class="far fa-envelope-open"></i> Más</h2>

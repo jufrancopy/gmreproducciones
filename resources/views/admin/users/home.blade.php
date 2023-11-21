@@ -56,7 +56,7 @@
                                         <img src="{{ url('static/images/avatar_default.png') }}"
                                             class="img-fluid rounded-circle">
                                     @else
-                                        <img src="{{ url('uploads_users/' . $user->id . '/' . $user->avatar) }}"
+                                        <img src="{{ getUrlFileFromUploads($user->avatar) }}"
                                             class="img-fluid rounded-circle">
                                     @endif
                                 </td>

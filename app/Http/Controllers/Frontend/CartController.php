@@ -62,10 +62,14 @@ class CartController extends Controller
         $orderId = $this->getUserOrder()->id;
         $order = Order::find($orderId);
 
-        if ($order->payment_method == 0) :
+        if ($request->input('payment_method') == 0 || $request->input('payment_method') == 1) :
             $this->getProcessOrder($order->id);
-
         endif;
+
+        if ($request->input('payment_method') == 1) :
+            $order->voucher = $this->postFileUpload('payment_method_transfer_file', $request);
+        endif;
+
         $order->payment_method = $request->payment_method;
         $order->user_comment = $request->user_comment;
         $order->save();
@@ -73,6 +77,9 @@ class CartController extends Controller
         if ($order->save()) :
             $order = Order::find($order->id);
             if ($order->payment_method == 0 && $order->status == 1) :
+                $this->getOrderEmailDetails($order->id);
+                return redirect('account/history/order/' . $order->id);
+            elseif ($order->payment_method == 1 && $order->status == 1) :
                 $this->getOrderEmailDetails($order->id);
                 return redirect('account/history/order/' . $order->id);
             else :

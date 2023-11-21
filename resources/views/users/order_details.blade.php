@@ -28,7 +28,7 @@
                                             <tr>
 
                                                 <td><img src="{{ getUrlFileFromUploads($item->getProduct->image) }}"
-                                                    alt="" class="img-fluid rounded"></td>
+                                                        alt="" class="img-fluid rounded"></td>
                                                 <td>
                                                     <a
                                                         href="{{ url('/product/' . $item->getProduct->id . '/' . $item->getProduct->slug) }}">
@@ -77,6 +77,36 @@
                                 </table>
                             </div>
                         </div>
+                        @if ($order->payment_method == 1)
+                            <div class="row mtop16" id="payment_method_transfer_info">
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="inside">
+                                            <div class="header">
+                                                <h2 class="title"><i class="fas fa-ticket-alt"></i> Tranferencia y
+                                                    Depósito</h2>
+                                            </div>
+                                            <div class="inside">
+                                                {!! Config::get('configSite.payment_method_transfer_accounts_bank') !!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="inside">
+                                            <div class="header">
+                                                <h2 class="title"><i class="fas fa-shopping-cart"></i> Comprobante
+                                                </h2>
+                                            </div>
+                                            <div class="inside">
+                                                <img src="{{ getUrlFileFromUploads($order->voucher) }}" class="img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     </div>
 
 
@@ -152,6 +182,8 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
-    @endsection
+    </div>
+@endsection

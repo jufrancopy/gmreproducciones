@@ -26,6 +26,7 @@ class CreateOrdersTable extends Migration
             $table->decimal('total', 11, 2)->default(0.00);
             $table->integer('payment_method')->nullable();
             $table->text('payment_info')->nullable();
+            $table->text('voucher')->nullable();
             $table->dateTime('paid_at')->nullable();
             $table->timestamp('request_at')->nullable();
             $table->timestamp('process_at', $precision = 0)->nullable();
