@@ -262,12 +262,13 @@ function getPaymentsMethods($method = null)
         '2' => 'Paypal',
         '3' => 'Tarjeta de Crédito'
     ];
-
-    if (is_null($method)) :
-        return $list;
-    else :
+    
+    // Si $method es nulo o no está definido, devuelve una cadena vacía
+    if (is_null($method) || !array_key_exists($method, $list)) {
+        return '';
+    } else {
         return $list[$method];
-    endif;
+    }
 }
 
 function getOrderStatus($status = null)
