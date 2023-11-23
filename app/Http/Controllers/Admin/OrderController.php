@@ -53,10 +53,14 @@ class OrderController extends Controller
 
     public function postOrderStatusUpdate(Order $order, Request $request)
     {
-        if ($request->status == 1 || $request->status == 2 || $order->status == 6 || $order->status == 100) :
+        if ($request->status == 1 || $order->status == 6 || $order->status == 100) :
             return back();
         else :
             $order->status = $request->status;
+
+            if ($request->status == 2 && is_null($order->paid_at)) :
+                $order->paid_at = date('Y-m-d h:i:s');
+            endif;
 
             if ($request->status == 3 && is_null($order->process_at)) :
                 $order->process_at = date('Y-m-d h:i:s');

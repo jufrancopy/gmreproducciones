@@ -78,6 +78,41 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="panel shadow mtop16">
+                        <div class="header">
+                            <h2 class="title"><i class="far fa-envelope-open"></i> Más</h2>
+                        </div>
+                        <div class="inside">
+                            <div class="profile">
+                                <div class="info">
+                                    <ul>
+                                        <li><strong><i class="far fa-clock"></i> Fecha de Solicitud:
+                                            </strong>{{ $order->request_at }}</li>
+                                        <li><strong><i class="far fa-credit-card"></i> Pagado el:
+                                            </strong>{{ $order->paid_at }}</li>
+                                        <li><strong><i class="fas fa-blox"></i> Procesando:
+                                            </strong>{{ $order->process_at }}</li>
+                                        @if ($order->o_type == 0)
+                                            <li><strong><i class="fas fa-motorcycle"></i> Enviada:
+                                                </strong>{{ $order->send_at }}</li>
+                                        @else
+                                            <li><strong><i class="fas fa-motorcycle"></i> Lista:
+                                                </strong>{{ $order->send_at }}</li>
+                                        @endif
+
+                                        <li><strong><i class="fas fa-shipping-fast"></i> Entregada:
+                                            </strong>{{ $order->delivery_at }}</li>
+
+                                        @if ($order->rejected_at)
+                                            <li><strong><i class="fas fa-recycle"></i> Rechazada:
+                                                </strong>{{ $order->rejected_at }}</li>
+                                        @endif
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 {{-- End Col Nro 1 --}}
 
@@ -218,7 +253,9 @@
                                     </h2>
                                 </div>
                                 <div class="inside">
-                                    <img src="{{ getUrlFileFromUploads($order->voucher) }}" class="img-fluid">
+                                    <a href="{{ getUrlFileFromUploads($order->voucher) }}" target="_blank">
+                                        <img src="{{ getUrlFileFromUploads($order->voucher) }}" class="img-fluid">
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -256,12 +293,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <div class="inside">
-                            <label for="user_comment">Comentario</label>
-                            @if ($order->user_comment)
-                                <p>{!! $order->user_comment !!}</p>
-                            @endif
-                        </div> --}}
                     </div>
 
                     <div class="panel shadow mtop16">

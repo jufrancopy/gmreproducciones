@@ -60,6 +60,7 @@
                                 <th>#</th>
                                 <th>Usuarios</th>
                                 <th>Tipo</th>
+                                <th>Método de Pago</th>
                                 <th>Fecha de Solicitud</th>
                                 <th>Total</th>
                                 <th></th>
@@ -68,11 +69,14 @@
                                 @foreach ($orders as $order)
                                     <tr>
                                         <td>{{ $order->o_number }}</td>
-                                        <td>{{ $order->getUser->name }} @if ($order->getUser->lastname)
-                                                {{ $order->getUser->lastname }}
-                                            @endif
+
+
+                                        <td>
+                                            <a href="{{ url('admin/user/' . $order->user_id . '/view') }}">
+                                                {{ $order->getUser->fullname }} </a>
                                         </td>
                                         <td>{{ getORderType($order->o_type) }}</td>
+                                        <td>{{ getPaymentsMethods($order->payment_method) }}</td>
                                         <td>{{ $order->request_at }}</td>
                                         <td>{{ number($order->total) }}</td>
                                         <td>
