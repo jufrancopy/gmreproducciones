@@ -3,7 +3,7 @@
 @section('title', 'Inicio')
 
 @section('content')
-    <section>
+    {{-- <section>
         <div class="home_action_bar shadow">
             <div class="row">
                 <div class="col-md-3">
@@ -42,5 +42,5 @@
         <div class="load_more_products">
             <a href="#" id="load_more_products">Cargar Más</a>
         </div>
-    </section>
+    </section> --}}
 @endsection

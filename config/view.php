@@ -1,5 +1,15 @@
 <?php
 
+$cms_url = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+
+if ($cms_url !== '' && str_contains($cms_url, 'admin')) {
+    $views_path = 'views';
+} else {
+    $views_path = 'views/templates/' . config('configSite.template');
+}
+
+
+
 return [
 
     /*
@@ -14,7 +24,7 @@ return [
     */
 
     'paths' => [
-        resource_path('views'),
+        resource_path($views_path),
     ],
 
     /*

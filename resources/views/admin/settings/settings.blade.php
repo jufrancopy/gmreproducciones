@@ -57,6 +57,15 @@
                             {!! Form::email('email_from', Config::get('configSite.email_from'), ['class' => 'form-control']) !!}
                         </div>
 
+                        <label for="template" class="mtop16">Plantilla:</label>
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">
+                                <div class="far fa-keyboard"></div>
+                            </span>
+                            {!! Form::select('template', getTemplatesOfPlatform(), Config::get('configSite.template'),['class' => 'form-select']) !!}
+
+                        </div>
+
                         <label for="name" class="mtop16">Modo mantenimiento:</label>
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon1">

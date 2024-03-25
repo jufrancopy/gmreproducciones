@@ -95,7 +95,7 @@ class UserController extends Controller
             if (Hash::check($request->input('apassword'), $user->password)) :
                 $user->password = Hash::make($request->input('password'));
                 if ($user->save()) :
-                    return back()->with('message', 'Contraseña actualizada con éxito')->with('typealert', 'success');
+                    return redirect('/logout')->with('message', 'Contraseña actualizada con éxito')->with('typealert', 'success');
                 endif;
             else :
                 return back()->with('message', 'Su contraseña actual es incorecta')->with('typealert', 'danger');
@@ -105,7 +105,6 @@ class UserController extends Controller
 
     public function postAccountInfo(Request $request)
     {
-
         $rules = [
             'name'      => 'required',
             'lastname'  => 'required',

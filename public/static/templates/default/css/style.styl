@@ -1,0 +1,570 @@
+c1 = #0D5689
+c1-500 = #81f1be
+c2 = #FCA949
+c2-500= #f6d4ae
+c3 = #52CCE3
+c3-500 = #cbe8ee
+c4 = #111111
+c4-500 = #820d0d
+
+body
+    background-color: #f7f7f7
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+a
+.btn
+    &:active
+    &:focus
+        // text-decoration: none !important
+        box-shadow: none
+        outline: none
+*
+    transition: all 0.1s ease
+    -webkit-transition:  all 0.2s ease
+    
+table
+    p
+        margin-bottom: 4px !important
+.loader
+    background-color: rgba(255,255,255,.9)
+    align-items center
+    display: flex
+    justify-content: center
+    height: 100vh
+    left: 0px
+    position: fixed
+    top 0px
+    width: 100%
+    z-index 1000
+    .box
+        display: block
+        min-width: 420px
+        width: 160px    
+        border 1px solid #f7f8f9
+        .cart
+            overflow: hidden
+            width: 100%
+            img
+                animation: loading_image 4s linear infinite
+                margin-left: -100%
+                display: block
+                position: relative
+                width: 120px
+        .load 
+            margin-left: calc(50% - 30px)
+            height: 60px
+            width: 60px
+.w50
+    width 50%
+.w100
+    width 100%
+.btop1 
+    border-top: 1px solid #d6d6d6
+.mtop8
+    margin-top: 8px
+.mtop16
+    margin-top: 16px
+.mtop24
+    margin-top: 24px
+.mtop32
+    margin-top: 32px
+.pleft0
+    padding-left: 0px!important
+.pleft12
+    padding-left: 12px !important
+.pleft24
+    padding-left: 24px !important
+.ptop16
+    padding-top: 16px
+.hidden
+    display: none
+.nomargin
+    margin 0px;
+.hide-in-mobile
+    display: block 
+.show-in-mobile
+    display: none !important
+.topbar
+    background-color: c1
+    ul
+        display: inline-flex
+        margin 0px
+        padding: 0px
+        list-style: none
+        li
+            display: inline-block
+            float: left
+            margin-right: 8px
+            a
+                display: block
+                color: #fff
+                text-decoration: none
+                font-size: .9em
+                padding: 8px
+                &:hover
+                    color: c2
+
+.navbar-primary
+    display: block;
+    background-color: #fff
+    overflow hidden
+    padding: 24px 0px
+    width: 100%
+    z-index: 99
+    .brand
+        display: block
+        float: left
+        width: 60px
+        a
+            display: block
+            width: 100%
+            img
+                display: block
+                width 100%;
+    .search 
+        display: block
+        float: right 
+        margin-right:24px
+        margin-top: 3px
+        width: 260px
+        .form-control
+            padding-top: 10px
+            padding-bottom: 10px
+        .btn
+            top -2px
+    .main
+        display: inline-block
+        float right 
+        overflow: hidden
+        ul
+            display: inline-block
+            float: right 
+            overflow hidden
+            padding: 0px
+            width: 100%
+            li
+                display inline-block
+                float: left
+                a
+                    color c2
+                    display: inline-block
+                    font-size: 1.1em
+                    padding: 12px
+                    line-height: normal
+                    text-decoration: none
+                    font-weight: 400px
+                    i
+                        color: c2
+                    .counter
+                        color c4
+                    &:hover
+                        background-color: c1
+                        border-radius: 23px
+                        color: #fff !important
+                &:hover
+                    ul
+                        display: block
+                ul
+                    background-color: #fff
+                    border-top: 2px solid #d8d8d8
+                    border-radius: 8px
+                    display: none
+                    position: absolute
+                    margin-top:-2px
+                    // overflow: inherint
+                    max-width: 210px
+                    z-index 100
+                    .dropdown-divider
+                        margin 1px
+                        border-top: 1px solid #d6d6d6
+                    li
+                        display: block
+                        width: 100%
+                        a
+                            display: block
+                            border-radius: 0px
+                            font-size: 1.1em
+                            font-weight: 500
+                            width: 100%
+                            &:hover
+                                border-radius: 0px
+                                color: #fff
+                                i
+                                    color #fff
+                        &:first-child
+                            a
+                                &:hover
+                                    border-radius: 8px 8px 0px 0px
+                        &:last-child
+                            a
+                                &:hover
+                                    border-radius: 0px 0px 8px 8px
+                &:after
+                    bottom: 100%
+                    left: 9%
+                    border: solid transparent
+                    content: ""
+                    height: 0
+                    width: 0
+                    position: absolute
+                    pointer-events: none
+                    border-color: rgba(136,183,213,0)
+                    border-bottom-color: #d8d8d8
+                    border-width: 10px
+                    margin-left: -10px
+                a.user-profile
+                    overflow: hidden
+                    position: relative
+                    padding: 0px
+                    padding-right: 16px
+                    font-weight: 500
+                    margin-top: 4px
+                    img
+                        border-radius: 50%
+                        width: 36px
+                        height: 36px
+                        float: left
+                        display: block  
+                    span
+                        display: inline-block
+                        margin-left: 6px
+                        margin-top: 8px
+                        float: left
+                        i
+                            color: c2
+                    &:hover
+                        background-color: c2 !important
+                        color c4
+                        i
+                            color: #fff
+                a.icon
+                    padding: 6px 12px
+                    position relative
+                    font-size: 1.7em
+                    &:hover
+                        background-color: transparent
+                        i
+                            color c1 !important
+                    .counter
+                        color: c1
+                        align-items: center
+                        background-color: c2
+                        border-radius: 50%
+                        display: flex
+                        justify-content: center
+                        font-size: .4em
+                        font-weight: 500
+                        height: 20px
+                        position absolute
+                        width: 18px
+                        right: 6px
+                        top 2px
+                        z-index 10
+                        &:hover
+                            color #fff
+
+.form-select 
+.form-control
+    background-color: rgba(240,242,245,1) !important
+    border: 1px solid rgba(245,245,245,1) !important
+    border-radius: 22px !important
+    display: block !important
+    line-height: initial !important
+    padding: 12px 24px !important
+    width: 100% !important
+    &:focus
+        background-color: rgba(240,242,245,1) !important
+        border: 1.5px solid c2 !important
+        box-shadow: none !important
+    &:hover
+        box-shadow: none !important
+.input-group
+    position relative !important
+    i
+        color c2 !important
+        position absolute !important
+        font-size: 1.4em !important
+        left 14px !important
+        top 9px !important
+        z-index 10 !important
+    .form-control
+        position relative !important
+        padding-left: 40px !important
+        z-index: 4 !important
+    .btn
+        background-color: transparent
+        border-radius: 22px !important
+        display: inline-block !important
+        position absolute !important
+        padding: 9px !important
+        right: 14px !important
+        z-index 10 !important
+        width: 44px !important
+        i
+            color c2 !important
+            position  !important
+            left: initial !important
+            top initial !important
+        &:focus
+        &:active
+            background-color: transparent
+            color c2 !important
+            z-index 15
+.main-primary
+    background-color: #fff
+    border-top: 1px solid #f0f0f0
+    border-bottom: 1px solid #f0f0f0
+    z-index 10
+    ul  
+        margin 0px
+        padding: 0px
+        overflow: hidden
+        position relative
+        list-style: none
+        li
+            float: left
+            a
+                color: c1
+                display: inline-block
+                font-weight: 400
+                font-size: 1em
+                padding: 12px 16px 
+                text-decoration: none
+                i
+                    color c2
+                &:hover
+                    background-color: c1
+                    color: c2
+                    i
+                        color #fff
+.main_sidebar
+    background-color: rgba(0, 0, 0, .5)
+    transition: all 0.1s easy-in-out
+    display: none
+    height: 100vh
+    left 0px
+    position: fixed
+    top 0px
+    width: 100%
+    z-index 99
+    .sidebar
+        background-color: #fff
+        height: 100vh
+        max-width: 86%
+        position relative
+        transition: all 0.1s easy-in-out
+        width 86%
+        .user-profile
+            background-color: #fff
+            margin-bottom: 4px
+            .info
+                overflow: hidden
+                .avatar
+                    display: block 
+                    float left
+                    margin-right: 8px
+                    width: 48px
+                    img
+                        border-radius: 50%
+                        display: block
+                        width: 100%
+                .user-info
+                    display: block
+                    float left
+                    width: calc(100% - 56px)
+                    span
+                        display: block
+                        color #555
+                        font-size: .9em
+                        font-weight: 
+                        &:first-child
+                            margin-top: 6px
+            .options
+                background-color: c1
+                margin-bottom: 4px
+                ul
+                    display: block
+                    overflow: hidden
+                    width: 100%
+                    li
+                        border: 0px !important
+                        display: block
+                        float left 
+                        width: 25%
+                        a
+                            display: block
+                            box-sizing: border-box
+                            color #fff
+                            border: 0px !important
+                            padding: 12px 4px
+                            width: 100%
+                            text-align: center
+                            i
+                                color #fff
+                                font-size: 1.1em 
+                            span
+                                display: block
+                                font-size: .5em
+                                width: 100%
+                                text-align: center
+
+        .inside
+            padding 16px            
+        .btn
+            display: block
+            border 1px solid #f0f0f0
+            border-radius: 18px
+            font-size: .9em
+            padding: 8px
+            width: 100%
+        .btn-blue
+            background-color: c1
+            color #fff
+        .connect
+            a
+                &:first-child
+                    margin-bottom: 6px
+        ul
+            margin: 8px
+            padding: 0px
+            list-style none
+            li
+                display: block
+                border-top: 1px solid #f0f0f0
+                a
+                    display: block
+                    color c4
+                    font-size: 1.3em
+                    padding: 10px
+                    width: 100%
+                    text-decoration: none
+                    i
+                        color c3
+                        margin-right: 8px
+.page_connect
+    align-items: center
+    display: flex
+    height: calc(100vh - 174px)
+    min-height: calc(100vh - 174px)
+    justify-content: center
+    width: 100%
+    .box
+        background-color: #fff
+        min-width: 420px
+        border-radius: 8px
+        .inside
+            padding 32px
+            h2.title
+                display: block
+                font-size: 1.4em
+                text-align: center
+                margin 0px 0px 24px 0px
+                padding: 0px
+                width: 100%
+            .footer
+                a 
+                    display: block
+                    width: 100%
+                    text-decoration: none
+                    text-align: center
+                    color #666
+            label
+                display: block
+                font-size: 1.1em
+                text-align: center
+                width: 100%
+.page
+    padding-bottom: 32px
+    .btn-action
+        border-radius: 21px
+        background-color: c1
+        color #fff
+        display block
+        padding: 8px 32px
+        &:hover
+            background-color: c2
+            color: #fff
+    .title
+        padding: 32px 0px
+        h2
+            margin: 0px
+            padding: 0px
+            text-transform: uppercase
+            font-size: 1.6em
+            i
+                color: c2
+    .panel 
+        background-color: #fff
+        border-radius: 12px
+        .header
+            border-bottom: 1px solid #f0f0f0
+            h2.title
+                color: #444
+                font-size: 1.4em
+                font-weight: 400
+                margin: 0px
+                padding: 16px 24px
+                i
+                    color c2
+        .inside 
+            padding: 24px
+    .edit_avatar
+        position: relative
+        height: 200px
+        margin 0px auto
+        width: 200px
+        .overlay
+            align-items: center
+            border-radius: 50%
+            background-color: rgba(0, 0, 0, .05)
+            color #fff
+            font-size: 2em
+            display: flex
+            justify-content: center
+            position absolute
+            height: 200px
+            width: 200px
+            &:hover 
+                background-color: rgba(0, 0, 0, .4)
+        img
+            border-radius: 50%
+            display: block
+            width: 100%
+            height: 200px
+            // width: 200px
+        .form-control   
+            display: none !important
+
+
+@media only screen and (max-width 728px)
+    body
+        margin 0px;
+    .navbar-primary
+        .brand
+            width: 40px
+        .search
+            display none
+            margin-top: 8px
+            width: 100% !important
+        .main
+            ul
+                li
+                    a.icon
+                        padding-top: 0px
+                        padding-bottom: 0px
+                        .counter
+                            right: 0px 
+                            top: 0px
+    .hide-in-mobile
+        display: none !important
+    .show-in-mobile
+        display: block !important
+        
+@keyframes loading_image{
+    0%{
+        margin-left: -100%;
+    }
+    100%{
+        margin-left: 100%;
+    }
+}

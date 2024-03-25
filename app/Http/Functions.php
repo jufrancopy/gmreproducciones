@@ -262,7 +262,7 @@ function getPaymentsMethods($method = null)
         '2' => 'Paypal',
         '3' => 'Tarjeta de Crédito'
     ];
-    
+
     // Si $method es nulo o no está definido, devuelve una cadena vacía
     if (is_null($method) || !array_key_exists($method, $list)) {
         return '';
@@ -309,3 +309,19 @@ function number($number)
 {
     return number_format($number, 2, '.', ',') . '' . Config::get('configSite.currency');
 }
+
+
+function getTemplatesOfPlatform($template = null)
+{
+    $list = [
+        'default' => 'Default',
+        'moderno' => 'Moderno'
+    ];
+
+    if (is_null($template)) :
+        return $list;
+    else :
+        return $list[$template];
+    endif;
+}
+
