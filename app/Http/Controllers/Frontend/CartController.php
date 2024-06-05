@@ -157,19 +157,19 @@ class CartController extends Controller
     {
         if (is_null($request->input('inventory'))) :
             return back()
-                ->with('message', 'Debe seleccionar una opción disponible.')
+                ->with('message', _sl('cart.postCartAdd.not_available'))
                 ->with('typealert', 'danger');
         else :
             $inventory = Inventory::where('id', $request->input('inventory'))->count();
             if ($inventory == 0) :
                 return back()
-                    ->with('message', 'La opción seleccionada no está disponible.')
+                    ->with('message', _sl('cart.postCartAdd.not_available_selected'))
                     ->with('typealert', 'danger');
             else :
                 $inventory = Inventory::find($request->input('inventory'));
                 if ($inventory->product_id != $id) :
                     return back()
-                        ->with('message', 'No se puede agregar este producto al carrito.')
+                        ->with('message', _sl('cart.postCartAdd.cannot_be_added_to_cart'))
                         ->with('typealert', 'danger');
                 else :
                     $order = $this->getUserOrder();
@@ -177,20 +177,20 @@ class CartController extends Controller
 
                     if ($request->input('quantity') < 1) :
                         return back()
-                            ->with('message', 'Debe ingresar la cantidad.')
+                            ->with('message', _sl('cart.postCartAdd.enter_amount'))
                             ->with('typealert', 'danger');
                     else :
                         if ($inventory->limited == 0) :
                             if ($request->input('quantity') > $inventory->quantity) :
                                 return back()
-                                    ->with('message', 'No se dispone esa cantidad en el inventario.')
+                                    ->with('message', _sl('cart.postCartAdd.not_available_quantity'))
                                     ->with('typealert', 'danger');
                             endif;
                         endif;
                         if (count(collect($inventory->getVariants)) >  0) :
                             if (is_null($request->input('variant'))) :
                                 return back()
-                                    ->with('message', 'Seleccione al menos alguna de las sub-opciones disponibles.')
+                                    ->with('message', _sl('cart.postCartAdd.selected_sub_option'))
                                     ->with('typealert', 'danger');
                             endif;
                         endif;
@@ -205,7 +205,7 @@ class CartController extends Controller
                                 $variant = Variant::find($request->input('variant'));
                                 if ($variant->inventory_id != $inventory->id) :
                                     return back()
-                                        ->with('message', 'Selección inválida o no existe para esta oferta.')
+                                        ->with('message', _sl('cart.postCartAdd.invalid_selection'))
                                         ->with('typealert', 'danger');
                                 endif;
                             endif;
@@ -238,12 +238,12 @@ class CartController extends Controller
                             $orderItem->total = $total;
                             if ($orderItem->save()) :
                                 return back()
-                                    ->with('message', 'Producto agregado al carrito de compras.')
+                                    ->with('message', _sl('cart.postCartAdd.add_product_cart'))
                                     ->with('typealert', 'success');
                             endif;
                         else :
                             return back()
-                                ->with('message', 'Este producto ya está en su carrito.')
+                                ->with('message', _sl('cart.postCartAdd.exist_product_cart'))
                                 ->with('typealert', 'danger');
                         endif;
                     endif;
@@ -260,13 +260,13 @@ class CartController extends Controller
 
         if ($order->id != $oItem->order_id) :
             return back()
-                ->with('message', 'No se actualizar la cantidad de este producto.')
+                ->with('message', _sl('cart.postCartAdd.not_updated_product'))
                 ->with('typealert', 'danger');
         else :
             if ($inventory->limited == 0) :
                 if ($request->input('quantity') > $inventory->quantity) :
                     return back()
-                        ->with('message', 'La cantidad ingresada supera a la cantidad del inventario disponible.')
+                        ->with('message', _sl('cart.postCartAdd.not_product_availale'))
                         ->with('typealert', 'danger');
                 endif;
             endif;
@@ -277,7 +277,7 @@ class CartController extends Controller
             if ($oItem->save()) :
                 $this->getShippingValue($order->id);
                 return back()
-                    ->with('message', 'Cantidad actualizada con éxito.')
+                    ->with('message', _sl('cart.postCartAdd.success_quantity_update'))
                     ->with('typealert', 'success');
             endif;
         endif;
@@ -288,7 +288,7 @@ class CartController extends Controller
         $oItem = OrderItem::find($id);
         if ($oItem->delete()) :
             return back()
-                ->with('message', 'Eliminado satisfactoriamente.')
+                ->with('message', _sl('cart.postCartAdd.delete_item_success'))
                 ->with('typealert', 'danger');
         endif;
     }

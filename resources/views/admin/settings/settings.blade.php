@@ -62,7 +62,9 @@
                             <span class="input-group-text" id="basic-addon1">
                                 <div class="far fa-keyboard"></div>
                             </span>
-                            {!! Form::select('template', getTemplatesOfPlatform(), Config::get('configSite.template'),['class' => 'form-select']) !!}
+                            {!! Form::select('template', getTemplatesOfPlatform(), Config::get('configSite.template'), [
+                                'class' => 'form-select',
+                            ]) !!}
 
                         </div>
 
@@ -77,6 +79,17 @@
                                 Config::get('configSite.maintenance_mode'),
                                 ['class' => 'form-select'],
                             ) !!}
+
+                        </div>
+
+                        <label for="name" class="mtop16">Idioma del Sitio:</label>
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">
+                                <div class="far fa-keyboard"></div>
+                            </span>
+                            {!! Form::select('site_lang', getAvailableLanguajes(), Config::get('configSite.site_lang'), [
+                                'class' => 'form-select',
+                            ]) !!}
 
                         </div>
                     </div>

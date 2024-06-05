@@ -41,15 +41,16 @@ class ApiJsController extends Controller
         return $products;
     }
 
-    public function getProductsCategory($id, $itemsForPage){
+    public function getProductsCategory($id, $itemsForPage)
+    {
         $category = Category::find($id);
-        if($category->parent == 0):
-        $query = Product::where('status', 1)->where('category_id', $id)->orderBy('id', 'DESC')->paginate($itemsForPage);
-        else:
+        if ($category->parent == 0) :
+            $query = Product::where('status', 1)->where('category_id', $id)->orderBy('id', 'DESC')->paginate($itemsForPage);
+        else :
             $query = Product::where('status', 1)->where('subCategory_id', $id)->orderBy('id', 'DESC')->paginate($itemsForPage);
         endif;
         return $query;
-    } 
+    }
 
     function postFavoriteAdd($object, $module, Request $request)
     {
@@ -58,14 +59,14 @@ class ApiJsController extends Controller
             ->where('object_id', $object)
             ->count();
         if ($query > 0) :
-            $data = ['status' => 'error', 'msg' => 'Ya lo tienes como favorito.'];
+            $data = ['status' => 'error', 'msg' => _sl('api_js_alerts.error_message')];
         else :
             $favorite = new Favorite();
             $favorite->user_id = Auth::id();
             $favorite->module  = $module;
             $favorite->object_id  = $object;
             if ($favorite->save()) :
-                $data = ['status' => 'success', 'msg' => 'Se guardó a su favorito'];
+                $data = ['status' => 'success', 'msg' => _sl('api_js_alerts.success_message')];
             endif;
         endif;
         return response()->json($data);
@@ -96,7 +97,8 @@ class ApiJsController extends Controller
         return response()->json($query->getVariants);
     }
 
-    public function postCoverageCitiesFromState($state){
+    public function postCoverageCitiesFromState($state)
+    {
         $cities = Coverage::where('coverage_type', 1)->where('state_id', $state)->get();
         return response()->json($cities);
     }

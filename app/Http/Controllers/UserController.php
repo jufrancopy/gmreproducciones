@@ -40,14 +40,14 @@ class UserController extends Controller
         ];
 
         $messages = [
-            'avatar.required' => 'Debe agregar una imagen',
+            'avatar.required' => _sl('users.postAccountAvatar.avatar_required'),
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) :
             return back()->withErrors($validator)
-                ->with('message', 'Se ha producido un error')
+                ->with('message', _sl('users.alerts.error_message'))
                 ->with('typealert', 'danger')
                 ->withInput();
         else :
@@ -58,7 +58,7 @@ class UserController extends Controller
                 if ($user->save()) :
 
                     return back()
-                        ->with('message', 'Avatar subido con éxito.')
+                        ->with('message', _sl('users.alerts.success_message'))
                         ->with('typealert', 'success');
                 endif;
             endif;
@@ -74,20 +74,20 @@ class UserController extends Controller
         ];
 
         $messages = [
-            'apassword.required'    => 'Escriba su contraseña actual',
-            'apassword.min'         => 'La contraseña actual debe tener 8 caracteres',
-            'password.required'     => 'Escriba la nueva contraseña',
-            'password.min'          => 'Su contraseña nueva debe contar con al menos 8 caracteres',
-            'cpassword.required'    => 'Debe confirmar la nueva contraseña',
-            'cpassword.min'         => 'La nueva contrasenna debe contar con al menos 8 caracteres',
-            'cpassword.same'        => 'Las contraseñas no coinciden'
+            'apassword.required'    => _sl('users.postAccountPassword.apassword_required'),
+            'apassword.min'         => _sl('users.postAccountPassword.apassword_min'),
+            'password.required'     => _sl('users.postAccountPassword.password_required'),
+            'password.min'          => _sl('users.postAccountPassword.password_min'),
+            'cpassword.required'    => _sl('users.postAccountPassword.cpassword_required'),
+            'cpassword.min'         => _sl('users.postAccountPassword.cpassword_min'),
+            'cpassword.same'        => _sl('users.postAccountPassword.cpassword_same')
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) :
             return back()->withErrors($validator)
-                ->with('message', 'Se ha producido un error')
+                ->with('message', _sl('users.alerts.error_message'))
                 ->with('typealert', 'danger')
                 ->withInput();
         else :
@@ -95,10 +95,10 @@ class UserController extends Controller
             if (Hash::check($request->input('apassword'), $user->password)) :
                 $user->password = Hash::make($request->input('password'));
                 if ($user->save()) :
-                    return redirect('/logout')->with('message', 'Contraseña actualizada con éxito')->with('typealert', 'success');
+                    return redirect('/logout')->with('message', _sl('users.alerts.password_success_message'))->with('typealert', 'success');
                 endif;
             else :
-                return back()->with('message', 'Su contraseña actual es incorecta')->with('typealert', 'danger');
+                return back()->with('message', _sl('users.alerts.password_incorrect_message'))->with('typealert', 'danger');
             endif;
         endif;
     }
@@ -114,19 +114,19 @@ class UserController extends Controller
         ];
 
         $messages = [
-            'name.required'         => 'Su nombre es requerido',
-            'lastname.required'     => 'Su apellido es requerido',
-            'phone.required'        => 'Su número de teléfono es requerido',
-            'password.min'          => 'Su contraseña nueva debe contar con al menos 8 caracteres',
-            'year.required'         => 'Su año de nacimiento es requerido',
-            'day.requerido'         => 'Su año de nacimiento es requerido',
+            'name.required'         => _sl('users.postAccountInfo.name_required'),
+            'lastname.required'     => _sl('users.postAccountInfo.lastname_required'),
+            'phone.required'        => _sl('users.postAccountInfo.phone_required'),
+            'password.min'          => _sl('users.postAccountInfo.password_min'),
+            'year.required'         => _sl('users.postAccountInfo.year_required'),
+            'day.requerido'         => _sl('users.postAccountInfo.day_requerido'),
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) :
             return back()->withErrors($validator)
-                ->with('message', 'Se ha producido un error')
+                ->with('message', _sl('users.alerts.error_message'))
                 ->with('typealert', 'danger')
                 ->withInput();
         else :
@@ -140,7 +140,7 @@ class UserController extends Controller
             $user->gender       = e($request->input('gender'));
 
             if ($user->save()) :
-                return back()->with('message', 'Su información ha sido actualizada correctamente')->with('typealert', 'success');
+                return back()->with('message', _sl('users.alerts.info_update_success_message'))->with('typealert', 'success');
             endif;
         endif;
     }
@@ -166,19 +166,19 @@ class UserController extends Controller
         ];
 
         $messages = [
-            'name.required'         => 'Debe asignarle un nombre',
-            'state_id.required'        => 'Debe seleccionar un Departamento',
-            'city_id.required'         => 'Seleccione una ciudad',
-            'add1.required'         => 'Se requiere el nombre de su barrio',
-            'add2.required'         => 'Ingrese el nombre de la calle donde vive',
-            'add3.requerid'        => 'Ingrese el Número',
+            'name.required'         => _sl('users.postAccountAddress.name_required'),
+            'state_id.required'        => _sl('users.postAccountAddress.state_id_required'),
+            'city_id.required'         => _sl('users.postAccountAddress.city_id_required'),
+            'add1.required'         => _sl('users.postAccountAddress.add1_required'),
+            'add2.required'         => _sl('users.postAccountAddress.add2_required'),
+            'add3.requerid'        => _sl('users.postAccountAddress.add3_requerid'),
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) :
             return back()->withErrors($validator)
-                ->with('message', 'Se ha producido un error')
+                ->with('message', _sl('users.alerts.error_message'))
                 ->with('typealert', 'danger')
                 ->withInput();
         else :
@@ -197,7 +197,7 @@ class UserController extends Controller
 
             if ($address->save()) :
                 return back()
-                    ->with('message', 'Su información de envío se guardó correctamente')
+                    ->with('message', _sl('users.alerts.address_save_success_message'))
                     ->with('typealert', 'success');
             endif;
         endif;
@@ -207,7 +207,7 @@ class UserController extends Controller
     {
         if (Auth::id() != $address->user_id) :
             return back()
-                ->with('message', 'No puedes editar esta dirección de entrega.')
+                ->with('message', _sl('users.alerts.address_edit_error_message'))
                 ->with('typealert', 'danger');
         else :
             //Remove default 
@@ -219,7 +219,7 @@ class UserController extends Controller
             $address->default = 1;
             if ($address->save()) :
                 return back()
-                    ->with('message', 'Se actualizó ' . $address->name . ' como principal')
+                    ->with('message', _sl('users.alerts.address_update_success_message' . $address->name))
                     ->with('typealert', 'success');
             endif;
         endif;
@@ -229,19 +229,19 @@ class UserController extends Controller
     {
         if (Auth::id() != $address->user_id) :
             return back()
-                ->with('message', 'No puedes eliminar esta dirección')
+                ->with('message', _sl('users.alerts.address_delete_error_message'))
                 ->with('typealert', 'danger');
         else :
             if ($address->default == 0) :
 
                 if ($address->delete()) :
                     return back()
-                        ->with('message', 'Dirección de entrega eliminada correctamente.')
+                        ->with('message', _sl('users.alerts.address_delete_success_message'))
                         ->with('typealert', 'success');
                 endif;
             else :
                 return back()
-                    ->with('message', 'No se puede eliminar una dirección de entrega')
+                    ->with('message', _sl('users.alerts.address_delete_default_error_message'))
                     ->with('typealert', 'success');
             endif;
         endif;

@@ -146,6 +146,7 @@ table
                 display inline-block
                 float: left
                 a
+                    border-radius: 23px
                     color c2
                     display: inline-block
                     font-size: 1.1em
@@ -158,9 +159,15 @@ table
                     .counter
                         color c4
                     &:hover
-                        background-color: c1
+                        // background-color: c1 !important
                         border-radius: 23px
                         color: #fff !important
+                                              
+                a.active
+                    background-color: c1
+                    border-radius: 23px
+                    color: #fff !important
+                
                 &:hover
                     ul
                         display: block
@@ -337,6 +344,9 @@ table
                     color: c2
                     i
                         color #fff
+            a.active
+                background-color: c1
+                color: #fff !important
 .main_sidebar
     background-color: rgba(0, 0, 0, .5)
     transition: all 0.1s easy-in-out

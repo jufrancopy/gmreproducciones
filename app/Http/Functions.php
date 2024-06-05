@@ -77,9 +77,9 @@ function user_permissions()
             'icon'  => '<i class="fas fa-home"></i>',
             'title' => 'Modulo Dashboard',
             'keys'  => [
-                'dashboard' => 'Puede ver el Dashboard',
-                'dashboard_small_stats' => 'Puede ver las Estadíticas rápidas',
-                'dashboard_sell_today' => 'Puede ver facturaciones del día',
+                'dashboard' => _sl('settings.dashboard.dashboard'),
+                'dashboard_small_stats' => _sl('settings.dashboard.dashboard_small_stats'),
+                'dashboard_sell_today' => _sl('settings.dashboard.dashboard_sell_today'),
             ]
         ],
 
@@ -87,14 +87,14 @@ function user_permissions()
             'icon'  => '<i class="fas fa-boxes"></i>',
             'title' => 'Modulo Productos',
             'keys'  => [
-                'products' => 'Puede listar productos',
-                'product_add'  => 'Puede agregar productos',
-                'product_edit'  => 'Puede editar productos',
-                'product_search'  => 'Puede buscar productos',
-                'product_delete'  => 'Puede eliminar producto',
-                'product_gallery_add'  => 'Puede agregar imagenes a la Galería',
-                'product_gallery_delete'  => 'Puede eliminar imagenes de la Galería',
-                'product_inventory'  => 'Puede administrar el inventario de un producto',
+                'products' => _sl('settings.products.products'),
+                'product_add'  => _sl('settings.products.product_add'),
+                'product_edit'  => _sl('settings.products.product_edit'),
+                'product_search'  => _sl('settings.products.product_search'),
+                'product_delete'  => _sl('settings.products.product_delete'),
+                'product_gallery_add'  => _sl('settings.products.product_gallery_add'),
+                'product_gallery_delete'  => _sl('settings.products.product_gallery_delete'),
+                'product_inventory'  => _sl('settings.products.product_inventory'),
             ]
         ],
 
@@ -102,21 +102,21 @@ function user_permissions()
             'icon'  => '<i class="far fa-folder-open"></i>',
             'title' => 'Modulo Categorias',
             'keys'  => [
-                'categories' => 'Puede ver las Categorías',
-                'category_add' => 'Puede agregar Categorías',
-                'category_edit' => 'Puede editar Categorías',
-                'category_delete' => 'Puede borrar Categorías',
+                'categories' => _sl('settings.categories.categories'),
+                'category_add' => _sl('settings.categories.category_add'),
+                'category_edit' => _sl('settings.categories.category_edit'),
+                'category_delete' => _sl('settings.categories.category_delete'),
             ]
         ],
         'users' => [
             'icon'  => '<i class="fas fa-user-friends"></i>',
             'title' => 'Modulo Dashboard',
             'keys'  => [
-                'user_list' => 'Puede listar usuarios',
-                'user_view' => 'Puede ver usuarios',
-                'user_edit' => 'Puede editar usuarios',
-                'user_banned' => 'Puede bannear usuarios',
-                'user_permissions' => 'Puede administrar permisos a usuarios',
+                'user_list' => _sl('settings.users.user_list'),
+                'user_view' => _sl('settings.users.user_view'),
+                'user_edit' => _sl('settings.users.user_edit'),
+                'user_banned' => _sl('settings.users.user_banned'),
+                'user_permissions' => _sl('settings.users.user_permissions'),
             ]
         ],
 
@@ -124,7 +124,7 @@ function user_permissions()
             'icon'  => '<i class="fa fa-cogs" aria-hidden="true"></i>',
             'title' => 'Modulo de Configuraciones',
             'keys'  => [
-                'settings' => 'Puede modificar las Configuraciones',
+                'settings' => _sl('settings.settings.settings'),
             ]
         ],
 
@@ -132,10 +132,10 @@ function user_permissions()
             'icon'  => '<i class="fas fa-images" aria-hidden="true"></i>',
             'title' => 'Sliders',
             'keys'  => [
-                'sliders_list'  => 'Puede listar Sliders',
-                'slider_add'    => 'Puede agregar Sliders',
-                'slider_edit'   => 'Puede editar Sliders',
-                'slider_delete' => 'Puede eliminar Sliders',
+                'sliders_list'  => _sl('settings.sliders.sliders_list'),
+                'slider_add'    => _sl('settings.sliders.slider_add'),
+                'slider_edit'   => _sl('settings.sliders.slider_edit'),
+                'slider_delete' => _sl('settings.sliders.slider_delete'),
             ]
         ],
 
@@ -143,19 +143,19 @@ function user_permissions()
             'icon'  => '<i class="fas fa-clipboard-list"></i>',
             'title' => 'Modulo de Órdenes',
             'keys'  => [
-                'orders_list' => 'Puede ver el listado de órdenes',
-                'order_view' => 'Puede ver el detalle de una orden',
-                'order_change_status' => 'Puede cambiar el estado de una orden',
+                'orders_list' => _sl('settings.orders.orders_list'),
+                'order_view' => _sl('settings.orders.order_view'),
+                'order_change_status' => _sl('settings.orders.order_change_status'),
             ]
         ],
         'coverage' => [
             'icon'  => '<i class="fas fa-shipping-fast"></i>',
             'title' => 'Cobertura de Envíos',
             'keys'  => [
-                'coverage_list' => 'Puede ver el listado envíos',
-                'coverage_add' => 'Puede agregar cobertura de envío',
-                'coverage_edit' => 'Puede editar cobertura de envío',
-                'coverage_delete' => 'Puede borrar cobertura de envío',
+                'coverage_list' => _sl('settings.coverage.coverage_list'),
+                'coverage_add' => _sl('settings.coverage.coverage_add'),
+                'coverage_edit' => _sl('settings.coverage.coverage_edit'),
+                'coverage_delete' => _sl('settings.coverage.coverage_delete'),
             ]
         ]
     ];
@@ -175,19 +175,20 @@ function getUserYears()
 function getMonths($mode, $key)
 {
     $month = [
-        '01'  => 'Enero',
-        '02'  => 'Febrero',
-        '03'  => 'Marzo',
-        '04'  => 'Abril',
-        '05'  => 'Mayo',
-        '06'  => 'Junio',
-        '07'  => 'Julio',
-        '08'  => 'Agosto',
-        '09'  => 'Setiembre',
-        '10' => 'Octubre',
-        '11' => 'Noviembre',
-        '12' => 'Diciembre'
+        '01'  => _sl('g.month.january'),
+        '02'  => _sl('g.month.february'),
+        '03'  => _sl('g.month.march'),
+        '04'  => _sl('g.month.april'),
+        '05'  => _sl('g.month.may'),
+        '06'  => _sl('g.month.june'),
+        '07'  => _sl('g.month.july'),
+        '08'  => _sl('g.month.august'),
+        '09'  => _sl('g.month.september'),
+        '10' => _sl('g.month.october'),
+        '11' => _sl('g.month.november'),
+        '12' => _sl('g.month.december')
     ];
+
     if ($mode == 'list') {
         return $month;
     } else {
@@ -198,10 +199,10 @@ function getMonths($mode, $key)
 function getShippingMethod($method = null)
 {
     $status = [
-        '0' => 'Envío gratuito',
-        '1' => 'Precio Fijo',
-        '2' => 'Precio Variable por Ubicación',
-        '3' => 'Envío Gratuito / Monto Mínimo'
+        '0' => _sl('settings.status.free_shipping'),
+        '1' => _sl('settings.status.fixed_price'),
+        '2' => _sl('settings.status.variable_price_by_location'),
+        '3' => _sl('settings.status.free_shipping_minimum_amount')
     ];
 
     if (is_null($method)) :
@@ -229,8 +230,8 @@ function getCoverageType($type = null)
 function getCoverageStatus($status = null)
 {
     $list = [
-        '0' => 'Inactivo',
-        '1' => 'Activo'
+        '0' => _sl('settings.orders.getCoverageStatus.inactive'),
+        '1' => _sl('settings.orders.getCoverageStatus.active')
     ];
 
     if (is_null($status)) :
@@ -243,8 +244,8 @@ function getCoverageStatus($status = null)
 function getEnableOrNotEnable($status = null)
 {
     $list = [
-        '0' => 'Inactivo',
-        '1' => 'Activo'
+        '0' => _sl('settings.orders.getEnableOrNotEnable.inactive'),
+        '1' => _sl('settings.orders.getEnableOrNotEnable.active')
     ];
 
     if (is_null($status)) :
@@ -257,11 +258,12 @@ function getEnableOrNotEnable($status = null)
 function getPaymentsMethods($method = null)
 {
     $list = [
-        '0' => 'Efectivo',
-        '1' => 'Transferencia Bancaria',
-        '2' => 'Paypal',
-        '3' => 'Tarjeta de Crédito'
+        '0' => _sl('settings.list_method_payment.cash'),
+        '1' => _sl('settings.list_method_payment.bank_transfer'),
+        '2' => _sl('settings.list_method_payment.paypal'),
+        '3' => _sl('settings.list_method_payment.credit_card')
     ];
+
 
     // Si $method es nulo o no está definido, devuelve una cadena vacía
     if (is_null($method) || !array_key_exists($method, $list)) {
@@ -274,14 +276,14 @@ function getPaymentsMethods($method = null)
 function getOrderStatus($status = null)
 {
     $list = [
-        '0' => 'En Proceso',
-        '1' => 'Pago pendiente de Confirmación',
-        '2' => 'Pago Recibido',
-        '3' => 'Procesando Orden',
-        '4' => 'Orden Enviada',
-        '5' => 'Lista para Recoger',
-        '6' => 'Orden Entregada',
-        '100' => 'Orden Rechazada'
+        '0' => _sl('settings.list.in_process'),
+        '1' => _sl('settings.list.pending_payment_confirmation'),
+        '2' => _sl('settings.list.payment_received'),
+        '3' => _sl('settings.list.processing_order'),
+        '4' => _sl('settings.list.order_shipped'),
+        '5' => _sl('settings.list.ready_for_pickup'),
+        '6' => _sl('settings.list.order_delivered'),
+        '100' => _sl('settings.list.order_rejected')
     ];
 
     if (is_null($status)) :
@@ -294,8 +296,8 @@ function getOrderStatus($status = null)
 function getOrderType($status = null)
 {
     $list = [
-        '0' => 'Entrega a Domicilio',
-        '1' => 'To Go'
+        '0' => _sl('settings.order_type.home_delivery'),
+        '1' => _sl('settings.order_type.to_go')
     ];
 
     if (is_null($status)) :
@@ -325,3 +327,14 @@ function getTemplatesOfPlatform($template = null)
     endif;
 }
 
+function _sl($key)
+{
+    return __('template_' . config('configSite.template') . '.' . $key);
+}
+
+function getAvailableLanguajes()
+{
+    $languajes =  ['en' => _sl('g.lang_en'), 'es' => _sl('g.lang_es')];
+
+    return $languajes;
+}

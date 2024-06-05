@@ -128,15 +128,18 @@
             <div class="main">
                 <ul>
                     @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}" class="hide-in-mobile">Ingresar</a></li>
-                        <li><a href="{{ url('/register') }}"" class="hide-in-mobile">Registrarse</a></li>
+                        <li><a href="{{ url('/login') }}" class="hide-in-mobile">{{ _sl('connect.login') }}</a>
+                        </li>
+                        <li><a href="{{ url('/register') }}"" class="hide-in-mobile">{{ _sl('connect.register') }}</a>
+                        </li>
                     @endif
                     <li><a href="#" class="icon show-in-mobile" id="main-btn-search"><i class="bi bi-search"></i>
                         </a>
                     </li>
                     @if (Auth::check())
                         <li>
-                            <a href="#" class="user-profile hide-in-mobile">
+                            <a href="#"
+                                class="user-profile hide-in-mobile lk-account_edit lk-account_address lk-account_user_order_history ">
                                 @if (is_null(Auth::user()->avatar))
                                     <img src="{{ url('/static/templates/default/images/avatar_default.png') }}">
                                 @else
@@ -163,7 +166,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a ref="{{ url('/account/address') }}">
+                                    <a href="{{ url('/account/address') }}">
                                         <i class="bi bi-geo-alt" aria-hidden="true"></i>
                                         Direcciones de Entregas
                                     </a>
@@ -185,28 +188,32 @@
                         </li>
                     @endif
                     <li>
-                        <a href="" class="icon hide-in-mobile">
+                        <a href="" class="icon hide-in-mobile hover-none">
                             <span class="counter">10</span>
                             <i class="bi bi-heart"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="" class="icon">
+                        <a href="" class="icon hover-none">
                             <span class="counter">10</span>
                             <i class="bi bi-cart2"></i>
                         </a>
                     </li>
-                    <li><a href="#" class="icon show-in-mobile" id="main-btn-sidebar"><i
-                                class="bi bi-grid"></i></a>
+                    <li class="hover-none">
+                        <a href="#" class="icon show-in-mobile hover-none" id="main-btn-sidebar">
+                            <i class="bi bi-grid"></i>
+                        </a>
                     </li>
-
                 </ul>
             </div>
 
             <div class="search" id="form-search">
                 {!! Form::open(['url' => '/search']) !!}
                 <div class="input-group">
-                    {!! Form::text('search_query', null, ['class' => 'form-control', 'placeholder' => 'Buscar algo...']) !!}
+                    {!! Form::text('search_query', null, [
+                        'class' => 'form-control',
+                        'placeholder' => _sl('g.search_placeholder'),
+                    ]) !!}
                     <button class="btn" type="submit"><i class="bi bi-search"></i></button>
                 </div>
                 {!! Form::close() !!}
@@ -217,11 +224,18 @@
     <div class="main-primary hide-in-mobile">
         <div class="container">
             <ul>
-                <li><a href="{{ url('/') }}"><i class="bi bi-house"></i> Inicio</a></li>
-                <li><a href="{{ url('/') }}"><i class="bi bi-person-badge"></i> Nosotros</a></li>
-                <li><a href="{{ url('/') }}"><i class="bi bi-tags"></i> Ofertas</a></li>
-                <li><a href="{{ url('/') }}"><i class="bi bi-newspaper"></i> Blog</a></li>
-                <li><a href="{{ url('/') }}"><i class="bi bi-envelope-open"></i> Contactos</a></li>
+                <li><a href="{{ url('/') }}" class="lk-home"><i
+                            class="bi bi-house"></i>{{ _sl('main.home') }}</a></li>
+                <li><a href="{{ url('/') }}" class="lk-page_about"><i class="bi bi-person-badge"></i>
+                        {{ _sl('main.about_us') }}</a>
+                </li>
+                <li><a href="{{ url('/') }}" class="lk-offerts"><i class="bi bi-tags"></i>
+                        {{ _sl('main.offers') }}</a></li>
+                <li><a href="{{ url('/') }}" class="lk-blog"><i class="bi bi-newspaper"></i>
+                        {{ _sl('main.blog') }}</a></li>
+                <li><a href="{{ url('/') }}" class="lk-page_contact"><i class="bi bi-envelope-open"></i>
+                        {{ _sl('main.contact') }}</a>
+                </li>
             </ul>
         </div>
     </div>

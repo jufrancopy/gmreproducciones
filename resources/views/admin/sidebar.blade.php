@@ -15,12 +15,16 @@
             <div class="email">
                 {{ Auth::user()->email }}
             </div>
-            <a href="/">Ver Sitio</a>
         </div>
     </div>
 
     <div class="main">
         <ul>
+            <li>
+                <a href="{{ url('/') }}">
+                    <i class="fas fa-globe"> </i>Ir al Sitio
+                </a>
+            </li>
             @if (kvfj(Auth::user()->permissions, 'dashboard'))
                 <li>
                     <a href="{{ url('/admin') }}" class="lk-dashboard">

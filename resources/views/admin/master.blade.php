@@ -117,9 +117,6 @@
                         </div>
                     </div>
                 @endif
-
-
-
                 {{-- Contenido Principal --}}
                 @section('content')
                 @show

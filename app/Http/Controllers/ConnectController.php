@@ -4,7 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Validator, Hash, Auth, Mail, Str;
+// use Validator, Hash, Auth, Mail, Str;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+
 use App\Mail\UserSendRecover, App\Mail\UserSendNewPassword;
 use App\Models\User;
 
@@ -27,18 +33,19 @@ class ConnectController extends Controller
             'password'  => 'required|min:8'
         ];
 
+        // Mensajes de validación
         $messages = [
-            'email.required'        => 'Correo electrónico es requerido.',
-            'email.email'           => 'Formato de correo inválido.',
-            'password.required'     => 'Debe ingresar su contraseña',
-            'password.min'          =>  'La contraseña debe tener al menos 8 caracteres'
+            'email.required' => _sl('login.messages.email_required'),
+            'email.email' => _sl('login.messages.email_email'),
+            'password.required' => _sl('login.messages.password_required'),
+            'password.min' => _sl('login.messages.password_min')
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) :
             return back()->withErrors($validator)
-                ->with('message', 'Se ha producido un error')
+                ->with('message', _sl('login.messages.title'))
                 ->with('typealert', 'danger');
         else :
             if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')], true)) :
@@ -48,7 +55,7 @@ class ConnectController extends Controller
                     return redirect('/');
                 endif;
             else :
-                return back()->with('message', 'Correo electrónico o contraseña incorrecta')->with('typealert', 'danger');
+                return back()->with('message', _sl('login.messages.error'))->with('typealert', 'danger');
             endif;
         endif;
     }
@@ -69,18 +76,18 @@ class ConnectController extends Controller
         ];
 
         $messages = [
-            'name.required'         =>  'El nombre es requerido',
-            'lastname.required'     =>  'El apellido es requerido',
-            'email.required'        =>  'Correo es requerido.',
-            'email.email'           =>  'Formato de correo inválido.',
-            'email.unique'          =>  'Contamos con un usuario con el mismo correo. Ingrese otro correo',
-            'password.required'     =>  'Por favor, escriba una contraseña.',
-            'password.min'          =>  'La contraseña debe contar al menos con 8 caracteres.',
-            'cpassword.required'    =>  'Debe confirmar la contraseña',
-            'cpassword.min'         =>  'La contraseña debe contar al menos con 8 caracteres. ',
-            'cpassword.same'        =>  'No coincide con la contraseña ingresada. '
-
+            'name.required' => _sl('register.messages.name_required'),
+            'lastname.required' => _sl('register.messages.lastname_required'),
+            'email.required' => _sl('register.messages.email_required'),
+            'email.email' => _sl('register.messages.email_email'),
+            'email.unique' => _sl('register.messages.email_unique'),
+            'password.required' => _sl('register.messages.password_required'),
+            'password.min' => _sl('register.messages.password_min'),
+            'cpassword.required' => _sl('register.messages.cpassword_required'),
+            'cpassword.min' => _sl('register.messages.cpassword_min'),
+            'cpassword.same' => _sl('register.messages.cpassword_same')
         ];
+
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
@@ -96,7 +103,7 @@ class ConnectController extends Controller
             $user->password = Hash::make($request->input('password'));
 
             if ($user->save()) :
-                return redirect('/login')->with('message', 'El usuario ha sido creado con éxito')->with('typealert', 'success');
+                return redirect('/login')->with('message', _sl('register.messages.success'))->with('typealert', 'success');
             endif;
         endif;
     }
@@ -108,7 +115,7 @@ class ConnectController extends Controller
 
         if ($status == 100) :
             return redirect('/login')
-                ->with('message', 'Cuenta suspendida')
+                ->with('message', _sl('messages.suspended_account'))
                 ->with('typealert', 'danger');
         else :
             return redirect('/');
@@ -127,15 +134,15 @@ class ConnectController extends Controller
         ];
 
         $messages = [
-            'email.required'        =>  'Ingrese el correo con el que se registró.',
-            'email.email'           =>  'Formato de correo inválido.'
+            'email.required'  =>  _sl('recover.messages.email_required'),
+            'email.email'     =>  _sl('recover.messages.email_email')
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) :
             return back()->withErrors($validator)
-                ->with('message', 'Se ha producido un error')
+                ->with('message', _sl('messages.error'))
                 ->with('typealert', 'danger');
         else :
             $user = User::where('email', $request->input('email'))->count();
@@ -154,11 +161,11 @@ class ConnectController extends Controller
                     Mail::to($user->email)->send(new UserSendRecover($data));
 
                     return redirect('/reset?email=' . $user->email)
-                        ->with('message', 'Ingrese el código que enviamos a su correo electrónico')
+                        ->with('message', _sl('recover.cod_sent'))
                         ->with('typealert', 'success');
                 endif;
             else :
-                return back()->with('message', 'Correo electrónico ingresado no existe')->with('typealert', 'danger');
+                return back()->with('message', _sl('recover.email_not_exist'))->with('typealert', 'danger');
             endif;
             return $user;
         endif;
@@ -179,10 +186,11 @@ class ConnectController extends Controller
         ];
 
         $messages = [
-            'email.required'        =>  'Ingrese el correo con el que se registró.',
-            'email.email'           =>  'Formato de correo inválido.',
-            'code.required'         =>  'Ingrese el código que enviamos a su correo.'
+            'email.required' => _sl('recover.messages.email_required'),
+            'email.email' => _sl('recover.messages.email_email'),
+            'code.required' => _sl('recover.messages.cod_sent')
         ];
+
 
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) :
@@ -204,10 +212,10 @@ class ConnectController extends Controller
                         'password' => $new_password
                     ];
                     Mail::to($user->email)->send(new UserSendNewPassword($data));
-                    return redirect('/login')->with('message', 'La contraseña ha sido restablecida')->with('typealert', 'success');
+                    return redirect('/login')->with('message', _sl('recover.success'))->with('typealert', 'success');
                 endif;
             else :
-                return back()->with('message', 'El correo electrónico y el código de recuperación son incorrectos.')->with('typealert', 'danger');
+                return back()->with('message', _sl('recover.error'))->with('typealert', 'danger');
             endif;
         endif;
     }
